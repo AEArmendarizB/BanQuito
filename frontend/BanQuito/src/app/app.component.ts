@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginUsuario } from '../models/login.usuario';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'BanQuito';
+
+  public login_usuario:LoginUsuario;
+
+  constructor(){
+    this.login_usuario = new LoginUsuario('','');
+  }
+
+  ngOnInit(): void {
+      
+  }
 }

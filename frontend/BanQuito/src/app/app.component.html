@@ -19,13 +19,16 @@
         </div>
       </header>
 
-      <form class="formulario">
+      <form class="formulario" #formLogin="ngForm">
     
         <h1>Bienvenido a tu banca web</h1>
           <div class="contenedor">
             <div class="input-contenedor">
               <i class="fas fa-user icon"></i>
-              <input type="text" placeholder="Usuario">
+              <input type="text" name="usuario" #usuario="ngModel" [(ngModel)]="login_usuario.user" placeholder="Usuario" required pattern = "[a-zA-Z0-9]+" >
+              <span *ngIf="usuario.touched && !usuario.valid">
+                Ingrese correctamente el usuario
+              </span>
               
               </div>
               
@@ -34,8 +37,8 @@
               <input type="password" placeholder="Contraseña">
               
             </div>
-              <input type="submit" value="Entrar" class="button">
+              <input type="submit" value="Entrar" [disabled]="!formLogin.form.valid">
           </div>
-        </form>
+      </form>
     </body>
 </html>
