@@ -32,13 +32,18 @@ header{
 .contenedor{
     width: 100%;
     padding: 15px;
-    padding-top: 50px;
-    padding-bottom: 100px;
+    padding-top: 25px;
+    padding-bottom: 20px;
 }
 .formulario{
     background: #85725F;
+    padding: 20px;
+    margin: auto;
+    width: 500px;
     margin-top: 150px;
-    padding: 3px;
+    border-radius: 2%;
+    margin-bottom: 150px;
+
 }
 .formulario h1{
     text-align: center;
@@ -53,8 +58,14 @@ input[type="password"]{
     border: none;
 }
 .input-contenedor{
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border: 1px solid #aaa;
+}
+.input-contenedor span{
+    background: rgb(229, 100, 100);
+    color: rgb(0, 0, 0);
+    padding: 5px;
+    border-radius: 5px;
 }
 .icon{
     min-width: 50px;
@@ -63,11 +74,11 @@ input[type="password"]{
 }
 .button{
     border: none;
-    width: 100%;
     color: white;
     font-size: 20px;
     background:  #9E0004;
     padding: 15px 20px;
+    margin: 10px;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -77,16 +88,3 @@ input[type="password"]{
 .button:disabled{
     background: #ab595b;
 }
-p{
-    text-align: center;
-}
-
-/*@media(min-width:768px)
-{
-    .formulario{
-        margin: auto;
-        width: 500px;
-        margin-top: 150px;
-        border-radius: 2%;
-    }
-}*/
