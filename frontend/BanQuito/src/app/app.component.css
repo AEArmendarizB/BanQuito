@@ -74,18 +74,14 @@ input[type="password"]{
 .button:hover{
     background: #9E0004;
 }
+.button:disabled{
+    background: #ab595b;
+}
 p{
     text-align: center;
 }
-.link{
-    text-decoration: none;
-      color: #1a2537;
-    font-weight: 600;
-}
-.link:hover{
-     color: cadetblue;
-}
-@media(min-width:768px)
+
+/*@media(min-width:768px)
 {
     .formulario{
         margin: auto;
@@ -93,4 +89,4 @@ p{
         margin-top: 150px;
         border-radius: 2%;
     }
-}
+}*/
