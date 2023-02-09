@@ -7,8 +7,7 @@ const conectarDB = async () => {
     try {
         await mongoose.createConnection(process.env.DB_MONGO, {
             useNewUrlParser:true,
-            useUnifiedTopology:true,
-            useFindAndModify:true
+            useUnifiedTopology:true
         })
         console.log('BD Conectada');
 
