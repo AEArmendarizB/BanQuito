@@ -12,13 +12,13 @@ import { TransferenciasComponent } from './Components/transferencias/transferenc
 const routes: Routes = [
     { path: '', component: LoginComponent},
     { path: 'login', component: LoginComponent},
-    { path: '/menu', component: MenuPrincipalComponent},
-    { path: '/usuario', component: NuevasCredencialesComponent},
-    { path: '/pregunta', component: PreguntaSeguridadComponent},
-    { path: '/registro-cliente', component: RegistroClienteComponent},
-    { path: '/transferencia', component: TransferenciasComponent},
-    { path: '/transferencia-interna', component: TransferenciasInternasComponent},
-    { path: '/transferencia-interna-resumen', component: TransferenciasInternasResumenComponent},
+    { path: 'menu', component: MenuPrincipalComponent},
+    { path: 'usuario', component: NuevasCredencialesComponent},
+    { path: 'pregunta', component: PreguntaSeguridadComponent},
+    { path: 'registro-cliente', component: RegistroClienteComponent},
+    { path: 'transferencia', component: TransferenciasComponent},
+    { path: 'transferencia-interna', component: TransferenciasInternasComponent},
+    { path: 'transferencia-interna-resumen', component: TransferenciasInternasResumenComponent},
     { path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
