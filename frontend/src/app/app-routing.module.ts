@@ -19,7 +19,7 @@ const routes: Routes = [
     { path: 'transferencia', component: TransferenciasComponent},
     { path: 'transferencia-interna', component: TransferenciasInternasComponent},
     { path: 'transferencia-interna-resumen', component: TransferenciasInternasResumenComponent},
-    { path: '**', redirectTo: '', pathMatch: 'full'}
+    { path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({
