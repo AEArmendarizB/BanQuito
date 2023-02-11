@@ -1,1 +1,186 @@
-<p>registro-cliente works!</p>
+<div id="cuerpo" class="container mt-3">
+    <div class="row">
+        <div class="mb-3">
+            <button routerLink="login" type="submit" class="btn btn-danger float-end col-lg-2 col-md-2 ">Salir</button>
+        </div>
+        <div class="col-lg-12 ">
+            <div id="caja" class="card">
+                <div id="principal" class="card-body text-center ">
+                    <span>
+                        <h1>Sistema de registro General</h1>
+                    </span>
+                    <div class="container mt-4">
+                        <div class="row ">
+                            <div class="card col-4 mx-2">
+                                <span>
+                                    <h3>Registro de Clientes</h3>
+                                </span>
+                                <form>
+                                    <div class="form-group my-2">
+                                        <label class="float-start">Nombres</label>
+                                        <input type="text"
+                                            class="form-control" placeholder="Ej. John Carl">
+                                        <div class="text-danger  ">
+                                            <span>Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group my-2">
+                                        <label class="float-start">Apellidos</label>
+                                        <input type="text" 
+                                            class="form-control" placeholder="Ej. Doe Smith">
+                                        <div class="text-danger  ">
+                                            <span>Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group my-2 col-lg-7 ">
+                                            <label class="float-start">C&eacute;dula de ciudadan&iacute;a</label>
+                                            <input type="text"
+                                                class="form-control" placeholder="Ej. 1753647740">
+                                            <div class="text-danger  ">
+                                                <span>Este campo es obligatorio</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group my-2 col-lg-5 ">
+                                            <label class="float-start">C&oacute;digo dactilar</label>
+                                            <input type="text" 
+                                                class="form-control" placeholder="Ej. V3333V2222">
+                                            <div class="text-danger  ">
+                                                <span>Este campo es obligatorio</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group my-2 col-lg-6">
+                                        <label class="float-start">Fecha de nacimiento</label>
+                                        <input type="date"
+                                            class="form-control  ">
+                                        <div class="text-danger  ">
+                                            <span>Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group my-2">
+                                        <label class="float-start">Correo electr&oacute;nico</label>
+                                        <input type="email" 
+                                            class="form-control" placeholder="Ej. johndoe@example.com">
+                                        <div class="text-danger  ">
+                                            <span>Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group my-2">
+                                        <label class="float-start">Domicilio</label>
+                                        <input type="text"
+                                            class="form-control" placeholder="Ej. Av. Ladr&oacute;n de Guevara E11-253, Quito ">
+                                            <div class="text-danger  ">
+                                                <span>Este campo es obligatorio</span>
+                                            </div>
+                                        </div>
+                                    <div class="form-group my-2">
+                                        <label class="float-start">Ocupaci&oacute;n</label>
+                                        <input type="text"
+                                            class="form-control" placeholder="Ej. Software Developer">
+                                        <div class="text-danger  ">
+                                            <span>Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group my-2">
+                                        <label class="float-start">N&uacute;mero de tel&eacute;fono</label>
+                                        <input type="text"
+                                        class="form-control" placeholder="Ej. 0984318743">
+                                        <div class="text-danger  ">
+                                            <span>Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3 mb-2">Entregar</button>
+                                </form>
+                            </div>
+                            <div class="card col mx-2">
+                                <span>
+                                    <h3>Registro de Cuentas</h3>
+                                </span>
+                                <span class="row mt-4 ">
+                                    <label class="float-start col-lg-6 ">N&uacute;mero de cuenta</label>
+                                    <span id="numeroCuenta"
+                                        class="badge rounded-pill bg-info text-dark col-lg-5 float-end">###</span>
+                                </span>
+                                <form>
+                                    <div class="form-group my-2 mt-5 ">
+                                        <div class="btn-group col-lg-11">
+                                            <button class="btn btn-secondary col-8 " type="button">
+                                                Tipo de cuenta
+                                            </button>
+                                            <button type="button"
+                                                class="btn  btn-secondary dropdown-toggle dropdown-toggle-split"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="visually-hidden">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>Cuenta ahorros</li>
+                                                <li>Cuenta corriente</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group my-2 row">
+                                        <div class="col-lg-12 mt-3">
+                                            <label class="float-start">Ingreso mensual promedio</label>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    <input type="number" class="form-control "
+                                                        placeholder="Ej. 1000">
+                                                </div>
+                                                <div class="col-lg-2 float-end mt-1">
+                                                    <span class="badge badge-secondary text-dark">USD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group my-2 row">
+                                        <div class="col-lg-12 mt-3">
+                                            <label class="float-start">Aporte inicial</label>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    <input type="number" class="form-control " placeholder="Ej. 20">
+                                                </div>
+                                                <div class="col-lg-2 float-end mt-1">
+                                                    <span class="badge badge-secondary text-dark">USD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3 mb-2">Entregar</button>
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <p id="infoCuenta">##Info de la cuenta##</p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card col mx-2">
+                                <span>
+                                    <h3>Registro de Usuarios</h3>
+                                </span>
+                                <form>
+                                    <div class="form-group mt-3">
+                                        <label class="float-start">Usuario</label>
+                                        <input type="text" class="form-control" id="user" value="Usuario temporal"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label class="float-start">Contrase&ntilde;a</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1"
+                                            value="Contrase&ntilde;a temporal" readonly>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3">Finalizar</button>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
