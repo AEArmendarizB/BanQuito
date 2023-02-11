@@ -3,8 +3,11 @@ var mongoose=require('mongoose');
 var Schema=mongoose.Schema;
 
 var UsuarioSchema=Schema({
-    nombre:String,
-    password: String,
+
+    cedula:Number,
+    username:String,
+    password:String,
+    pregunta:String,
     
 });
 module.exports=mongoose.model('Usuario',UsuarioSchema);

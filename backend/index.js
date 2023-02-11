@@ -28,7 +28,7 @@ var app=require('./app');
 
 const user = 'jojy';
 const password = 'jojy';
-const dbname = 'Proyecto'
+const dbname = 'BanQuito'
 const uri = `mongodb+srv://${user}:${password}@pruebas.vuuremx.mongodb.net/${dbname}?retryWrites=true&w=majority`;
 
 

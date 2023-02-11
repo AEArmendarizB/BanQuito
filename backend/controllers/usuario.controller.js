@@ -11,7 +11,7 @@ var controller={
     getUsuarios:function(req,res){
         Usuario.find({}).sort().exec((err,usuarios)=>{
             if (err) return res.status(500).send({message:'Error al recuperar los datos'});
-            if(!usuarios) return res.status(404).send({message:'No hay libros para mostrar'});
+            if(!usuarios) return res.status(404).send({message:'No hay usuarios para mostrar'});
             return res.status(200).send({usuarios});
         })
 
@@ -19,12 +19,15 @@ var controller={
     saveUsuario:function(req,res){
         var usuario=new Usuario();
         var params=req.body;
-        usuario.nombre=params.nombre;
+        usuario.cedula=params.cedula;
+        usuario.username= params.username;
+
         usuario.password= params.password;
+        usuario.pregunta= params.pregunta;
 
         usuario.save((err,usuarioGuardado)=>{
             if (err) return res.status(500).send({message:'Error al guardar'});
-            if(!usuarioGuardado) return res.status(404).send({message:'No se ha guardado el libro'});
+            if(!usuarioGuardado) return res.status(404).send({message:'No se ha guardado el usuario'});
             return res.status(200).send({usuarioGuardado});
         })
     

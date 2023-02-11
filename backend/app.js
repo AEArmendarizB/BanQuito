@@ -9,6 +9,9 @@ var clientesRoutes=require('./routes/clientes.routes');
 //para el usuario
 var usuariosRoutes=require('./routes/usuarios.routes');
 
+//para las cuentas
+var cuentasRoutes=require('./routes/cuentas.routes');
+
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -27,6 +30,7 @@ app.use((req,res,next)=>{
         "<h1>Hola, bienvenido</h1>"
     )
 })*/
-app.use('/cliente/',clientesRoutes);
-app.use('/usuario/',usuariosRoutes);
+app.use('/',clientesRoutes);
+app.use('/',usuariosRoutes);
+app.use('/',cuentasRoutes);
 module.exports=app;

@@ -1,5 +1,5 @@
 'use strict'
-var Cliente=require('../models/cliente');
+var Cuenta=require('../models/cuenta');
 var fs=require('path');
 const path = require('path');
 var controller={
@@ -8,32 +8,28 @@ var controller={
             "<h1>Hola 2</h1>"
         );
     },
-    getClientes:function(req,res){
-        Cliente.find({}).sort().exec((err,clientes)=>{
+    getCuentas:function(req,res){
+        Cuenta.find({}).sort().exec((err,cuentas)=>{
             if (err) return res.status(500).send({message:'Error al recuperar los datos'});
-            if(!clientes) return res.status(404).send({message:'No hay clientes para mostrar'});
-            return res.status(200).send({clientes});
+            if(!cuentas) return res.status(404).send({message:'No hay usuarios para mostrar'});
+            return res.status(200).send({cuentas});
         })
 
     },
-    saveCliente:function(req,res){
-        var cliente=new Cliente();
+    saveCuenta:function(req,res){
+        var cuenta=new Cuenta();
         var params=req.body;
-
-        cliente.nombres=params.nombres;
-        cliente.apellidos=params.apellidos;
-        cliente.cedula=params.cedula;
-        cliente.codigo_dactilar=params.codigo_dactilar;
-        cliente.fecha_nacimiento=params.fecha_nacimiento;
-        cliente.correo_electronico=params.correo_electronico;
-        cliente.direccion=params.direccion;
-        cliente.ocupacion=params.ocupacion;
-        cliente.numero_telefono=params.numero_telefono;
         
-        cliente.save((err,clienteGuardado)=>{
+        cuenta.cedula=params.cedula;
+        cuenta.tipo_cuenta= params.tipo_cuenta;
+        cuenta.monto_inicial= params.monto_inicial;
+        cuenta.ingreso_promedio= params.ingreso_promedio;
+        cuenta.numero_cuenta= params.numero_cuenta;
+
+        cuenta.save((err,cuentaGuardado)=>{
             if (err) return res.status(500).send({message:'Error al guardar'});
-            if(!clienteGuardado) return res.status(404).send({message:'No se pudo guardar el cliente'});
-            return res.status(200).send({clienteGuardado});
+            if(!cuentaGuardado) return res.status(404).send({message:'No se ha guardado el usuario'});
+            return res.status(200).send({usuarioGuardado: cuentaGuardado});
         })
     
     },
