@@ -1,42 +1,18 @@
-const mongoose = require('mongoose');
+'use strict'
+var mongoose=require('mongoose');
+var Schema=mongoose.Schema;
 
-const ClienteSchema = mongoose.Schema({
-    nombres: {
-        type: String,
-        required: true
-    }/*,
-    apellidos: {
-        type: String,
-        required: true
-    },
-    cedula: {
-        type: Number,
-        required: true
-    },
-    codigo_dactilar: {
-        type: String,
-        required: true
-    },
-    fecha_nacimiento: {
-        type: String,
-        required: true
-    },
-    correo_electronico: {
-        type: String,
-        required: true
-    },
-    direccion: {
-        type: String,
-        required: true
-    },
-    ocupacion: {
-        type: String,
-        required: true
-    },
-    numero_telefono: {
-        type: String,
-        required: true
-    }*/
+var ClienteSchema=Schema({
+
+    nombres: String, 
+    apellidos:String, 
+    cedula: Number, 
+    codigo_dactilar: String,
+    fecha_nacimiento: String,
+    correo_electronico: String,
+    direccion: String,
+    ocupacion: String,
+    numero_telefono: String
+    
 });
-
-module.exports = mongoose.model('Clientes', ClienteSchema);
+module.exports=mongoose.model('Cliente',ClienteSchema);
