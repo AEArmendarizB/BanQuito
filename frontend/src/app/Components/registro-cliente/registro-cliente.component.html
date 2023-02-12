@@ -15,82 +15,82 @@
                                 <span>
                                     <h3>Registro de Clientes</h3>
                                 </span>
-                                <form>
+                                <form [formGroup] = "formularioCliente" (ngSubmit) = "agregarCliente()">
                                     <div class="form-group my-2">
                                         <label class="float-start">Nombres</label>
-                                        <input type="text"
+                                        <input type="text" formControlName = "nombres"
                                             class="form-control" placeholder="Ej. John Carl">
-                                        <div class="text-danger  ">
+                                        <div class="text-danger"  *ngIf = "formularioCliente.get('nombres')?.hasError('required') && formularioCliente.get('nombres')?.touched">
                                             <span>Este campo es obligatorio</span>
                                         </div>
                                     </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">Apellidos</label>
-                                        <input type="text" 
+                                        <input type="text" formControlName = "apellidos"
                                             class="form-control" placeholder="Ej. Doe Smith">
-                                        <div class="text-danger  ">
+                                        <div class="text-danger" *ngIf = "formularioCliente.get('apellidos')?.hasError('required') && formularioCliente.get('apellidos')?.touched">
                                             <span>Este campo es obligatorio</span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group my-2 col-lg-7 ">
                                             <label class="float-start">C&eacute;dula de ciudadan&iacute;a</label>
-                                            <input type="text"
+                                            <input type="text" formControlName = "cedula"
                                                 class="form-control" placeholder="Ej. 1753647740">
-                                            <div class="text-danger  ">
+                                            <div class="text-danger" *ngIf = "formularioCliente.get('cedula')?.hasError('required') && formularioCliente.get('cedula')?.touched">
                                                 <span>Este campo es obligatorio</span>
                                             </div>
                                         </div>
                                         <div class="form-group my-2 col-lg-5 ">
                                             <label class="float-start">C&oacute;digo dactilar</label>
-                                            <input type="text" 
+                                            <input type="text" formControlName = "codDactilar"
                                                 class="form-control" placeholder="Ej. V3333V2222">
-                                            <div class="text-danger  ">
+                                            <div class="text-danger" *ngIf = "formularioCliente.get('codDactilar')?.hasError('required') && formularioCliente.get('codDactilar')?.touched">
                                                 <span>Este campo es obligatorio</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group my-2 col-lg-6">
                                         <label class="float-start">Fecha de nacimiento</label>
-                                        <input type="date"
+                                        <input type="date" formControlName = "fechaNacimiento"
                                             class="form-control  ">
-                                        <div class="text-danger  ">
+                                        <div class="text-danger" *ngIf = "formularioCliente.get('fechaNacimiento')?.hasError('required') && formularioCliente.get('fechaNacimiento')?.touched">
                                             <span>Este campo es obligatorio</span>
                                         </div>
                                     </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">Correo electr&oacute;nico</label>
-                                        <input type="email" 
+                                        <input type="email" formControlName = "email"
                                             class="form-control" placeholder="Ej. johndoe@example.com">
-                                        <div class="text-danger  ">
+                                        <div class="text-danger" *ngIf = "formularioCliente.get('email')?.hasError('required') && formularioCliente.get('email')?.touched">
                                             <span>Este campo es obligatorio</span>
                                         </div>
                                     </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">Domicilio</label>
-                                        <input type="text"
+                                        <input type="text" formControlName = "domicilio"
                                             class="form-control" placeholder="Ej. Av. Ladr&oacute;n de Guevara E11-253, Quito ">
-                                            <div class="text-danger  ">
+                                            <div class="text-danger" *ngIf = "formularioCliente.get('domicilio')?.hasError('required') && formularioCliente.get('domicilio')?.touched">
                                                 <span>Este campo es obligatorio</span>
                                             </div>
                                         </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">Ocupaci&oacute;n</label>
-                                        <input type="text"
+                                        <input type="text" formControlName = "ocupacion"
                                             class="form-control" placeholder="Ej. Software Developer">
-                                        <div class="text-danger  ">
+                                        <div class="text-danger" *ngIf = "formularioCliente.get('ocupacion')?.hasError('required') && formularioCliente.get('ocupacion')?.touched">
                                             <span>Este campo es obligatorio</span>
                                         </div>
                                     </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">N&uacute;mero de tel&eacute;fono</label>
-                                        <input type="text"
+                                        <input type="text" formControlName = "numeroTelefono"
                                         class="form-control" placeholder="Ej. 0984318743">
-                                        <div class="text-danger  ">
+                                        <div class="text-danger" *ngIf = "formularioCliente.get('numeroTelefono')?.hasError('required') && formularioCliente.get('numeroTelefono')?.touched">
                                             <span>Este campo es obligatorio</span>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-3 mb-2">Entregar</button>
+                                    <button type="submit" [disabled]="formularioCliente.invalid" class="btn btn-primary mt-3 mb-2">Entregar</button>
                                 </form>
                             </div>
                             <div class="card col mx-2">
