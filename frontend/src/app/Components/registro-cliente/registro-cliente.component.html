@@ -15,80 +15,141 @@
                                 <span>
                                     <h3>Registro de Clientes</h3>
                                 </span>
-                                <form [formGroup] = "formularioCliente" (ngSubmit) = "agregarCliente()">
+                                <form [formGroup]="formularioCliente" (ngSubmit)="agregarCliente()">
                                     <div class="form-group my-2">
                                         <label class="float-start">Nombres</label>
-                                        <input type="text" formControlName = "nombres"
-                                            class="form-control" placeholder="Ej. John Carl">
-                                        <div class="text-danger"  *ngIf = "formularioCliente.get('nombres')?.hasError('required') && formularioCliente.get('nombres')?.touched">
-                                            <span>Este campo es obligatorio</span>
+                                        <input type="text" formControlName="nombres" class="form-control"
+                                            placeholder="Ej. John Carl">
+                                        <!--Letreros de error-->
+                                        <div class="text-danger"
+                                            *ngIf="formularioCliente.get('nombres')?.hasError('required') && formularioCliente.get('nombres')?.touched">
+                                            Este campo es obligatorio
                                         </div>
+                                        <div class="text-danger"
+                                            *ngIf="formularioCliente.get('nombres')?.hasError('pattern')">
+                                            No se permite: n&uacute;meros, simbolos(excepto '), espacios en blanco,
+                                            espacios luego de una palabra.
+                                        </div>
+                                        <!--------------------->
                                     </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">Apellidos</label>
-                                        <input type="text" formControlName = "apellidos"
-                                            class="form-control" placeholder="Ej. Doe Smith">
-                                        <div class="text-danger" *ngIf = "formularioCliente.get('apellidos')?.hasError('required') && formularioCliente.get('apellidos')?.touched">
-                                            <span>Este campo es obligatorio</span>
+                                        <input type="text" formControlName="apellidos" class="form-control"
+                                            placeholder="Ej. Doe Smith">
+                                        <!--Letreros de error-->
+                                        <div class="text-danger"
+                                            *ngIf="formularioCliente.get('apellidos')?.hasError('required') && formularioCliente.get('apellidos')?.touched">
+                                            Este campo es obligatorio
                                         </div>
+                                        <div class="text-danger"
+                                            *ngIf="formularioCliente.get('apellidos')?.hasError('pattern')">
+                                            No se permite: n&uacute;meros, simbolos(excepto '), espacios en blanco,
+                                            espacios luego de una palabra.
+                                        </div>
+                                        <!--------------------->
                                     </div>
                                     <div class="row">
                                         <div class="form-group my-2 col-lg-7 ">
                                             <label class="float-start">C&eacute;dula de ciudadan&iacute;a</label>
-                                            <input type="text" formControlName = "cedula"
-                                                class="form-control" placeholder="Ej. 1753647740">
-                                            <div class="text-danger" *ngIf = "formularioCliente.get('cedula')?.hasError('required') && formularioCliente.get('cedula')?.touched">
-                                                <span>Este campo es obligatorio</span>
+                                            <input type="text" formControlName="cedula" class="form-control"
+                                                placeholder="Ej. 1753647740">
+                                            <!--Letreros de error-->
+                                            <div class="text-danger"
+                                                *ngIf="formularioCliente.get('cedula')?.hasError('required') && formularioCliente.get('cedula')?.touched">
+                                                Este campo es obligatorio
                                             </div>
+                                            <div class="text-danger"
+                                                *ngIf="formularioCliente.get('cedula')?.hasError('pattern')">
+                                                Solo se aceptan diez d&iacute;gitos, sin espacios en blanco.
+                                            </div>
+                                            <!--------------------->
                                         </div>
                                         <div class="form-group my-2 col-lg-5 ">
                                             <label class="float-start">C&oacute;digo dactilar</label>
-                                            <input type="text" formControlName = "codDactilar"
-                                                class="form-control" placeholder="Ej. V3333V2222">
-                                            <div class="text-danger" *ngIf = "formularioCliente.get('codDactilar')?.hasError('required') && formularioCliente.get('codDactilar')?.touched">
-                                                <span>Este campo es obligatorio</span>
+                                            <input type="text" formControlName="codDactilar" class="form-control"
+                                                placeholder="Ej. V3333V2222">
+                                            <!--Letreros de error-->
+                                            <div class="text-danger"
+                                                *ngIf="formularioCliente.get('codDactilar')?.hasError('required') && formularioCliente.get('codDactilar')?.touched">
+                                                Este campo es obligatorio
                                             </div>
+                                            <div class="text-danger"
+                                                *ngIf="formularioCliente.get('codDactilar')?.hasError('pattern')">
+                                                Solo se acepta c&oacute;digos que constan de una letra, seguida de 4
+                                                d&iacute;gitos,seguida de una letra y cuatro d&iacute;gitos, sin espacios.
+                                            </div>
+                                            <!--------------------->
                                         </div>
                                     </div>
                                     <div class="form-group my-2 col-lg-6">
                                         <label class="float-start">Fecha de nacimiento</label>
-                                        <input type="date" formControlName = "fechaNacimiento"
-                                            class="form-control  ">
-                                        <div class="text-danger" *ngIf = "formularioCliente.get('fechaNacimiento')?.hasError('required') && formularioCliente.get('fechaNacimiento')?.touched">
-                                            <span>Este campo es obligatorio</span>
+                                        <input type="date" formControlName="fechaNacimiento" class="form-control  ">
+                                        <!--Letreros de error-->
+                                        <div class="text-danger"
+                                            *ngIf="formularioCliente.get('fechaNacimiento')?.hasError('required') && formularioCliente.get('fechaNacimiento')?.touched">
+                                            Este campo es obligatorio
                                         </div>
+                                        <!--------------------->
                                     </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">Correo electr&oacute;nico</label>
-                                        <input type="email" formControlName = "email"
-                                            class="form-control" placeholder="Ej. johndoe@example.com">
-                                        <div class="text-danger" *ngIf = "formularioCliente.get('email')?.hasError('required') && formularioCliente.get('email')?.touched">
-                                            <span>Este campo es obligatorio</span>
-                                        </div>
+                                        <input type="email" formControlName="email" class="form-control"
+                                            placeholder="Ej. johndoe@example.com">
+                                            <!--Letreros de error-->
+                                            <div class="text-danger"
+                                                *ngIf="formularioCliente.get('email')?.hasError('required') && formularioCliente.get('email')?.touched">
+                                                Este campo es obligatorio
+                                            </div>
+                                            <div class="text-danger"
+                                                *ngIf="formularioCliente.get('email')?.hasError('email')">
+                                                    Solo se acepta correos electr&oacute;nicos v&aacute;lidos.
+                                            </div>
+                                            <!--------------------->
                                     </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">Domicilio</label>
-                                        <input type="text" formControlName = "domicilio"
-                                            class="form-control" placeholder="Ej. Av. Ladr&oacute;n de Guevara E11-253, Quito ">
-                                            <div class="text-danger" *ngIf = "formularioCliente.get('domicilio')?.hasError('required') && formularioCliente.get('domicilio')?.touched">
-                                                <span>Este campo es obligatorio</span>
+                                        <input type="text" formControlName="domicilio" class="form-control"
+                                            placeholder="Ej. Av. Ladr&oacute;n de Guevara E11-253, Quito ">
+                                              <!--Letreros de error-->
+                                              <div class="text-danger"
+                                              *ngIf="formularioCliente.get('domicilio')?.hasError('required') && formularioCliente.get('domicilio')?.touched">
+                                              Este campo es obligatorio
+                                          </div>
+                                          <div class="text-danger"
+                                              *ngIf="formularioCliente.get('domicilio')?.hasError('maxLength')">
+                                                El tama&ntilde;o m&aacute;ximo son cien caracteres.
                                             </div>
-                                        </div>
+                                          <!--------------------->
+                                    </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">Ocupaci&oacute;n</label>
-                                        <input type="text" formControlName = "ocupacion"
-                                            class="form-control" placeholder="Ej. Software Developer">
-                                        <div class="text-danger" *ngIf = "formularioCliente.get('ocupacion')?.hasError('required') && formularioCliente.get('ocupacion')?.touched">
-                                            <span>Este campo es obligatorio</span>
-                                        </div>
+                                        <input type="text" formControlName="ocupacion" class="form-control"
+                                            placeholder="Ej. Software Developer">
+                                              <!--Letreros de error-->
+                                              <div class="text-danger"
+                                              *ngIf="formularioCliente.get('ocupacion')?.hasError('required') && formularioCliente.get('ocupacion')?.touched">
+                                              Este campo es obligatorio
+                                          </div>
+                                          <div class="text-danger"
+                                              *ngIf="formularioCliente.get('ocupacion')?.hasError('maxLength')">
+                                                El tama&ntilde;o m&aacute;ximo son cien caracteres.
+                                            </div>
+                                          <!--------------------->
                                     </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">N&uacute;mero de tel&eacute;fono</label>
-                                        <input type="text" formControlName = "numeroTelefono"
-                                        class="form-control" placeholder="Ej. 0984318743">
-                                        <div class="text-danger" *ngIf = "formularioCliente.get('numeroTelefono')?.hasError('required') && formularioCliente.get('numeroTelefono')?.touched">
-                                            <span>Este campo es obligatorio</span>
-                                        </div>
+                                        <input type="text" formControlName="numeroTelefono" class="form-control"
+                                            placeholder="Ej. 0984318743">
+                                              <!--Letreros de error-->
+                                              <div class="text-danger"
+                                              *ngIf="formularioCliente.get('numeroTelefono')?.hasError('required') && formularioCliente.get('numeroTelefono')?.touched">
+                                              Este campo es obligatorio
+                                          </div>
+                                          <div class="text-danger"
+                                              *ngIf="formularioCliente.get('numeroTelefono')?.hasError('pattern')">
+                                                Solo se acepta n&uacute;meros de tel&eacute;fono v&aacute;lidos de diez d&iacute;gitos que empiecen por 09xxxxxxxx.
+                                            </div>
+                                          <!--------------------->
                                     </div>
                                     <button type="submit" [disabled]="formularioCliente.invalid" class="btn btn-primary mt-3 mb-2">Entregar</button>
                                 </form>
@@ -126,8 +187,7 @@
                                         <div class="col">
                                             <div class="row">
                                                 <div class="col-lg-9">
-                                                    <input type="number" class="form-control "
-                                                        placeholder="Ej. 1000">
+                                                    <input type="number" class="form-control " placeholder="Ej. 1000">
                                                 </div>
                                                 <div class="col-lg-2 float-end mt-1">
                                                     <span class="badge badge-secondary text-dark">USD</span>
