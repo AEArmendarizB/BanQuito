@@ -81,6 +81,61 @@
           </div>
         </div>
       </header>
+
+
+      <div class="row">
+        <div class="colum-6">
+          <div class="transferencia">
+            <div class="transferencia_contenido">
+              <h1>Transferencias locales</h1>
+              <form>
+                <!--Cuenta origen-->
+                <div class=" row">
+                  <label class="col-sm-3 ">Cuenta origen:</label>
+                  <div class="col-sm-6">
+                    <select id="inputState" class="form-control">
+                      <option selected>Selecciona una cuenta ...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                </div>
+                <!--Monto-->
+                <div class="row">
+                  <label  class="col-sm-3">Monto:</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control"placeholder="Monto">
+                  </div>
+                </div>
+                <!--Cuenta Destino-->
+                <div class=" row">
+                  <label  class="col-sm-3">Cuenta Destino:</label>
+                  <div class="col-sm-5">
+                    <input type="number" class="form-control" placeholder="Cuenta destino">
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-primary" id="validar" type="submit">Validar</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <p class="cuenta_destino">Este texto es solo de prueba, aqui debe aparecer la informacion extraida de la cuenta destino</p>
+                </div>
+                <!--Descripcion-->
+                <div class=" row">
+                  <label class="col-sm-3">Descripción:</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control"  placeholder="Descripcion">
+                  </div>
+                </div>
+                <!--Boton enviar-->
+                <div class="mb-4">
+                  <button class="btn btn-primary" id="enviar" type="submit">Transferir</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </body>
 </html>
