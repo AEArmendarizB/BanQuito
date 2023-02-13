@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/clientes';
 import { Cuenta } from 'src/app/models/cuentas';
+import { Usuario } from 'src/app/models/usuarios';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -13,8 +14,14 @@ export class RegistroClienteComponent implements OnInit {
 
   formularioCliente: FormGroup;
   formularioCuenta: FormGroup;
+  formularioUsuario: FormGroup;
 
   @ViewChild('spanNumCuenta') cuenta!: ElementRef;
+  @ViewChild('botonPregunta') pregunta!: ElementRef;
+  @ViewChild('user') user!: ElementRef;
+  @ViewChild('password') pass!: ElementRef;
+  @ViewChild('infoCuenta') infoCuenta!: ElementRef;
+
   private num:String ="";
   constructor(
     private fb: FormBuilder,
@@ -29,8 +36,8 @@ export class RegistroClienteComponent implements OnInit {
       codDactilar: ['', [Validators.required, Validators.pattern("^([A-Za-z]{1}[0-9]{4}){2}$")]],
       fechaNacimiento: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      domicilio: ['', [Validators.required, Validators.maxLength(100)]],
-      ocupacion: ['', [Validators.required, Validators.maxLength(100)]],
+      domicilio: ['', [Validators.required,Validators.pattern('^[A-Za-z0-9]{1,50}$')]],
+      ocupacion: ['', [Validators.required,Validators.pattern('^[A-Za-z0-9]{1,50}$')]],
       numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]]
     });
     //Cuenta
@@ -40,7 +47,12 @@ export class RegistroClienteComponent implements OnInit {
       ingreso_promedio: ['', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')]],
       numero_cuenta: ['', Validators.required],
     });
+    //Usuario
+    this.formularioUsuario =this.fb.group({
+      pregunta: ['',[Validators.required,Validators.pattern('^[A-Za-z0-9]{1,25}$')]],
+    });
   }
+
   corriente() {
     //20 para corriente
     const numCuenta = this.cuenta.nativeElement;
@@ -96,8 +108,41 @@ export class RegistroClienteComponent implements OnInit {
       numero_cuenta:  this.formularioCuenta.get('numero_cuenta')?.value
     }
     console.log(CUENTA);
+    //Mostramos info de la cuenta
+    const info = this.infoCuenta.nativeElement;
+    this.renderer2.setProperty(info,'innerHTML',
+    "Tipo de cuenta: "+CUENTA.tipo_cuenta+
+    "<br/>Monto inicial: "+CUENTA.monto_inicial+
+    "<br/>Ingresos promedio: "+CUENTA.ingreso_promedio+
+    "<br/>Numero de cuenta: "+CUENTA.numero_cuenta+
+    "<br/>Cedula del titular: "+CUENTA.cedula
+    )
     /// Llamamos a la funcion para poder crear un usuario y contraseña
+    const user_login = this.user.nativeElement;  
+    const pass_login = this.pass.nativeElement;  
+    this.renderer2.setProperty(user_login,'value', this.formularioCliente.get('nombres')?.value.split(' ')[0]+this.formularioCliente.get('cedula')?.value.substring(0,6));
+    this.renderer2.setProperty(pass_login,'value',  this.formularioCliente.get('nombres')?.value.split(' ')[1]+this.formularioCliente.get('cedula')?.value.substring(0,6));
+
   }
+  agregarUsuario(){
+    const USUARIO: Usuario = {
+      cedula: this.formularioCliente.get('cedula')?.value,
+      username: this.formularioCliente.get('nombres')?.value.split(' ')[0]+this.formularioCliente.get('cedula')?.value.substring(0,6),
+      password: this.formularioCliente.get('nombres')?.value.split(' ')[1]+this.formularioCliente.get('cedula')?.value.substring(0,6), 
+      pregunta: this.formularioUsuario.get('pregunta')?.value
+    }
+    console.log(USUARIO);
+
+  }
+  pregunta1(){
+    const pregunta_seg = this.pregunta.nativeElement;
+    this.renderer2.setProperty(pregunta_seg, 'innerHTML', '¿Cu&aacute;l es tu sabor de helado favorito?'); 
+  }
+  /*
+  pregunta2(){
+    const pregunta_seg = this.pregunta.nativeElement;
+    this.renderer2.setProperty(pregunta_seg, 'innerHTML', '¿Cu&aacute;l es tu marca de ropa favorita?');
+  }*/
   ngOnInit(): void {
   }
 
