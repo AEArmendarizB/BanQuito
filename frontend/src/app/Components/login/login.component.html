@@ -6,7 +6,7 @@
         <title>Inicio</title>
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="icon" type="favicon/x-icon" href="../../../assets/media/Logo.png">
-        <link rel="stylesheet" type="text/css" href="../login/login.component.css">
+        <!-- <link rel="stylesheet" type="text/css" href="../login/login.component.css">-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
         <script src="login.js"></script>
 
@@ -20,7 +20,7 @@
         </div>
       </header>
 
-      <form class="formulario" #formLogin="ngForm" method="POST">
+      <form class="formulario" #formLogin="ngForm" method="post">
     
         <h1>Bienvenido a tu banca web</h1>
           <div class="contenedor">
@@ -40,7 +40,7 @@
                 Por favor ingrese la contraseña
               </span>
             </div>
-              <input id="submit" type="button" value="Entrar" class="button" [disabled]="!formLogin.form.valid" onclick="validate()">
+              <button id="validate" type="submit" class="button" [disabled]="!formLogin.form.valid">Entrar</button>
           </div>
       </form>
     </body>

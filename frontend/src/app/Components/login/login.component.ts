@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginUsuario } from 'src/app/models/login.usuario';
 
 @Component({
@@ -6,7 +6,7 @@ import { LoginUsuario } from 'src/app/models/login.usuario';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   title = 'BanQuito';
 
   public login_usuario:LoginUsuario;
@@ -18,4 +18,14 @@ export class LoginComponent {
   ngOnInit(): void {
       
   }
+  /*validate(){
+    var usr=$("#user").val();
+    var password=$("#pass").val();
+
+    if(usr=="admin" && password=="admin"){
+        window.alert('Ingreso exitosamente');
+    }
+    return false;
+    
+}*/
 }
