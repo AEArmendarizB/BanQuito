@@ -9,7 +9,7 @@ import { LoginUsuario } from 'src/app/models/login.usuario';
 })
 export class LoginComponent implements OnInit{
   title = 'BanQuito';
-  public myForm:FormGroup;
+  public myForm!:FormGroup;
 
   public login_usuario:LoginUsuario;
 
