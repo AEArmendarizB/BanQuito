@@ -28,9 +28,10 @@ import { PreguntaSeguridadComponent } from './Components/pregunta-seguridad/preg
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

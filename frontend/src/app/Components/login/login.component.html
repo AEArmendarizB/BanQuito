@@ -8,7 +8,6 @@
         <link rel="icon" type="favicon/x-icon" href="../../../assets/media/Logo.png">
         <!-- <link rel="stylesheet" type="text/css" href="../login/login.component.css">-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
-        <script src="login.js"></script>
 
     </head>
 
@@ -20,8 +19,7 @@
         </div>
       </header>
 
-      <form [formGroup]="myForm" (ngSubmit)="submitFormulario" class="formulario" #formLogin="ngForm" method="post">
-    
+      <form [formGroup]="myForm" (ngSubmit)="submitFormulario" class="formulario">
         <h1>Bienvenido a tu banca web</h1>
           <div class="contenedor">
             <div class="input-contenedor">
@@ -31,16 +29,16 @@
                 Por favor ingrese el usuario
               </span>
               -->
-              </div>
+            </div>
               
-              <div class="input-contenedor">
+            <div class="input-contenedor">
               <i class="fas fa-key icon"></i>
               <input formControlName="password" type="password" placeholder="Contraseña">
               <!--<span *ngIf="pass.touched && !pass.valid">
                 Por favor ingrese la contraseña
               </span>-->
             </div>
-              <button class="button btn btn-success" [disabled]="!formLogin.form.valid">Entrar</button>
+            <button type="submit"  class="button btn-success">Entrar</button>
           </div>
       </form>
     </body>

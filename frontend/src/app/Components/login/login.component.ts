@@ -11,10 +11,10 @@ export class LoginComponent implements OnInit{
   title = 'BanQuito';
   public myForm!:FormGroup;
 
-  public login_usuario:LoginUsuario;
+  //public login_usuario:LoginUsuario;
 
   constructor(private fb:FormBuilder){
-    this.login_usuario = new LoginUsuario('','');
+    //this.login_usuario = new LoginUsuario('','');
   }
 
   ngOnInit(): void {
@@ -30,16 +30,6 @@ export class LoginComponent implements OnInit{
 
   public submitFormulario(){
     alert("Se va a enviar el formulario"); 
-    console.log(this.myForm.value);
+      console.log(this.myForm.value);
   }
-  /*validate(){
-    var usr=$("#user").val();
-    var password=$("#pass").val();
-
-    if(usr=="admin" && password=="admin"){
-        window.alert('Ingreso exitosamente');
-    }
-    return false;
-    
-}*/
-}
+} 
