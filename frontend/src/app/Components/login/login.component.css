@@ -88,3 +88,7 @@ input[type="password"]{
 .button:disabled{
     background: #ab595b;
 }
+#validationServerUsernameFeedback{
+    color: white;
+    background: #ab595b;
+}

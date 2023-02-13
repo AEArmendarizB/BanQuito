@@ -24,7 +24,10 @@
           <div class="contenedor">
             <div class="input-contenedor">
               <i class="fas fa-user icon"></i>
-              <input formControlName="usuario" type="text" placeholder="Usuario">
+              <input formControlName="usuario" [class.is-invalid]='f.usuario.errors && f.usuario.touched' type="text" placeholder="Usuario" >
+              <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                Por favor ingrese el usuario
+              </div>
               <!--<span *ngIf="usuario.touched && !usuario.valid">
                 Por favor ingrese el usuario
               </span>
@@ -33,7 +36,10 @@
               
             <div class="input-contenedor">
               <i class="fas fa-key icon"></i>
-              <input formControlName="password" type="password" placeholder="Contraseña">
+              <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Contraseña">
+              <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                Por favor ingrese la contraseña
+              </div>
               <!--<span *ngIf="pass.touched && !pass.valid">
                 Por favor ingrese la contraseña
               </span>-->
