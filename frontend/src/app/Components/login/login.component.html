@@ -19,7 +19,7 @@
         </div>
       </header>
 
-      <form [formGroup]="myForm" (ngSubmit)="submitFormulario" class="formulario">
+      <form [formGroup]="myForm" (ngSubmit)="submitFormulario()" class="formulario">
         <h1>Bienvenido a tu banca web</h1>
           <div class="contenedor">
             <div class="input-contenedor">
@@ -38,7 +38,7 @@
                 Por favor ingrese la contraseña
               </span>-->
             </div>
-            <button type="submit"  class="button btn-success">Entrar</button>
+            <button class="button btn-success">Entrar</button>
           </div>
       </form>
     </body>
