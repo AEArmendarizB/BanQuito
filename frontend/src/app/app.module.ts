@@ -14,6 +14,7 @@ import { TransferenciasInternasComponent } from './Components/transferencias-int
 import { TransferenciasInternasResumenComponent } from './Components/transferencias-internas-resumen/transferencias-internas-resumen.component';
 import { NuevasCredencialesComponent } from './Components/nuevas-credenciales/nuevas-credenciales.component';
 import { PreguntaSeguridadComponent } from './Components/pregunta-seguridad/pregunta-seguridad.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PreguntaSeguridadComponent } from './Components/pregunta-seguridad/preg
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
