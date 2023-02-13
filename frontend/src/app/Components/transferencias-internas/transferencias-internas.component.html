@@ -93,7 +93,7 @@
                 <div class=" row">
                   <label class="col-sm-3 ">Cuenta origen:</label>
                   <div class="col-sm-6">
-                    <select id="inputState" class="form-control">
+                    <select id="inputState" class="form-control" formControlName="cuentaOrigen">
                       <option selected>Selecciona una cuenta ...</option>
                       <option>...</option>
                     </select>
@@ -103,14 +103,14 @@
                 <div class="row">
                   <label  class="col-sm-3">Monto:</label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control"placeholder="Monto">
+                    <input type="number" formControlName="monto" class="form-control"placeholder="Monto">
                   </div>
                 </div>
                 <!--Cuenta Destino-->
                 <div class=" row">
                   <label  class="col-sm-3">Cuenta Destino:</label>
                   <div class="col-sm-5">
-                    <input type="number" class="form-control" placeholder="Cuenta destino">
+                    <input type="number" formControlName="cuentaDestino" class="form-control" placeholder="Cuenta destino">
                   </div>
                   <div class="col-sm-3">
                     <button class="btn btn-primary" id="validar" type="submit">Validar</button>
@@ -123,7 +123,7 @@
                 <div class=" row">
                   <label class="col-sm-3">Descripción:</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control"  placeholder="Descripcion">
+                    <input type="text" formControlName="descripcion" class="form-control"  placeholder="Descripcion">
                   </div>
                 </div>
                 <!--Boton enviar-->
