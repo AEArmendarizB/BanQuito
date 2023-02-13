@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoginUsuario } from 'src/app/models/login.usuario';
 
 @Component({
@@ -8,15 +9,28 @@ import { LoginUsuario } from 'src/app/models/login.usuario';
 })
 export class LoginComponent implements OnInit{
   title = 'BanQuito';
+  public myForm:FormGroup;
 
   public login_usuario:LoginUsuario;
 
-  constructor(){
+  constructor(private fb:FormBuilder){
     this.login_usuario = new LoginUsuario('','');
   }
 
   ngOnInit(): void {
-      
+      this.myForm = this.createMyForm();
+  }
+  
+  private createMyForm():FormGroup{
+    return this.fb.group({
+      usuario:[],
+      password:[]
+    });
+  }
+
+  public submitFormulario(){
+    alert("Se va a enviar el formulario"); 
+    console.log(this.myForm.value);
   }
   /*validate(){
     var usr=$("#user").val();
