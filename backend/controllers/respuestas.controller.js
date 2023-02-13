@@ -1,54 +1,31 @@
 'use strict'
-var Usuario=require('../models/usuario');
-var LoginUsuario= require('../models/login.usuario')
+var Respuesta=require('../models/respuesta');
 var fs=require('path');
 const path = require('path');
-const loginUsuario = require('../models/login.usuario');
 var controller={
     inicio:function(req,res){
         return res.status(201).send(
             "<h1>Hola 2</h1>"
         );
     },
-
-    verificarUsuario:function(req,res){
-
-        var usuario=new Usuario();
-        var params=req.body;
-
-
-        
-        console.log(params)
-        
-        Usuario.findOne(params,(err,usuario)=>{
-            
-            if (err) return res.status(200).send(false);
-            if(!usuario) return res.status(200).send(false);
-            return res.status(200).send(true);
-            
-            
+    getClientes:function(req,res){
+        Respuesta.find({}).sort().exec((err,respuestas)=>{
+            if (err) return res.status(500).send({message:'Error al recuperar los datos'});
+            if(!respuestas) return res.status(404).send({message:'No hay clientes para mostrar'});
+            return res.status(200).send({respuestas});
         })
 
-        
-
-
-
-        
-
     },
-    saveUsuario:function(req,res){
-        var usuario=new Usuario();
+    save:function(req,res){
+        var respuesta=new Respuesta();
         var params=req.body;
-        usuario.cedula=params.cedula;
-        usuario.username= params.username;
 
-        usuario.password= params.password;
-        usuario.pregunta= params.pregunta;
-
-        usuario.save((err,usuarioGuardado)=>{
+        respuesta.respuesta=params.respuesta;
+        
+        respuesta.save((err,respuestaGuardado)=>{
             if (err) return res.status(500).send({message:'Error al guardar'});
-            if(!usuarioGuardado) return res.status(404).send({message:'No se ha guardado el usuario'});
-            return res.status(200).send({usuarioGuardado});
+            if(!respuestaGuardado) return res.status(404).send({message:'No se pudo guardar el cliente'});
+            return res.status(200).send({respuestaGuardado});
         })
     
     },

@@ -1,0 +1,95 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+	font-family: Arial, Helvetica, sans-serif;
+	background: url("../../../assets/media/patron.png");
+}
+header{
+    display: flex;
+    height: 70px;
+    background-color: #161719;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.logo img{
+    height: 50px;
+    margin-right: 25px;
+    margin-left: 10px;
+}
+.nombre-banco{
+    color: #9e0004;
+    font-size: 50px;
+}
+
+
+
+.formulario{
+
+    background: #85725F;
+    margin: auto;
+    width: 800px;
+    margin-top: 150px;
+    border-radius: 2%;
+    min-height: 240px;
+
+}
+
+.titulo1{
+
+    padding: 10px;
+    text-align: center;
+
+}
+
+.titulo2{
+
+    padding: 10px;
+    margin-left: 40px;
+    
+}
+
+.combo{
+
+    padding: 10px;
+    width: 720px;
+    text-align: center;
+    margin-left: 40px;
+    border-radius: 2%;
+    
+}
+
+.respuesta{
+    margin-top: 20px;
+    padding: 10px;
+    width: 720px;
+    text-align: center;
+    margin-left: 40px;
+    border-radius: 2%;
+    
+}
+
+.button{
+    border: none;
+    color: white;
+    font-size: 20px;
+    background:  #9E0004;
+    padding: 15px 20px;
+    margin: 10px;
+    margin-left: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.button:hover{
+    background: #9E0004;
+}
+.button:disabled{
+    background: #ab595b;
+}

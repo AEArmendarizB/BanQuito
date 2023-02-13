@@ -11,4 +11,7 @@ export class Cliente {
         this.password=password;
         this.pregunta=pregunta;
     }
+
+    
+
 }

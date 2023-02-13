@@ -1,15 +1,15 @@
 'use strict'
 var express=require('express');
 var router=express.Router();
-var usuariosController=require('../controllers/usuario.controller');
+var respuestasController=require('../controllers/respuestas.controller');
 var multiparty=require('connect-multiparty');
 var mutipartyMiddleWare=multiparty({uploadDir:'./uploads'});
-
-
+//pagina de inicio
+//router.get('/inicio',cuentasController.inicio);
 //guardar un libro
-router.post('/guardar-usuario',usuariosController.saveUsuario);
+router.post('/guardar-respuesta',respuestasController.save);
 //ver todos los libros
-router.post('/verificar-usuario',usuariosController.verificarUsuario);
+//router.get('/cuentas',cuentasController.getCuentas);
 
 /*
 //ver datos de un libro
