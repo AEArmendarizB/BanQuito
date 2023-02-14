@@ -30,6 +30,9 @@ export class LoginComponent implements OnInit{
 
   public submitFormulario(){
     if(this.myForm.invalid){
+      Object.values(this.myForm.controls).forEach(control=>{
+        control.markAllAsTouched();
+      });
       return;
     }
     alert("Se va a enviar el formulario"); 
