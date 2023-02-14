@@ -1,4 +1,4 @@
-export class Cliente {
+export class Usuario {
     _id?: number;
     cedula:number;
     username:string;

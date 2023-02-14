@@ -1,1 +1,47 @@
-<p>nuevas-credenciales works!</p>
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Inicio</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <link rel="icon" type="favicon/x-icon" href="../../../assets/media/Logo.png">
+        <!-- <link rel="stylesheet" type="text/css" href="../login/login.component.css">-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
+        <script src="login.js"></script>
+
+    </head>
+
+    <body>
+        <header>
+            <div class="logo">
+              <img src="../../../assets/media/Logo.png" alt="logo">
+              <h1 class="nombre-banco">BanQuito</h1>
+            </div>
+          </header>
+
+          <form class="formulario" #formLogin="ngForm" method="post">
+    
+            <h1>Bienvenido, por favor ingrese sus nuevas credenciales</h1>
+              <div class="contenedor">
+                <div class="input-contenedor">
+                  <i class="fas fa-user icon"></i>
+                  <input id="user" type="text" name="usuario" #usuario="ngModel" [(ngModel)]="nuevo_usuario.user" placeholder="Nuevo usuario" required pattern = "[a-zA-Z0-9]+" >
+                  <span *ngIf="usuario.touched && !usuario.valid">
+                    Por favor ingrese un usuario valido
+                  </span>
+                  
+                  </div>
+                  
+                  <div class="input-contenedor">
+                  <i class="fas fa-key icon"></i>
+                  <input id="pass" type="password" name="pass" #pass="ngModel" [(ngModel)]="nuevo_usuario.pass" placeholder="Nueva contraseña" required pattern = "[a-zA-Z0-9]+">
+                  <span *ngIf="pass.touched && !pass.valid">
+                    Por favor ingrese la contraseña
+                  </span>
+                </div>
+                  <button id="validate" type="submit" class="button" [disabled]="!formLogin.form.valid">Registrar</button>
+              </div>
+          </form>
+    </body>
+</html>

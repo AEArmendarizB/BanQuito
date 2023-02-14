@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginUsuario } from 'src/app/models/login.usuario';
-import { Cliente } from 'src/app/models/usuarios'
+//import { Cliente } from 'src/app/models/usuarios';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -10,8 +10,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   title = 'BanQuito';
+  public myForm!:FormGroup;
 
   public login_usuario:LoginUsuario;
 
@@ -25,7 +26,7 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
-      
+      //this.myForm = this.createMyForm();
   }
 
   verificarUsuario(){
