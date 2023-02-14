@@ -19,29 +19,27 @@
               <h1 class="nombre-banco">BanQuito</h1>
             </div>
           </header>
-
-          <form class="formulario" #formLogin="ngForm" method="post">
-    
+          <!--
+          <form [formGroup]="FormNuevasCredenciales" (ngSubmit)="submitFormulario()" class="formulario">
             <h1>Bienvenido, por favor ingrese sus nuevas credenciales</h1>
               <div class="contenedor">
                 <div class="input-contenedor">
                   <i class="fas fa-user icon"></i>
-                  <input id="user" type="text" name="usuario" #usuario="ngModel" [(ngModel)]="nuevo_usuario.user" placeholder="Nuevo usuario" required pattern = "[a-zA-Z0-9]+" >
-                  <span *ngIf="usuario.touched && !usuario.valid">
+                  <input formControlName="usuario" [class.is-invalid]='f.usuario.errors && f.usuario.touched' type="text" placeholder="Usuario" required pattern = "[a-zA-Z0-9]+">
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     Por favor ingrese el usuario
-                  </span>
-                  
                   </div>
-                  
-                  <div class="input-contenedor">
-                  <i class="fas fa-key icon"></i>
-                  <input id="pass" type="password" name="pass" #pass="ngModel" [(ngModel)]="nuevo_usuario.pass" placeholder="Nueva contraseña" required pattern = "[a-zA-Z0-9]+">
-                  <span *ngIf="pass.touched && !pass.valid">
-                    Por favor ingrese la contraseña
-                  </span>
                 </div>
-                  <button id="validate" type="submit" class="button" [disabled]="!formLogin.form.valid">Registrar</button>
+                  
+                <div class="input-contenedor">
+                  <i class="fas fa-key icon"></i>
+                  <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Contraseña"  required pattern = "[a-zA-Z0-9]+">
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    Por favor ingrese la contraseña
+                  </div>
+                </div>
+                <button class="button btn-success">Entrar</button>
               </div>
-          </form>
+          </form>-->
     </body>
 </html>

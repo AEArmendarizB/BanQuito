@@ -4,12 +4,13 @@ var router=express.Router();
 var usuariosController=require('../controllers/usuario.controller');
 var multiparty=require('connect-multiparty');
 var mutipartyMiddleWare=multiparty({uploadDir:'./uploads'});
-//pagina de inicio
-router.get('/inicio',usuariosController.inicio);
+
+
 //guardar un libro
 router.post('/guardar-usuario',usuariosController.saveUsuario);
 //ver todos los libros
-router.get('/usuarios',usuariosController.getUsuarios);
+router.post('/verificar-usuario',usuariosController.verificarUsuario);
+
 
 /*
 //ver datos de un libro

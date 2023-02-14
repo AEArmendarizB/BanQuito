@@ -12,6 +12,9 @@ var usuariosRoutes=require('./routes/usuarios.routes');
 //para las cuentas
 var cuentasRoutes=require('./routes/cuentas.routes');
 
+//para respuesta
+var respuestasRoutes=require('./routes/respuestas.routes');
+
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -30,7 +33,14 @@ app.use((req,res,next)=>{
         "<h1>Hola, bienvenido</h1>"
     )
 })*/
-app.use('/',clientesRoutes);
+
+
 app.use('/',usuariosRoutes);
+
+
+
+app.use('/',clientesRoutes);
+
 app.use('/',cuentasRoutes);
+app.use('/',respuestasRoutes);
 module.exports=app;

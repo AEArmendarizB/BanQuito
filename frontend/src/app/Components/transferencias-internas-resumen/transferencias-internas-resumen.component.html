@@ -1,1 +1,105 @@
-<p>transferencias-internas-resumen works!</p>
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Inicio</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <link rel="icon" type="favicon/x-icon" href="../../../assets/media/Logo.png">
+  <link rel="stylesheet" type="text/css"
+    href="../transferencias-internas-resumen/transferencias-internas-resumen.component.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <link rel="stylesheet" href="https://kit.fontawesome.com/39d269d22a.css" crossorigin="anonymous">
+
+  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/39d269d22a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!--Menu lateral-->
+
+  <div class="menu__side" id="menu_side">
+
+    <div class="options__menu">
+
+      <a href="/menu">
+        <div class="option">
+          <i class="fas fa-home" title="Inicio"></i>
+          <h4>INICIO</h4>
+        </div>
+      </a>
+
+      <a>
+        <div class="option">
+          <i class="far fa-file" title="Pagos"></i>
+          <h4>Pagos</h4>
+        </div>
+      </a>
+
+      <a href="/transferencia" class="selected">
+        <div class="option">
+          <i class="fas fa-video" title="Transferencias"></i>
+          <h4>Transferencias</h4>
+        </div>
+      </a>
+
+      <a>
+        <div class="option">
+          <i class="far fa-sticky-note" title="Solicitudes"></i>
+          <h4>Solicitudes</h4>
+        </div>
+      </a>
+
+      <a>
+        <div class="option">
+          <i class="far fa-id-badge" title="Contacto"></i>
+          <h4>Contacto</h4>
+        </div>
+      </a>
+
+      <a>
+        <div class="option">
+          <i class="far fa-address-card" title="Nosotros"></i>
+          <h4>Nosotros</h4>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+  <!--FIN    Menu lateral-->
+  <main>
+    <header>
+      <div class="row">
+        <div class="col-4" id="logo">
+          <img src="../../../assets/media/Logo.png" alt="logo">
+          <h1 class="nombre-banco">BanQuito</h1>
+        </div>
+        <div class="col-4" id="cliente">
+          <img src="../../../assets/media/usuario.png" alt="cliente">
+          <h1 class="nombre-cliente">Jhon Lenon Doe Moore</h1>
+        </div>
+      </div>
+    </header>
+
+
+    <div class="row" style="border: solid red;">
+      <div class=" transferencia col-12 text-center" style="border: solid blue;">
+        <h1>Transferencias internas </h1>
+        <div class="transferencia_contenido text-start" style="border: solid red;">
+          <div class="text-center">
+            <span class="fs-3">¡Transferencia exitosa!</span>
+          </div>
+          <br>
+          <span #resumeTransferencia class="">##INFO DE LA TRANSFERENCIA##</span>
+        </div>
+        <button class="btn btn-primary mt-3"> Inicio</button>
+      </div>
+    </div>
+
+
+  </main>
+</body>
+
+</html>

@@ -5,6 +5,7 @@ export class Cuenta {
     monto_inicial:number;
     ingreso_promedio:number;
     numero_cuenta:String;
+    
 
     constructor(cedula:number, tipo_cuenta:string, monto_inicial:number, ingreso_promedio:number, 
         numero_cuenta:string){
