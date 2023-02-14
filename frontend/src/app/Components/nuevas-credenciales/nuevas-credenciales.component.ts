@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginUsuario } from 'src/app/models/login.usuario';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-nuevas-credenciales',
@@ -10,58 +12,42 @@ import { LoginUsuario } from 'src/app/models/login.usuario';
 export class NuevasCredencialesComponent implements OnInit{
   title = 'Nuevas credenciales BanQuito';
 
-  public myForm!:FormGroup;
+  public FormNuevasCredenciales!:FormGroup;
 
-  public nuevo_usuario:LoginUsuario;
-
-  //usuarioForm: FormGroup;
-
-  constructor(){
-    this.nuevo_usuario = new LoginUsuario('','');
+  constructor(private fb: FormBuilder,private router: Router, private _usuarioService: UsuarioService ){
+    this.FormNuevasCredenciales = this.fb.group({
+      usuario:['',Validators.required],
+      password:['',Validators.required]
+    });
   }
   
   ngOnInit(): void {
       
   }
 
-  
-
-  /*constructor(private fb: FormBuilder,private router: Router, private _usuarioService: UsuarioService ){
-    this.login_usuario = new LoginUsuario('','');
+  public submitFormulario(){
+    if(this.FormNuevasCredenciales.invalid){
+      Object.values(this.FormNuevasCredenciales.controls).forEach(control=>{
+        control.markAllAsTouched();
+      });
+      return;
+    }
+    console.log(this.FormNuevasCredenciales.value);
     
+    this.crearUsuario();
+  }
 
+  public get f():any{
+    return this.FormNuevasCredenciales.controls;
+  }
 
-  }*/
-
-
-  /*verificarUsuario(){
-    
-    
-    
-    this._usuarioService.verificarUsuario(this.login_usuario).subscribe(data =>{
-      
-      if(data== true){
-
-        this.router.navigate(['/pregunta']);
-        
-      }else{
-
-        console.log({message:'No se pudo encontrar el usuario'})
-
-      }
-      
-
-
-    }, error =>{
-
-      console.log(error);
-
-    });
-
-    
-    
-    
-
-    
-  }*/
+  crearUsuario(){
+    const NEW_USUARIO: LoginUsuario={
+      username: this.FormNuevasCredenciales.get('usuario')?.value,
+      password: this.FormNuevasCredenciales.get('password')?.value
+    };
+    /*console.log(LOGIN_USUARIO);
+    console.log(LOGIN_USUARIO.username);*/
+    //this.verificarUsuario(NEW_USUARIO);
+  }
 }
