@@ -39,16 +39,18 @@ var controller={
     saveUsuario:function(req,res){
         var usuario=new Usuario();
         var params=req.body;
+
         usuario.cedula=params.cedula;
         usuario.username= params.username;
 
         usuario.password= params.password;
         usuario.pregunta= params.pregunta;
+        usuario.isNew= params.isNew;
 
         usuario.save((err,usuarioGuardado)=>{
-            if (err) return res.status(500).send({message:'Error al guardar'});
-            if(!usuarioGuardado) return res.status(404).send({message:'No se ha guardado el usuario'});
-            return res.status(200).send({usuarioGuardado});
+            if (err) return res.status(500).send({message: 500});
+            if(!usuarioGuardado) return res.status(404).send({message: 404});
+            return res.status(200).send({message: 200});
         })
     
     },

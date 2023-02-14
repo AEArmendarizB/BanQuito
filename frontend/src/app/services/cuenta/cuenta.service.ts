@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Cliente } from "src/app/models/clientes";
+import { Cuenta } from "src/app/models/cuentas";
 
 @Injectable({
 
@@ -9,12 +9,12 @@ import { Cliente } from "src/app/models/clientes";
 
     
 })
-export class ClienteService{
-    url= "http://localhost:3600/guardar-cliente/";
+export class CuentaService{
+    url= "http://localhost:3600/guardar-cuenta/";
     constructor(
         private http: HttpClient
     ){}
-    verificarCliente(cliente: Cliente): Observable <any>{
-        return this.http.post(this.url, cliente);
+    verificarCuenta(cuenta: Cuenta): Observable <any>{
+        return this.http.post(this.url, cuenta);
     }
 }
