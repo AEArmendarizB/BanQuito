@@ -1,0 +1,18 @@
+//formularios
+app.Routing agrgacion de lines
+//comando
+npm install ngx-toastr
+
+
+//para conexion del fron con back
+cambios en la app.Routing
+
+//creamos la carpeta servicesa en el frontend
+//ejecutamos la siguiente lineea de comando para generar los servisios con el nombre"respuesta"
+ng g s services/respuesta
+
+
+//en el backend instalar los cors
+npm install cors
+
+//se hicieron cambios en el backend en el index

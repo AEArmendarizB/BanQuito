@@ -138,7 +138,8 @@ export class RegistroClienteComponent implements OnInit {
       cedula: this.formularioCliente.get('cedula')?.value,
       username: this.formularioCliente.get('nombres')?.value.split(' ')[0] + this.formularioCliente.get('cedula')?.value.substring(0, 6),
       password: this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6),
-      pregunta: this.formularioUsuario.get('pregunta')?.value
+      pregunta: this.formularioUsuario.get('pregunta')?.value,
+      isNew: true
     }
     console.log("Usuario: " + USUARIO);
     //Envio de datos
