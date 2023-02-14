@@ -13,25 +13,16 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class LoginComponent implements OnInit{
   title = 'BanQuito';
   public myForm!:FormGroup;
-
-  public login_usuario:Usuario;
-
-  //usuarioForm: FormGroup;
+  private LOGIN_USUARIO:any; 
 
   constructor(private fb: FormBuilder,private router: Router, private _usuarioService: UsuarioService ){
-    this.login_usuario = new Usuario(0,'','','');
-  }
-
-  ngOnInit(): void {
-      //this.myForm = this.createMyForm();
-      this.myForm = this.createMyForm();
-  }
-
-  private createMyForm():FormGroup{
-    return this.fb.group({
+    this.myForm = this.fb.group({
       usuario:['',Validators.required],
       password:['',Validators.required]
     });
+  }
+
+  ngOnInit(): void {
   }
 
   public submitFormulario(){
@@ -42,40 +33,35 @@ export class LoginComponent implements OnInit{
       return;
     }
     console.log(this.myForm.value);
+    
+    this.crearUsuario();
   }
 
   public get f():any{
     return this.myForm.controls;
   }
 
-  verificarUsuario(){
-    
-    this._usuarioService.verificarUsuario(this.login_usuario).subscribe(data =>{
-      
-      if(data== true){
+  crearUsuario(){
+    const LOGIN_USUARIO: Usuario={
+      cedula: 0,
+      username: this.myForm.get('usuario')?.value,
+      password: this.myForm.get('password')?.value,
+      pregunta: ''
+    };
+    console.log(LOGIN_USUARIO);
+    this.verificarUsuario();
+  }
 
+  verificarUsuario(){
+    this._usuarioService.verificarUsuario(this.LOGIN_USUARIO).subscribe(data =>{
+      if(data== true){
         this.router.navigate(['/pregunta']);
-        
       }else{
 
         console.log({message:'No se pudo encontrar el usuario'})
-
       }
-      
-
-
     }, error =>{
-
       console.log(error);
-
     });
-
-    
-    
-    
-
-    
   }
-
-
 }
