@@ -83,8 +83,12 @@ input[type="password"]{
     cursor: pointer;
 }
 .button:hover{
-    background: #9E0004;
+    background: #610105;
 }
 .button:disabled{
+    background: #ab595b;
+}
+#validationServerUsernameFeedback{
+    color: white;
     background: #ab595b;
 }
