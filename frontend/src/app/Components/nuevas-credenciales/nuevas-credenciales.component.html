@@ -8,7 +8,6 @@
         <link rel="icon" type="favicon/x-icon" href="../../../assets/media/Logo.png">
         <!-- <link rel="stylesheet" type="text/css" href="../login/login.component.css">-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
-        <script src="login.js"></script>
 
     </head>
 
@@ -19,13 +18,13 @@
               <h1 class="nombre-banco">BanQuito</h1>
             </div>
           </header>
-          <!--
+
           <form [formGroup]="FormNuevasCredenciales" (ngSubmit)="submitFormulario()" class="formulario">
             <h1>Bienvenido, por favor ingrese sus nuevas credenciales</h1>
               <div class="contenedor">
                 <div class="input-contenedor">
                   <i class="fas fa-user icon"></i>
-                  <input formControlName="usuario" [class.is-invalid]='f.usuario.errors && f.usuario.touched' type="text" placeholder="Usuario" required pattern = "[a-zA-Z0-9]+">
+                  <input formControlName="usuario" [class.is-invalid]='f.usuario.errors && f.usuario.touched' type="text" placeholder="Nuevo Usuario" required pattern = "[a-zA-Z0-9]+">
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     Por favor ingrese el usuario
                   </div>
@@ -33,13 +32,13 @@
                   
                 <div class="input-contenedor">
                   <i class="fas fa-key icon"></i>
-                  <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Contraseña"  required pattern = "[a-zA-Z0-9]+">
+                  <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Nueva Contraseña"  required pattern = "[a-zA-Z0-9]+">
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     Por favor ingrese la contraseña
                   </div>
                 </div>
                 <button class="button btn-success">Entrar</button>
               </div>
-          </form>-->
+          </form>
     </body>
 </html>
