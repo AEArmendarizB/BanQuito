@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { LoginUsuario } from "../models/login.usuario";
+import { Usuario } from "../models/usuarios";
 
-import { Cliente } from "../models/usuarios";
+//import { Cliente } from "../models/usuarios";
 
 
 
@@ -20,7 +20,7 @@ export class UsuarioService{
 
     constructor(private http: HttpClient) { }
 
-    verificarUsuario(usuario:  LoginUsuario): Observable <any>{
+    verificarUsuario(usuario:  Usuario): Observable <any>{
         
         
         
