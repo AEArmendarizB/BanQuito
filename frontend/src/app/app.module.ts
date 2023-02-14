@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +16,7 @@ import { TransferenciasInternasComponent } from './Components/transferencias-int
 import { TransferenciasInternasResumenComponent } from './Components/transferencias-internas-resumen/transferencias-internas-resumen.component';
 import { NuevasCredencialesComponent } from './Components/nuevas-credenciales/nuevas-credenciales.component';
 import { PreguntaSeguridadComponent } from './Components/pregunta-seguridad/pregunta-seguridad.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,12 @@ import { PreguntaSeguridadComponent } from './Components/pregunta-seguridad/preg
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule
+    AppRoutingModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgbModule,
     HttpClientModule
   ],
   providers: [],
