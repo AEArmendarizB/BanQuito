@@ -106,6 +106,7 @@ export class RegistroClienteComponent implements OnInit {
       monto_inicial: this.formularioCuenta.get('monto_inicial')?.value,
       ingreso_promedio: this.formularioCuenta.get('ingreso_promedio')?.value,
       numero_cuenta: this.formularioCuenta.get('numero_cuenta')?.value
+      
     }
     console.log("Cuenta: " + CUENTA);
     //Mostramos info de la cuenta
@@ -127,7 +128,7 @@ export class RegistroClienteComponent implements OnInit {
     //Envio de datos
     if (this.formularioCuenta.valid) {
       console.log('VALID')
-      this.toastr.info('La cuenta se registro con exito!', 'Cliente registrado');
+      this.toastr.info('La cuenta se registro con exito!', 'Cuenta registrado');
     } else {
       console.log('INVALID')
       this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cuenta no registrado');
@@ -138,9 +139,10 @@ export class RegistroClienteComponent implements OnInit {
       cedula: this.formularioCliente.get('cedula')?.value,
       username: this.formularioCliente.get('nombres')?.value.split(' ')[0] + this.formularioCliente.get('cedula')?.value.substring(0, 6),
       password: this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6),
-      pregunta: this.formularioUsuario.get('pregunta')?.value
+      pregunta: this.formularioUsuario.get('pregunta')?.value,
+      isNew: true
     }
-    console.log("Usuario: " + USUARIO);
+    console.log(USUARIO);
     //Envio de datos
     if (this.formularioUsuario.valid) {
       console.log('VALID')
