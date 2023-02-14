@@ -11,4 +11,7 @@ export class Usuario {
         this.password=password;
         this.pregunta=pregunta;
     }
+
+    
+
 }

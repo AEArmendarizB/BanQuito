@@ -26,6 +26,9 @@ mongoose.set("strictQuery",false);
 var app=require('./app');
 //coneccion
 
+const cors = require("cors");
+app.use(cors())
+
 const user = 'jojy';
 const password = 'jojy';
 const dbname = 'BanQuito'

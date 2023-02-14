@@ -34,13 +34,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgbModule,
-    HttpClientModule
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
