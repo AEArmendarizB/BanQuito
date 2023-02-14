@@ -13,4 +13,7 @@ export class Usuario {
         this.pregunta=pregunta;
         this.isNew= isNew;
     }
+
+    
+
 }
