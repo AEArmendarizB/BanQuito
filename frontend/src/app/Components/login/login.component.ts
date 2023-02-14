@@ -56,13 +56,14 @@ export class LoginComponent implements OnInit{
     console.log(login.username);
     this._usuarioService.verificarUsuario(login).subscribe(data =>{
       console.log('hola ' + login.username);
+      console.log('hola contraseña: ' + login.password);
+      console.log(data);
       if(login.username=="admin" && login.password=="admin"){
         this.router.navigate(['/registro-cliente']);
       }
-      if(data== true){
+      else if(data == true){
         this.router.navigate(['/pregunta']);
       }else{
-
         console.log({message:'No se pudo encontrar el usuario'})
       }
     }, error =>{

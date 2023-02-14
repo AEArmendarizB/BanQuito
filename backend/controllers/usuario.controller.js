@@ -1,6 +1,6 @@
 'use strict'
 var Usuario=require('../models/usuario');
-var LoginUsuario= require('../models/login.usuario')
+var LoginUsuario= require('../models/login.usuario');
 var fs=require('path');
 const path = require('path');
 const loginUsuario = require('../models/login.usuario');

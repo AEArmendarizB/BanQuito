@@ -20,14 +20,8 @@ export class UsuarioService{
 
     constructor(private http: HttpClient) { }
 
-    verificarUsuario(usuario:  Usuario): Observable <any>{
-        
-        
-        
+    verificarUsuario(usuario: Usuario): Observable <any>{
         return this.http.post(this.url, usuario);
-        
-        
-
     }
 
 }
