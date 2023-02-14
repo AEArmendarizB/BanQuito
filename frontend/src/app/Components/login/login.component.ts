@@ -60,11 +60,23 @@ export class LoginComponent implements OnInit{
       if(login.username=="admin" && login.password=="admin"){
         this.router.navigate(['/registro-cliente']);
       }
-      else if(data == true){
-        this.router.navigate(['/pregunta']);
-      }else{
-        console.log({message:'No se pudo encontrar el usuario'})
+      console.log(data.message);
+      
+      switch(data.message){
+        case 0:
+          console.log({message:'Hubo un error'})
+          break;
+        case 1:
+          console.log({ message: 'No se pudo encontrar el usuario' })
+          break;
+        case false:
+          this.router.navigate(['/pregunta']);
+          break;
+        case true:
+          this.router.navigate(['/usuario']);
+          break;
       }
+      
     }, error =>{
       console.log(error);
     });

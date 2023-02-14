@@ -22,11 +22,9 @@ var controller={
         
         Usuario.findOne(params,(err,usuario)=>{
             
-            if (err) return res.status(200).send(false);
-            if(!usuario) return res.status(200).send(false);
-            return res.status(200).send(true);
-            
-            
+            if (err) return res.status(200).send({message: 0});
+            if(!usuario) return res.status(200).send({message: 1});
+            return res.status(200).send({ message: usuario.isNew}); 
         })
 
         
