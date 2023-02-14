@@ -1,9 +1,11 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/clientes';
 import { Cuenta } from 'src/app/models/cuentas';
 import { Usuario } from 'src/app/models/usuarios';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -26,7 +28,9 @@ export class RegistroClienteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private renderer2: Renderer2
+    private renderer2: Renderer2,
+    private router: Router,
+    private _clienteService: ClienteService
   ) {
     //Cliente
     this.formularioCliente = this.fb.group({
@@ -93,10 +97,10 @@ export class RegistroClienteComponent implements OnInit {
     //Envio de datos
     if (this.formularioCliente.valid) {
       console.log('VALID')
-      this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');
+      //llamar funcion BD
+      this.guardarCliente(CLIENTE);
     } else {
       console.log('INVALID')
-      this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
     }
   }
   agregarCuenta() {
@@ -106,7 +110,7 @@ export class RegistroClienteComponent implements OnInit {
       monto_inicial: this.formularioCuenta.get('monto_inicial')?.value,
       ingreso_promedio: this.formularioCuenta.get('ingreso_promedio')?.value,
       numero_cuenta: this.formularioCuenta.get('numero_cuenta')?.value
-      
+
     }
     console.log("Cuenta: " + CUENTA);
     //Mostramos info de la cuenta
@@ -162,6 +166,31 @@ export class RegistroClienteComponent implements OnInit {
     this.renderer2.setProperty(pregunta_seg, 'innerHTML', '¿Cu&aacute;l es tu marca de ropa favorita?');
   }*/
   ngOnInit(): void {
+  }
+  guardarCliente(cliente: Cliente) {
+    console.log(cliente);
+    this._clienteService.verificarCliente(cliente).subscribe(
+      data => {
+        console.log(data.message);
+        switch (data.message) {
+          case (200): {
+            this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');
+            console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            break;
+          }
+          case (404): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
+            console.log("Error del servidor mi 🔑");
+            break;
+          }
+          case (500): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
+            console.log("No se guardo el dato mi 🔑");
+            break;
+          }
+        }
+      }
+    )
   }
 
 }
