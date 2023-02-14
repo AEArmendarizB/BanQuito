@@ -28,7 +28,7 @@
                   <i class="fas fa-user icon"></i>
                   <input id="user" type="text" name="usuario" #usuario="ngModel" [(ngModel)]="nuevo_usuario.user" placeholder="Nuevo usuario" required pattern = "[a-zA-Z0-9]+" >
                   <span *ngIf="usuario.touched && !usuario.valid">
-                    Por favor ingrese el usuario
+                    Por favor ingrese un usuario valido
                   </span>
                   
                   </div>
