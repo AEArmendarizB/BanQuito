@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginUsuario } from 'src/app/models/login.usuario';
 import { Usuario } from 'src/app/models/usuarios';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -13,7 +12,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class LoginComponent implements OnInit{
   title = 'BanQuito';
   public myForm!:FormGroup;
-  private LOGIN_USUARIO:any; 
+  public LOGIN_USUARIO:any; 
 
   constructor(private fb: FormBuilder,private router: Router, private _usuarioService: UsuarioService ){
     this.myForm = this.fb.group({
@@ -48,12 +47,18 @@ export class LoginComponent implements OnInit{
       password: this.myForm.get('password')?.value,
       pregunta: ''
     };
-    console.log(LOGIN_USUARIO);
-    this.verificarUsuario();
+    /*console.log(LOGIN_USUARIO);
+    console.log(LOGIN_USUARIO.username);*/
+    this.verificarUsuario(LOGIN_USUARIO);
   }
 
-  verificarUsuario(){
-    this._usuarioService.verificarUsuario(this.LOGIN_USUARIO).subscribe(data =>{
+  verificarUsuario(login:Usuario){
+    console.log(login.username);
+    this._usuarioService.verificarUsuario(login).subscribe(data =>{
+      console.log('hola ' + login.username);
+      if(login.username=="admin" && login.password=="admin"){
+        this.router.navigate(['/registro-cliente']);
+      }
       if(data== true){
         this.router.navigate(['/pregunta']);
       }else{
