@@ -1,4 +1,7 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';//agregado para formularios
+import { HttpClientModule } from '@angular/common/http';//para conexion
+
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Components/login/login.component';
 import { MenuPrincipalComponent } from './Components/menu-principal/menu-principal.component';
@@ -8,6 +11,8 @@ import { RegistroClienteComponent } from './Components/registro-cliente/registro
 import { TransferenciasInternasResumenComponent } from './Components/transferencias-internas-resumen/transferencias-internas-resumen.component';
 import { TransferenciasInternasComponent } from './Components/transferencias-internas/transferencias-internas.component';
 import { TransferenciasComponent } from './Components/transferencias/transferencias.component';
+
+
 
 const routes: Routes = [
     { path: '', component: LoginComponent},
@@ -23,7 +28,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes),HttpClientModule],//para conexion
+  exports: [RouterModule,ReactiveFormsModule]//agregado para formularios
 })
 export class AppRoutingModule { }
