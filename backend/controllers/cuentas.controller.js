@@ -27,9 +27,9 @@ var controller={
         cuenta.numero_cuenta= params.numero_cuenta;
 
         cuenta.save((err,cuentaGuardado)=>{
-            if (err) return res.status(500).send({message:'Error al guardar'});
-            if(!cuentaGuardado) return res.status(404).send({message:'No se ha guardado el usuario'});
-            return res.status(200).send({usuarioGuardado: cuentaGuardado});
+            if (err) return res.status(500).send({message:500});
+            if(!cuentaGuardado) return res.status(404).send({message: 404});
+            return res.status(200).send({message: 200});
         })
     
     },

@@ -11,6 +11,7 @@ router.post('/guardar-usuario',usuariosController.saveUsuario);
 //ver todos los libros
 router.post('/verificar-usuario',usuariosController.verificarUsuario);
 
+
 /*
 //ver datos de un libro
 router.get('/libro/:id',librosController.getLibro);

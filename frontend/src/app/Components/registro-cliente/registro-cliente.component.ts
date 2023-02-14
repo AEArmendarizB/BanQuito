@@ -1,9 +1,13 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/clientes';
 import { Cuenta } from 'src/app/models/cuentas';
 import { Usuario } from 'src/app/models/usuarios';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
+import { UsuarioService } from 'src/app/services/usuario/usuarios.service';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -26,7 +30,11 @@ export class RegistroClienteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private renderer2: Renderer2
+    private renderer2: Renderer2,
+    private router: Router,
+    private _clienteService: ClienteService,
+    private _cuentaService: CuentaService,
+    private _credendialesService:  UsuarioService,
   ) {
     //Cliente
     this.formularioCliente = this.fb.group({
@@ -93,10 +101,10 @@ export class RegistroClienteComponent implements OnInit {
     //Envio de datos
     if (this.formularioCliente.valid) {
       console.log('VALID')
-      this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');
+      //llamar funcion BD
+      this.guardarCliente(CLIENTE);
     } else {
       console.log('INVALID')
-      this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
     }
   }
   agregarCuenta() {
@@ -106,6 +114,7 @@ export class RegistroClienteComponent implements OnInit {
       monto_inicial: this.formularioCuenta.get('monto_inicial')?.value,
       ingreso_promedio: this.formularioCuenta.get('ingreso_promedio')?.value,
       numero_cuenta: this.formularioCuenta.get('numero_cuenta')?.value
+
     }
     console.log("Cuenta: " + CUENTA);
     //Mostramos info de la cuenta
@@ -127,10 +136,9 @@ export class RegistroClienteComponent implements OnInit {
     //Envio de datos
     if (this.formularioCuenta.valid) {
       console.log('VALID')
-      this.toastr.info('La cuenta se registro con exito!', 'Cliente registrado');
+      this.guardarCuenta(CUENTA);
     } else {
       console.log('INVALID')
-      this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cuenta no registrado');
     }
   }
   agregarUsuario() {
@@ -141,14 +149,13 @@ export class RegistroClienteComponent implements OnInit {
       pregunta: this.formularioUsuario.get('pregunta')?.value,
       isNew: true
     }
-    console.log("Usuario: " + USUARIO);
+    console.log(USUARIO);
     //Envio de datos
     if (this.formularioUsuario.valid) {
       console.log('VALID')
-      this.toastr.info('El usuario se registro con exito!', 'Usuario registrado');
+      this.guardarUsuario(USUARIO);
     } else {
       console.log('INVALID')
-      this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Usuario no registrado');
     }
   }
   pregunta1() {
@@ -162,5 +169,81 @@ export class RegistroClienteComponent implements OnInit {
   }*/
   ngOnInit(): void {
   }
+  guardarCliente(cliente: Cliente) {
+    console.log(cliente);
+    this._clienteService.verificarCliente(cliente).subscribe(
+      data => {
+        console.log(data.message);
+        switch (data.message) {
+          case (200): {
+            this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');
+            console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            break;
+          }
+          case (404): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
+            console.log("Error del servidor mi 🔑");
+            break;
+          }
+          case (500): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
+            console.log("No se guardo el dato mi 🔑");
+            break;
+          }
+        }
+      }
+    )
+  }
+  guardarCuenta(cuenta: Cuenta){
+    console.log(cuenta);
+    this._cuentaService.verificarCuenta(cuenta).subscribe(
+      data => {
+        console.log(data.message)
+        switch (data.message) {
+          case (200): {
+            this.toastr.info('La cuenta se registro con exito!', 'Cuenta registrada');
+            console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            break;
+          }
+          case (404): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD404', 'Cuenta no registrado');
+            console.log("Error del servidor mi 🔑");
+            break;
+          }
+          case (500): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD500', 'Cuenta no registrada');
+            console.log("No se guardo el dato mi 🔑");
+            break;
+          }
+        }
+      }
+    )
+  }
+  guardarUsuario(credendiales: Usuario){
+    console.log(credendiales);
+    this._credendialesService.verificarUsuario(credendiales).subscribe(
+      data =>{
+        console.log(data.message)
+        switch (data.message) {
+          case (200): {
+            this.toastr.info('El usuario se registro con exito!', 'Usuario registrada');
+            console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            this.router.navigate(['']);
+            break;
+          }
+          case (404): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD404', 'Usuario no registrado');
+            console.log("Error del servidor mi 🔑");
+            break;
+          }
+          case (500): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD500', 'Usuario no registrada');
+            console.log("No se guardo el dato mi 🔑");
+            break;
+          }
+        }
+      }
+    )
 
+  }
 }
