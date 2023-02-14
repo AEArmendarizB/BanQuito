@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginUsuario } from 'src/app/models/login.usuario';
 import { Usuario } from 'src/app/models/usuarios';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -41,18 +42,16 @@ export class LoginComponent implements OnInit{
   }
 
   crearUsuario(){
-    const LOGIN_USUARIO: Usuario={
-      cedula: 0,
+    const LOGIN_USUARIO: LoginUsuario={
       username: this.myForm.get('usuario')?.value,
-      password: this.myForm.get('password')?.value,
-      pregunta: ''
+      password: this.myForm.get('password')?.value
     };
     /*console.log(LOGIN_USUARIO);
     console.log(LOGIN_USUARIO.username);*/
     this.verificarUsuario(LOGIN_USUARIO);
   }
 
-  verificarUsuario(login:Usuario){
+  verificarUsuario(login:LoginUsuario){
     console.log(login.username);
     this._usuarioService.verificarUsuario(login).subscribe(data =>{
       console.log('hola ' + login.username);
