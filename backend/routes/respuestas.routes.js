@@ -7,6 +7,7 @@ var mutipartyMiddleWare=multiparty({uploadDir:'./uploads'});
 //pagina de inicio
 //router.get('/inicio',cuentasController.inicio);
 //guardar un libro
+router.get('/guardar-respuesta',respuestasController.inicio);
 router.post('/guardar-respuesta',respuestasController.save);
 //ver todos los libros
 //router.get('/cuentas',cuentasController.getCuentas);
