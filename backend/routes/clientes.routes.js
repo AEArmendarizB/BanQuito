@@ -6,24 +6,12 @@ var multiparty=require('connect-multiparty');
 var mutipartyMiddleWare=multiparty({uploadDir:'./uploads'});
 //pagina de inicio
 router.get('/inicio',clientesController.inicio);
-//guardar un libro
+//guardar una cuenta
 router.post('/guardar-cliente',clientesController.saveCliente);
-//ver todos los libros
+//ver todas las cuentas
 router.get('/clientes',clientesController.getClientes);
 
-/*
-//ver datos de un libro
-router.get('/libro/:id',librosController.getLibro);
-//eliminar un libro
-router.delete('/libro/:id',librosController.deleteLibro);
-//actulizar un libro
-router.put('/libro/:id',librosController.updateLibro);
-//agregar una imagen
-router.post('/subir-imagen/:id',mutipartyMiddleWare,librosController.uploadImage);
-//recuperar la imagen
-router.get('/get-imagen/:imagen',librosController.getImagen);
-/*router.post
-router.put
-router.delete
-*/
+//validar cedula
+router.post('/validarCedula',clientesController.validarCedula);
+
 module.exports=router;

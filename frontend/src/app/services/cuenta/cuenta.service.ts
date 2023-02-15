@@ -7,14 +7,18 @@ import { Cuenta } from "src/app/models/cuentas";
 
     providedIn: 'root'
 
-    
+
 })
-export class CuentaService{
-    url= "http://localhost:3600/guardar-cuenta/";
+export class CuentaService {
+    url = "http://localhost:3600/guardar-cuenta/";
+    urlVerificar = "http://localhost:3600/validarNumeroCuenta/";
     constructor(
         private http: HttpClient
-    ){}
-    verificarCuenta(cuenta: Cuenta): Observable <any>{
+    ) { }
+    guardarCuenta(cuenta: Cuenta): Observable<any> {
+        return this.http.post(this.url, cuenta);
+    }
+    validarCuenta(cuenta: Cuenta): Observable<any> {
         return this.http.post(this.url, cuenta);
     }
 }

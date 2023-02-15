@@ -7,14 +7,21 @@ import { Cliente } from "src/app/models/clientes";
 
     providedIn: 'root'
 
-    
+
 })
-export class ClienteService{
-    url= "http://localhost:3600/guardar-cliente/";
+export class ClienteService {
+    url = "http://localhost:3600/guardar-cliente/";
+
+    urlVerificar = "http://localhost:3600/validarCedula/";
+
     constructor(
         private http: HttpClient
-    ){}
-    verificarCliente(cliente: Cliente): Observable <any>{
+    ) { }
+    guardarCliente(cliente: Cliente): Observable<any> {
         return this.http.post(this.url, cliente);
     }
+    validarCliente(cliente: Cliente): Observable<any> {
+        return this.http.post(this.urlVerificar, cliente);
+    }
+
 }

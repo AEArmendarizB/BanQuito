@@ -6,25 +6,9 @@ var multiparty=require('connect-multiparty');
 var mutipartyMiddleWare=multiparty({uploadDir:'./uploads'});
 
 
-//guardar un libro
+//guardar un usuario
 router.post('/guardar-usuario',usuariosController.saveUsuario);
-//ver todos los libros
+//ver todos los usuario
 router.post('/verificar-usuario',usuariosController.verificarUsuario);
 
-
-/*
-//ver datos de un libro
-router.get('/libro/:id',librosController.getLibro);
-//eliminar un libro
-router.delete('/libro/:id',librosController.deleteLibro);
-//actulizar un libro
-router.put('/libro/:id',librosController.updateLibro);
-//agregar una imagen
-router.post('/subir-imagen/:id',mutipartyMiddleWare,librosController.uploadImage);
-//recuperar la imagen
-router.get('/get-imagen/:imagen',librosController.getImagen);
-/*router.post
-router.put
-router.delete
-*/
 module.exports=router;
