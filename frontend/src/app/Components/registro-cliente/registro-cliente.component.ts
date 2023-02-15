@@ -81,6 +81,7 @@ export class RegistroClienteComponent implements OnInit {
   }
   //get
   get fCliente() { return this.formularioCliente.controls }
+  
 
   agregarCliente() {
     const CLIENTE: Cliente = {
@@ -92,7 +93,9 @@ export class RegistroClienteComponent implements OnInit {
       correo_electronico: this.formularioCliente.get('email')?.value,
       direccion: this.formularioCliente.get('domicilio')?.value,
       ocupacion: this.formularioCliente.get('ocupacion')?.value,
-      numero_telefono: this.formularioCliente.get('numeroTelefono')?.value
+      numero_telefono: this.formularioCliente.get('numeroTelefono')?.value,
+      //State define si el usuario esta activo=>true o pasivo=>false
+      state: true
     }
 
     //
@@ -100,11 +103,12 @@ export class RegistroClienteComponent implements OnInit {
 
     //Envio de datos
     if (this.formularioCliente.valid) {
+      this.verificarCliente(CLIENTE);
       console.log('VALID')
       //llamar funcion BD
-      this.guardarCliente(CLIENTE);
     } else {
       console.log('INVALID')
+      this.guardarCliente(CLIENTE);
     }
   }
   agregarCuenta() {
@@ -113,7 +117,9 @@ export class RegistroClienteComponent implements OnInit {
       tipo_cuenta: this.formularioCuenta.get('tipo_cuenta')?.value,
       monto_inicial: this.formularioCuenta.get('monto_inicial')?.value,
       ingreso_promedio: this.formularioCuenta.get('ingreso_promedio')?.value,
-      numero_cuenta: this.formularioCuenta.get('numero_cuenta')?.value
+      numero_cuenta: this.formularioCuenta.get('numero_cuenta')?.value,
+      //State define si el usuario esta activo=>true o pasivo=>false
+      state: true
 
     }
     console.log("Cuenta: " + CUENTA);
@@ -135,10 +141,12 @@ export class RegistroClienteComponent implements OnInit {
 
     //Envio de datos
     if (this.formularioCuenta.valid) {
-      console.log('VALID')
+      console.log('VALID');
       this.guardarCuenta(CUENTA);
     } else {
-      console.log('INVALID')
+      console.log('INVALID');
+      this.guardarCuenta(CUENTA);
+
     }
   }
   agregarUsuario() {
@@ -152,10 +160,11 @@ export class RegistroClienteComponent implements OnInit {
     console.log(USUARIO);
     //Envio de datos
     if (this.formularioUsuario.valid) {
-      console.log('VALID')
+      console.log('VALID');
       this.guardarUsuario(USUARIO);
     } else {
-      console.log('INVALID')
+      console.log('INVALID');
+      this.guardarUsuario(USUARIO);
     }
   }
   pregunta1() {
@@ -171,7 +180,7 @@ export class RegistroClienteComponent implements OnInit {
   }
   guardarCliente(cliente: Cliente) {
     console.log(cliente);
-    this._clienteService.verificarCliente(cliente).subscribe(
+    this._clienteService.guardarCliente(cliente).subscribe(
       data => {
         console.log(data.message);
         switch (data.message) {
@@ -196,7 +205,7 @@ export class RegistroClienteComponent implements OnInit {
   }
   guardarCuenta(cuenta: Cuenta){
     console.log(cuenta);
-    this._cuentaService.verificarCuenta(cuenta).subscribe(
+    this._cuentaService.guardarCuenta(cuenta).subscribe(
       data => {
         console.log(data.message)
         switch (data.message) {
@@ -242,6 +251,38 @@ export class RegistroClienteComponent implements OnInit {
             break;
           }
         }
+      }
+    )
+
+  }
+  verificarCliente(cliente: Cliente){
+    console.log(cliente);
+    this._clienteService.validarCliente(cliente).subscribe(
+      data=>{
+        if(data == true){
+          //El cliente(cedula) existe en la base de datos
+          this.toastr.error('El CI de este cliente ya existe dentro de la base de datos, no se puede crear un usuario duplicado.', 'El cliente ya existe!');
+        }else{
+          //El cliente(cedula) es nuevo, no existe en la base de datos
+          this.guardarCliente(cliente);
+        }
+
+      }
+    )
+
+  }
+  verificarCuenta(cuenta: Cuenta){
+    console.log(cuenta);
+    this._cuentaService.validarCuenta(cuenta).subscribe(
+      data=>{
+        if(data == true){
+          //El cliente(cedula) existe en la base de datos
+          this.toastr.error('Este n&uacute; de cuenta ya existe dentro de la base de datos, no se puede crear una cuenta duplicada.', 'La cuenta ya existe!');
+        }else{
+          //El cliente(cedula) es nuevo, no existe en la base de datos
+          this.guardarCuenta(cuenta);
+        }
+
       }
     )
 

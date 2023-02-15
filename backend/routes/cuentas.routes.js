@@ -11,6 +11,8 @@ router.post('/guardar-cuenta',cuentasController.saveCuenta);
 //ver todos los libros
 router.get('/cuentas',cuentasController.getCuentas);
 
+router.post('/validarNumeroCuenta',cuentasController.validarNumeroCuenta);
+
 /*
 //ver datos de un libro
 router.get('/libro/:id',librosController.getLibro);

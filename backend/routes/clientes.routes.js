@@ -11,6 +11,10 @@ router.post('/guardar-cliente',clientesController.saveCliente);
 //ver todos los libros
 router.get('/clientes',clientesController.getClientes);
 
+//validar cedula
+router.post('/validarCedula',clientesController.validarCedula);
+
+
 /*
 //ver datos de un libro
 router.get('/libro/:id',librosController.getLibro);

@@ -29,6 +29,7 @@ var controller = {
         cliente.direccion = params.direccion;
         cliente.ocupacion = params.ocupacion;
         cliente.numero_telefono = params.numero_telefono;
+        cliente.state = params.state;
 
         console.log(cliente);
         cliente.save((err, clienteGuardado) => {
@@ -37,6 +38,17 @@ var controller = {
             return res.status(200).send({ message: 200 });
         })
 
+    },
+    validarCedula: function (req, res) {
+        var params = req.body;
+        console.log(params);
+        var cedula = params.cedula;
+        console.log(cedula);
+        Cliente.findOne({ "cedula": cedula }, (err, guardarcliente) => {
+            if (err) return res.status(200).send(true);
+            if (!guardarcliente) return res.status(200).send(false);
+            return res.status(200).send(true);
+        })
     },
 
     /*
