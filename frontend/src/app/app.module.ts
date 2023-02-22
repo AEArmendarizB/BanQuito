@@ -17,6 +17,7 @@ import { TransferenciasInternasResumenComponent } from './Components/transferenc
 import { NuevasCredencialesComponent } from './Components/nuevas-credenciales/nuevas-credenciales.component';
 import { PreguntaSeguridadComponent } from './Components/pregunta-seguridad/pregunta-seguridad.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TransferenciasExternasComponent } from './Components/transferencias-externas/transferencias-externas.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TransferenciasInternasComponent,
     TransferenciasInternasResumenComponent,
     NuevasCredencialesComponent,
-    PreguntaSeguridadComponent
+    PreguntaSeguridadComponent,
+    TransferenciasExternasComponent
   ],
   imports: [
     BrowserModule,
