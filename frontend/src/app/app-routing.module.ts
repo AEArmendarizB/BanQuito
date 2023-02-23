@@ -11,6 +11,7 @@ import { RegistroClienteComponent } from './Components/registro-cliente/registro
 import { TransferenciasInternasResumenComponent } from './Components/transferencias-internas-resumen/transferencias-internas-resumen.component';
 import { TransferenciasInternasComponent } from './Components/transferencias-internas/transferencias-internas.component';
 import { TransferenciasComponent } from './Components/transferencias/transferencias.component';
+import { MenuAdminComponent } from './Components/menu-admin/menu-admin.component';
 
 
 
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: 'menu', component: MenuPrincipalComponent},
     { path: 'usuario', component: NuevasCredencialesComponent},
     { path: 'pregunta', component: PreguntaSeguridadComponent},
+    { path: 'menu-admin', component: MenuAdminComponent},
     { path: 'registro-cliente', component: RegistroClienteComponent},
     { path: 'transferencia', component: TransferenciasComponent},
     { path: 'transferencia-interna', component: TransferenciasInternasComponent},
