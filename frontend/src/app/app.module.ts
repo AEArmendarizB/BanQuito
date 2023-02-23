@@ -18,6 +18,8 @@ import { NuevasCredencialesComponent } from './Components/nuevas-credenciales/nu
 import { PreguntaSeguridadComponent } from './Components/pregunta-seguridad/pregunta-seguridad.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuAdminComponent } from './Components/menu-admin/menu-admin.component';
+import { RegistroCuentaComponent } from './Components/registro-cuenta/registro-cuenta.component';
+import { SuspencionClientesComponent } from './Components/suspencion-clientes/suspencion-clientes.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { MenuAdminComponent } from './Components/menu-admin/menu-admin.component
     TransferenciasInternasResumenComponent,
     NuevasCredencialesComponent,
     PreguntaSeguridadComponent,
-    MenuAdminComponent
+    MenuAdminComponent,
+    RegistroCuentaComponent,
+    SuspencionClientesComponent
   ],
   imports: [
     BrowserModule,
