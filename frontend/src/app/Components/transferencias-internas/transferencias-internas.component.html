@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Inicio</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <link rel="icon" type="favicon/x-icon" href="../../../assets/media/Logo.png">
+  <link rel="stylesheet" type="text/css" href="../transferencias-internas/transferencias-internas.component.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <link rel="stylesheet" href="https://kit.fontawesome.com/39d269d22a.css" crossorigin="anonymous">
+
+  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/39d269d22a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!--Menu lateral-->
+  
+    <div class="menu__side" id="menu_side">
+  
+      <div class="options__menu">
+  
+        <a href="/menu">
+          <div class="option">
+            <i class="fas fa-home" title="Inicio"></i>
+            <h4>INICIO</h4>
+          </div>
+        </a>
+  
+        <a >
+          <div class="option">
+            <i class="far fa-file" title="Pagos"></i>
+            <h4>Pagos</h4>
+          </div>
+        </a>
+  
+        <a href="/transferencia" class="selected">
+          <div class="option">
+            <i class="fas fa-video" title="Transferencias"></i>
+            <h4>Transferencias</h4>
+          </div>
+        </a>
+  
+        <a >
+          <div class="option">
+            <i class="far fa-sticky-note" title="Solicitudes"></i>
+            <h4>Solicitudes</h4>
+          </div>
+        </a>
+  
+        <a >
+          <div class="option">
+            <i class="far fa-id-badge" title="Contacto"></i>
+            <h4>Contacto</h4>
+          </div>
+        </a>
+  
+        <a >
+          <div class="option">
+            <i class="far fa-address-card" title="Nosotros"></i>
+            <h4>Nosotros</h4>
+          </div>
+        </a>
+  
+      </div>
+  
+    </div>
+    <!--FIN    Menu lateral-->
+    <main>
+      <header>
+        <div class="row">
+          <div class="col-4" id="logo">
+            <img src="../../../assets/media/Logo.png" alt="logo">
+            <h1 class="nombre-banco">BanQuito</h1>
+          </div>
+          <div class="col-4" id="cliente">
+            <img src="../../../assets/media/usuario.png" alt="cliente">
+            <h1 class="nombre-cliente">Jhon Lenon Doe Moore</h1>
+          </div>
+        </div>
+      </header>
+
+
+      <div class="row">
+        <div class="colum-6">
+          <div class="transferencia">
+            <div class="transferencia_contenido">
+              <h1>Transferencias locales</h1>
+              <form>
+                <!--Cuenta origen-->
+                <div class=" row">
+                  <label class="col-sm-3 ">Cuenta origen:</label>
+                  <div class="col-sm-6">
+                    <select id="inputState" class="form-control" formControlName="cuentaOrigen">
+                      <option selected>Selecciona una cuenta ...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                </div>
+                <!--Monto-->
+                <div class="row">
+                  <label  class="col-sm-3">Monto:</label>
+                  <div class="col-sm-6">
+                    <input type="number" formControlName="monto" class="form-control"placeholder="Monto">
+                  </div>
+                </div>
+                <!--Cuenta Destino-->
+                <div class=" row">
+                  <label  class="col-sm-3">Cuenta Destino:</label>
+                  <div class="col-sm-5">
+                    <input type="number" formControlName="cuentaDestino" class="form-control" placeholder="Cuenta destino">
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-primary" id="validar" type="submit">Validar</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <p class="cuenta_destino">Este texto es solo de prueba, aqui debe aparecer la informacion extraida de la cuenta destino</p>
+                </div>
+                <!--Descripcion-->
+                <div class=" row">
+                  <label class="col-sm-3">Descripción:</label>
+                  <div class="col-sm-6">
+                    <input type="text" formControlName="descripcion" class="form-control"  placeholder="Descripcion">
+                  </div>
+                </div>
+                <!--Boton enviar-->
+                <div class="mb-4">
+                  <button class="btn btn-primary" id="enviar" type="submit">Transferir</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </body>
+</html>
+
