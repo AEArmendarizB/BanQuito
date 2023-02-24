@@ -84,7 +84,11 @@ export class LoginComponent implements OnInit {
             this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
             break;
           case true:
-            this.router.navigate(['/usuario']);
+
+            const cedula = data.cedula;
+            const cedulaObj = { cedula: cedula };
+            this.router.navigate(['/usuario'], { state: { cedulaObj } });
+            //this.router.navigate(['/usuario']);
             this.toastr.info('Por favor, a continuación debes cambiar tus credenciales', 'Usuario con claves temporales');
             break;
         }

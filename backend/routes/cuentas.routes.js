@@ -14,4 +14,6 @@ router.get('/cuentas',cuentasController.getCuentas);
 router.post('/validarNumeroCuenta',cuentasController.validarNumeroCuenta);
 //transaccion
 router.put('/transaccion-interna',cuentasController.transaccionInterna);
+//generar numero aleatorio
+router.post('/generarNumero',cuentasController.generarNumeroCuenta);
 module.exports=router;

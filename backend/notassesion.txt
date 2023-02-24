@@ -1,0 +1,4 @@
+//para las secciones
+npm install express-session
+//para el encabezado de las cookies y leerlas
+npm install cookie-parser

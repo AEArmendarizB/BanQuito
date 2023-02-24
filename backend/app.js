@@ -24,6 +24,7 @@ app.use((req,res,next)=>{
     res.header('Access-Control-Allow-Headers','Authorization, X-API-KEY, X-Request-With, Content-Type,Accept, Access-Control-Allow, Request-Method')
     res.header('Access-Control-Allow-Methods','GET,POST,OPTIONS,PUT,DELETE');
     res.header('Allow','GET, POST, OPTIONS, PUT, DELETE');
+    res.header("Access-Control-Allow-Credentials", true);
     next();
 });
 
@@ -33,6 +34,20 @@ app.use((req,res,next)=>{
         "<h1>Hola, bienvenido</h1>"
     )
 })*/
+
+
+//agregado para las seciones
+var sessions=require('express-session');
+const cookieParser = require('cookie-parser');
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    secret: "miclave1234564asdasdvfgcdfgvszdfsdfdsf",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false
+}));
+ 
+app.use(cookieParser());
 
 
 app.use('/',usuariosRoutes);

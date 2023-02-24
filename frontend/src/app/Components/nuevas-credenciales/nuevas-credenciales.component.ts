@@ -22,7 +22,21 @@ export class NuevasCredencialesComponent implements OnInit{
   }
   
   ngOnInit(): void {
-      
+    const cedula = history.state.cedulaObj;
+    const login = { username: "jojy3", 
+                    password: "jojy3",
+                    cedula: history.state.cedulaObj.cedula,
+    
+    };
+    console.log("Soy el segundo index");
+    console.log(cedula.cedula);
+    this._usuarioService.actualizarUsuario(login).subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.log(error);
+    });
+    
+
   }
 
   public submitFormulario(){
