@@ -20,7 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuAdminComponent } from './Components/menu-admin/menu-admin.component';
 import { RegistroCuentaComponent } from './Components/registro-cuenta/registro-cuenta.component';
 import { SuspencionClientesComponent } from './Components/suspencion-clientes/suspencion-clientes.component';
-
+import { MatRadioModule } from '@angular/material/radio';
+import {MatFormFieldModule} from '@angular/material/form-field';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { SuspencionClientesComponent } from './Components/suspencion-clientes/su
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgbModule
+    NgbModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
