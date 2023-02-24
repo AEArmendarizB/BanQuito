@@ -16,6 +16,10 @@ var controller = {
         })
 
     },
+    getCuentaByCI: function (req, res) {
+        //Se entrega la CI del cliente y retorna la cuenta (objeto) o arreglo de objetos si hay mas cuentas en el mismo usuario, si no se encuentra, que retorne el codigo de error
+
+    },
     saveCuenta: function (req, res) {
         var cuenta = new Cuenta();
         var params = req.body;
@@ -100,19 +104,19 @@ var controller = {
             var numero = null;
             var cuenta;
 
-            do{
+            do {
 
-                if(ahorro == "true"){
+                if (ahorro == "true") {
 
                     numero = '10';
 
-                }else{
+                } else {
 
                     numero = '20';
 
                 }
 
-                
+
                 for (let i = 0; i < digitos - 2; i++) {
                     numero += Math.floor(Math.random() * 10).toString();
 
@@ -120,19 +124,19 @@ var controller = {
 
                 cuenta = await Cuenta.findOne({ "numero_cuenta": numero }).exec();
 
-                if(cuenta == null){
+                if (cuenta == null) {
 
                     //bucle = "false";
-                    
+
                     return res.status(500).send({ numero });
 
                 }
 
 
 
-            }while(bucle)
+            } while (bucle)
 
-            
+
 
         } catch (error) {
             console.error(error);
