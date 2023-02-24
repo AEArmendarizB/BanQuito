@@ -1,17 +1,17 @@
 <header>
-    <div class="logo">
-      <img src="../../../assets/media/Logo.png" alt="logo">
-      <h1 class="nombre-banco">BanQuito</h1>
+  <div class="logo">
+    <img src="../../../assets/media/Logo.png" alt="logo">
+    <h1 class="nombre-banco">BanQuito</h1>
+  </div>
+</header>
+<div class="container">
+  <div class="row" style="margin-top: 20%;">
+    <div class="card w-75 mx-auto ">
+      <div class="row ">
+        <button [routerLink]="['/registro-cliente']" class="btn btn-secondary col mx-2 my-4 pb-2">Registro Completo de un cliente</button>
+        <button [routerLink]="['/registro-cuenta']" class="btn btn-secondary col mx-2 my-4 pb-2">Registrar nueva Cuenta</button>
+        <button [routerLink]="['/suspender-cliente']" class="btn btn-secondary col mx-2 my-4 pb-2">Suspender clientes</button>
+      </div>
     </div>
-  </header>
-  <div class="container">
-    <div class="row" style="margin-top: 20%;">
-        <div class="card w-75 mx-auto ">
-            <div class="row ">
-                <button [routerLink] = "['/registro-cliente']"class="btn btn-secondary col mx-2 my-4 pb-2">Registro Completo de un cliente</button>
-                <button [routerLink] class="btn btn-secondary col mx-2 my-4 pb-2">Registrar nueva Cuenta</button>
-                <button [routerLink] class="btn btn-secondary col mx-2 my-4 pb-2">Suspender clientes</button>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
