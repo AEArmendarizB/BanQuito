@@ -87,6 +87,63 @@ var controller = {
         }
     },
 
+
+    generarNumeroCuenta: async function (req, res) {
+
+        try {
+            var params = req.body;
+            var ahorro = params.ahorro;
+            var digitos = params.digitos;
+
+            var bucle = "ture";
+
+            var numero = null;
+            var cuenta;
+
+            do{
+
+                if(ahorro == "true"){
+
+                    numero = '10';
+
+                }else{
+
+                    numero = '20';
+
+                }
+
+                
+                for (let i = 0; i < digitos - 2; i++) {
+                    numero += Math.floor(Math.random() * 10).toString();
+
+                }
+
+                cuenta = await Cuenta.findOne({ "numero_cuenta": numero }).exec();
+
+                if(cuenta == null){
+
+                    //bucle = "false";
+                    
+                    return res.status(500).send({ numero });
+
+                }
+
+
+
+            }while(bucle)
+
+            
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send({ message: 'Error al generar el numero' });
+        }
+
+
+    }
+
+
+
 }
 
 
