@@ -36,7 +36,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     TransferenciasInternasResumenComponent,
     NuevasCredencialesComponent,
     PreguntaSeguridadComponent,
-    TransferenciasExternasComponent
+    TransferenciasExternasComponent,
     MenuAdminComponent,
     RegistroCuentaComponent,
     SuspencionClientesComponent
