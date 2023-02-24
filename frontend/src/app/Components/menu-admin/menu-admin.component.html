@@ -4,13 +4,21 @@
     <h1 class="nombre-banco">BanQuito</h1>
   </div>
 </header>
-<div class="container">
-  <div class="row" style="margin-top: 20%;">
+<div class="container mt-3">
+  <div class="row mb-3 w-75 mx-auto">
+    <div class="col-12 float-end">
+      <button routerLink="/login" type="submit" class="btn btn-danger col-2 float-end">Salir</button>
+    </div>
+  </div>
+  <div class="row mt-5" >
     <div class="card w-75 mx-auto ">
       <div class="row ">
-        <button [routerLink]="['/registro-cliente']" class="btn btn-secondary col mx-2 my-4 pb-2">Registro Completo de un cliente</button>
-        <button [routerLink]="['/registro-cuenta']" class="btn btn-secondary col mx-2 my-4 pb-2">Registrar nueva Cuenta</button>
-        <button [routerLink]="['/suspender-cliente']" class="btn btn-secondary col mx-2 my-4 pb-2">Suspender clientes</button>
+        <button [routerLink]="['/registro-cliente']" class="btn btn-secondary col mx-2 my-4 pb-2">Registro Completo de
+          un cliente</button>
+        <button [routerLink]="['/registro-cuenta']" class="btn btn-secondary col mx-2 my-4 pb-2">Registrar nueva
+          Cuenta</button>
+        <button [routerLink]="['/suspender-cliente']" class="btn btn-secondary col mx-2 my-4 pb-2">Suspender
+          clientes</button>
       </div>
     </div>
   </div>
