@@ -15,6 +15,9 @@ var cuentasRoutes=require('./routes/cuentas.routes');
 //para respuesta
 var respuestasRoutes=require('./routes/respuestas.routes');
 
+//para correos
+var enviarCorreo=require('./routes/correo.routes');
+
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -51,11 +54,8 @@ app.use(cookieParser());
 
 
 app.use('/',usuariosRoutes);
-
-
-
 app.use('/',clientesRoutes);
-
+app.use('/',enviarCorreo);
 app.use('/',cuentasRoutes);
 app.use('/',respuestasRoutes);
 module.exports=app;
