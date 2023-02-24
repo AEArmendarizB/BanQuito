@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
       console.log(data);
       if (login.username == "admin" && login.password == "admin") {
         this.toastr.success('Bienvenido usuario Administrador', 'Login Exitoso!');
-        this.router.navigate(['/registro-cliente']);
+        this.router.navigate(['/menu-admin']);
       } else {
         console.log(data.message);
 

@@ -1,0 +1,341 @@
+<div class="container mt-3">
+    <div class="row mb-3 w-75 mx-auto">
+        <div class="col-12 float-end">
+            <button routerLink="/menu-admin" type="submit" class="btn btn-danger col-2 float-end">Regresar</button>
+        </div>
+    </div>
+    <div class="card w-75 mx-auto">
+        <div class="row mx-auto mt-2">
+            <span>
+                <h2>Administraci&oacute;n de cuentas de clientes</h2>
+            </span>
+        </div>
+        <div class="row mx-auto mt-3">
+            <h5>Ingresa el n&uacute;mero de c&eacute;dula del cliente</h5>
+            <hr>
+        </div>
+        <div class="row mx-auto mt-2">
+            <div class="col mt-1">
+                <input #cedula type="text">
+            </div>
+            <div class="col">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+        <div class="row mx-auto mt-1 text-danger text-center">
+            <span>
+                Este campo es obligatorio
+            </span>
+            <span>
+                Solo se aceptan diez d&iacute;gitos, sin espacios en blanco.
+            </span>
+        </div>
+        <div class="col-6 mx-auto mb-2 text-center card mt-4">
+            <div class="card-body">
+                <p #infoCuenta id="infoCuenta">##Info de la cuenta##</p>
+            </div>
+        </div>
+    </div>
+    <div class="card w-75 mx-auto mt-2">
+        <div class="card-body mx-4">
+            <h5 class="float-start">Configura la cuenta de USUARIOX</h5>
+            <br>
+            <hr>
+            <div class="my-3  text-center">
+                <div class="col">
+                    <div ngbDropdown>
+                        <button type="button" class="btn btn-primary" id="TipoCuenta" ngbDropdownToggle>Selecciona la
+                            entidad relacionada que deseas configurar</button>
+                        <div ngbDropdownMenu="TipoCuenta">
+                            <button type="button" ngbDropdownItem>Configurar datos del cliente</button>
+                            <button type="button" ngbDropdownItem>Configurar datos de la cuenta</button>
+                            <button type="button" ngbDropdownItem>Configurar datos del usuario</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Cuerpo 1>CLIENTE-->
+        <div class="card-body mx-auto w-50">
+            <form>
+                <div class="row">
+                    <div class="col custom-control custom-radio">
+                        <input id="enable" type="radio" class="custom-control-input" value="enable" name="reportInjury">
+                        <label class="custom-control-label" for="enable">Activo</label>
+                    </div>
+                    <div class="col custom-control custom-radio">
+                        <input id="disabled" type="radio" class="custom-control-input" value="disabled"
+                            name="reportInjury">
+                        <label class="custom-control-label" for="disabled">Pasivo</label>
+                    </div>
+                </div>
+                <div class="form-group my-2">
+                    <label class="float-start">Nombres</label>
+                    <input type="text" class="form-control" placeholder="Ej. John Carl">
+                    <!--Letreros de error-->
+                    <div class="text-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div class="text-danger">
+                        No se permite: n&uacute;meros, simbolos(excepto '), espacios en blanco,
+                        espacios luego de una palabra.
+                    </div>
+                    <!--------------------->
+                </div>
+                <div class="form-group my-2">
+                    <label class="float-start">Apellidos</label>
+                    <input type="text" class="form-control" placeholder="Ej. Doe Smith">
+                    <!--Letreros de error-->
+                    <div class="text-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div class="text-danger">
+                        No se permite: n&uacute;meros, simbolos(excepto '), espacios en blanco,
+                        espacios luego de una palabra.
+                    </div>
+                    <!--------------------->
+                </div>
+                <div class="row">
+                    <div class="form-group my-2 col-lg-7 ">
+                        <label class="float-start">C&eacute;dula de ciudadan&iacute;a</label>
+                        <input type="text" class="form-control" placeholder="Ej. 1753647740">
+                        <!--Letreros de error-->
+                        <div class="text-danger">
+                            Este campo es obligatorio
+                        </div>
+                        <div class="text-danger">
+                            Solo se aceptan diez d&iacute;gitos, sin espacios en blanco.
+                        </div>
+                        <!--------------------->
+                    </div>
+                    <div class="form-group my-2 col-lg-5 ">
+                        <label class="float-start">C&oacute;digo dactilar</label>
+                        <input type="text" class="form-control" placeholder="Ej. V3333V2222">
+                        <!--Letreros de error-->
+                        <div class="text-danger">
+                            Este campo es obligatorio
+                        </div>
+                        <div class="text-danger">
+                            Solo se acepta c&oacute;digos que constan de una letra, seguida de 4
+                            d&iacute;gitos,seguida de una letra y cuatro d&iacute;gitos, sin
+                            espacios.
+                        </div>
+                        <!--------------------->
+                    </div>
+                </div>
+                <div class="form-group my-2 col-lg-6">
+                    <label class="float-start">Fecha de nacimiento</label>
+                    <input type="date" class="form-control  ">
+                    <!--Letreros de error-->
+                    <div class="text-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <!--------------------->
+                </div>
+                <div class="form-group my-2">
+                    <label class="float-start">Correo electr&oacute;nico</label>
+                    <br>
+                    <div class="row" >
+                        <div class="col-7">
+                            <input type="email" formControlName="email" class="form-control"
+                                placeholder="Ej. johndoe@example.com">
+                        </div>
+                        <div class="col-5">
+                            <button type="button" class="col btn btn-primary">Enviar c&oacute;digo</button>
+                        </div>
+                        <!--ESTO DEBE APARECER LUEGO DE PULSAR EL BOTON-->
+                        <div class="col-5">
+                            <input type="text" class="form-control" placeholder="ej. abc123">
+                            <small class="text-muted"><a href="#">Reenviar c&oacute;digo</a></small>
+                        </div>
+                        <!---->
+                    </div>
+                    <!--Letreros de error-->
+                    <div class="text-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div class="text-danger">
+                        Solo se acepta correos electr&oacute;nicos v&aacute;lidos.
+                    </div>
+                    <!--------------------->
+                </div>
+                <div class="form-group my-2">
+                    <label class="float-start">Domicilio</label>
+                    <input type="text" class="form-control"
+                        placeholder="Ej. Av. Ladr&oacute;n de Guevara E11-253, Quito ">
+                    <!--Letreros de error-->
+                    <div class="text-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div class="text-danger">
+                        El tama&ntilde;o m&aacute;ximo son cien caracteres.
+                    </div>
+                    <!--------------------->
+                </div>
+                <div class="form-group my-2">
+                    <label class="float-start">Ocupaci&oacute;n</label>
+                    <input type="text" class="form-control" placeholder="Ej. Software Developer">
+                    <!--Letreros de error-->
+                    <div class="text-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div class="text-danger">
+                        El tama&ntilde;o m&aacute;ximo son cien caracteres.
+                    </div>
+                    <!--------------------->
+                </div>
+                <div class="form-group my-2">
+                    <label class="float-start">N&uacute;mero de tel&eacute;fono</label>
+                    <input type="text" class="form-control" placeholder="Ej. 0984318743">
+                    <!--Letreros de error-->
+                    <div class="text-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div class="text-danger">
+                        Solo se acepta n&uacute;meros de tel&eacute;fono v&aacute;lidos de diez
+                        d&iacute;gitos que empiecen por 09xxxxxxxx.
+                    </div>
+                    <!--------------------->
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 mb-2">Entregar</button>
+            </form>
+        </div>
+        <!--Cuerpo 2>CUENTA-->
+        <div class="card-body mx-auto w-50">
+            <form>
+                <div class="row">
+                    <div class="col custom-control custom-radio">
+                        <input id="enable" type="radio" class="custom-control-input" value="enable" name="reportInjury">
+                        <label class="custom-control-label" for="enable">Activo</label>
+                    </div>
+                    <div class="col custom-control custom-radio">
+                        <input id="disabled" type="radio" class="custom-control-input" value="disabled"
+                            name="reportInjury">
+                        <label class="custom-control-label" for="disabled">Pasivo</label>
+                    </div>
+                </div>
+                <span class="row mt-4 ">
+                    <label class="float-start col-lg-6 ">N&uacute;mero de cuenta</label>
+                    <span #spanNumCuenta id="numeroCuenta"
+                        class="badge rounded-pill bg-info text-dark col-lg-5 float-end">#</span>
+                </span>
+                <div class="form-group my-2 mt-5 ">
+                    <div class="col">
+                        <div ngbDropdown>
+                            <button type="button" class="btn btn-primary" id="TipoCuenta" ngbDropdownToggle>Selecciona
+                                el
+                                tipo de cuenta</button>
+                            <div ngbDropdownMenu="TipoCuenta">
+                                <button type="button" ngbDropdownItem>Cuenta de
+                                    ahorros</button>
+                                <button type="button" ngbDropdownItem>Cuenta
+                                    Corriente</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group my-2 row">
+                    <div class="col-lg-12 mt-3">
+                        <label class="float-start">Ingreso mensual promedio</label>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <input type="number" class="form-control " placeholder="Ej. 1000">
+                            </div>
+                            <div class="col-lg-2 float-end mt-1">
+                                <span class="badge badge-secondary text-dark">USD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Letreros de error-->
+                    <div class="text-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div class="text-danger">
+                        Solo se aceptan valores enteros o valores con dos digitos decimales.
+                    </div>
+                    <!--------------------->
+                </div>
+                <div class="form-group my-2 row">
+                    <div class="col-lg-12 mt-3">
+                        <label class="float-start">Aporte inicial</label>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <input type="number" class="form-control " placeholder="Ej. 20">
+                            </div>
+                            <div class="col-lg-2 float-end mt-1">
+                                <span class="badge badge-secondary text-dark">USD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Letreros de error-->
+                    <div class="text-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div class="text-danger">
+                        Solo se aceptan valores enteros o valores con dos digitos decimales.
+                    </div>
+                    <!--------------------->
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 mb-2">Entregar</button>
+                <div class="card mt-4">
+                    <div class="card-body text-center">
+                        <p #infoCuenta id="infoCuenta">##Info de la cuenta##</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--Cuerpo 3>USUARIO-->
+        <div class="card-body mx-auto w-50">
+            <form>
+                <div class="row">
+                    <div class="col custom-control custom-radio">
+                        <input id="enable" type="radio" class="custom-control-input" value="enable" name="reportInjury">
+                        <label class="custom-control-label" for="enable">Activo</label>
+                    </div>
+                    <div class="col custom-control custom-radio">
+                        <input id="disabled" type="radio" class="custom-control-input" value="disabled"
+                            name="reportInjury">
+                        <label class="custom-control-label" for="disabled">Pasivo</label>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <label class="float-start">Usuario</label>
+                    <input type="text" #user class="form-control" id="user" value="Usuario temporal">
+                </div>
+                <div class="form-group mt-2">
+                    <label class="float-start">Contrase&ntilde;a</label>
+                    <input type="text" #password class="form-control" value="Contrase&ntilde;a temporal">
+                </div>
+                <div class="form-group  mt-2 ">
+                    <div ngbDropdown class="row">
+                        <button type="button" #botonPregunta class="btn btn-primary  col-11 mx-3" id="TipoCuenta"
+                            ngbDropdownToggle>Selecciona la pregunta de seguridad</button>
+                        <div ngbDropdownMenu="TipoCuenta" class="col-11 ">
+                            <button type="button" ngbDropdownItem>¿Cu&aacute;l es tu sabor de
+                                helado
+                                favorito?</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-2">
+                    <label class="float-start">Respuesta</label>
+                    <input type="text" class="form-control" value="Respuesta de la pregunta">
+                </div>
+                <!--Letreros de error-->
+                <div class="text-danger">
+                    Este campo es obligatorio
+                </div>
+                <div class="text-danger">
+                    El tama&ntilde;o m&aacute;ximo es 50 caracteres.
+                </div>
+                <!--------------------->
+                <button type="submit" class="btn btn-primary mt-3">Finalizar</button>
+
+            </form>
+        </div>
+    </div>
+</div>
