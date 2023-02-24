@@ -9,6 +9,7 @@ var UsuarioSchema=Schema({
     password:String,
     pregunta:String,
     isNew:Boolean,
+    otp: String
     
 });
 module.exports=mongoose.model('Usuario',UsuarioSchema);
