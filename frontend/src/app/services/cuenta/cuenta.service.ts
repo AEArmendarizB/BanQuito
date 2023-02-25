@@ -24,8 +24,8 @@ export class CuentaService {
         return this.http.post(this.urlVerificar, cuenta);
     }
 
-    getCuentaByCI(CI: string):Observable<any>{
-        return this.http.post(this.urlGetCuentaByCI, CI);
+    getCuentaByCI(cedula: Object):Observable<any>{
+        return this.http.post(this.urlGetCuentaByCI, cedula);
     }
     /*generateNumCuenta(#PARAMETRO#):Observable<any>{
         return this.http.post(this.generateNumCuenta, #PARAMETRO#);

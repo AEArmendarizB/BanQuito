@@ -18,7 +18,16 @@ var controller = {
     },
     getCuentaByCI: function (req, res) {
         //Se entrega la CI del cliente y retorna la cuenta (objeto) o arreglo de objetos si hay mas cuentas en el mismo usuario, si no se encuentra, que retorne el codigo de error
+        console.log("Recolectando datos de las cuentas del usuario:")
+        var params=req.body;
+        var cedula= params.cedula;
+        console.log(cedula)
 
+        Cuenta.find({ "cedula": cedula }, (err, cuentas) => {
+            if (err) return res.status(500).send({message:500});
+            if(!cuentas) return res.status(404).send({message:404});
+            return res.status(200).send({cuentas});
+        })
     },
     saveCuenta: function (req, res) {
         var cuenta = new Cuenta();
