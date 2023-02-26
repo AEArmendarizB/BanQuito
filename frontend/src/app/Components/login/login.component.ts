@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   title = 'BanQuito';
   public myForm!: FormGroup;
   public LOGIN_USUARIO: any;
+  public control: number;
 
   constructor(
     private fb: FormBuilder,
@@ -25,8 +26,10 @@ export class LoginComponent implements OnInit {
   ) {
     this.myForm = this.fb.group({
       usuario: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      otp: ['', Validators.required]
     });
+    this.control=0;
   }
 
   ngOnInit(): void {
@@ -49,13 +52,26 @@ export class LoginComponent implements OnInit {
   }
 
   crearUsuario() {
-    const LOGIN_USUARIO: LoginUsuario = {
+    switch(this.control){
+      case 0:
+        const LOGIN_USUARIO: LoginUsuario = {
+          username: this.myForm.get('usuario')?.value,
+          password: this.myForm.get('password')?.value
+        };
+
+        this.verificarUsuario(LOGIN_USUARIO);
+        break;
+
+      case 1:
+        
+    }
+    /*const LOGIN_USUARIO: LoginUsuario = {
       username: this.myForm.get('usuario')?.value,
       password: this.myForm.get('password')?.value
     };
-    /*console.log(LOGIN_USUARIO);
-    console.log(LOGIN_USUARIO.username);*/
-    this.verificarUsuario(LOGIN_USUARIO);
+    console.log(LOGIN_USUARIO);
+    console.log(LOGIN_USUARIO.username);
+    this.verificarUsuario(LOGIN_USUARIO);*/
   }
 
   verificarUsuario(login: LoginUsuario) {
@@ -84,7 +100,6 @@ export class LoginComponent implements OnInit {
             this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
             break;
           case true:
-
             const cedula = data.cedula;
             const cedulaObj = { cedula: cedula };
             this.router.navigate(['/usuario'], { state: { cedulaObj } });
