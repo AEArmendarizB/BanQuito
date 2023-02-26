@@ -66,8 +66,8 @@ export class NuevasCredencialesComponent implements OnInit{
                   cedula: history.state.cedulaObj.cedula,
   
     };
-    console.log("Soy el segundo index");
-    console.log(cedula.cedula);
+    //console.log("Soy el segundo index");
+    //console.log(cedula.cedula);
     this._usuarioService.actualizarUsuario(new_user).subscribe(data => {
       console.log(data);
     }, error => {
@@ -76,5 +76,32 @@ export class NuevasCredencialesComponent implements OnInit{
 
     this.toastr.success('Se han cambiado las credenciales.', 'CAMBIO EXITOSO ');
     this.router.navigate(['/login']);
+    
+    /*
+    this._usuarioService.verificarUsuario(nuevo_usuario).subscribe(data => {
+      if (nuevo_usuario.username == "admin" && nuevo_usuario.password == "admin") {
+        this.toastr.success('Ese nombre de usuario ya está en uso', 'ERROR!');
+      } else {
+        switch (data.message) {
+          case 1:
+            this._usuarioService.actualizarUsuario(new_user).subscribe(data => {
+              console.log(data);
+            }, error => {
+              console.log(error);
+            });
+            this.toastr.success('Se han cambiado las credenciales.', 'CAMBIO EXITOSO ');
+            this.router.navigate(['/login']);
+            break;
+          case false:
+            this.toastr.success('Ese nombre de usuario ya está en uso', 'ERROR!');
+            break;
+          case true:
+            this.toastr.success('Ese nombre de usuario ya está en uso', 'ERROR!');
+            break;
+        }
+      }
+    }, error => {
+      console.log(error);
+    });*/
   }
 }
