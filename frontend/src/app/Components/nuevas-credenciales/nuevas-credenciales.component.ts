@@ -78,7 +78,7 @@ export class NuevasCredencialesComponent implements OnInit{
     this.router.navigate(['/login']);*/
     this._usuarioService.verificarUsername(nuevo_usuario).subscribe(data =>{
       console.log(data.message);
-      /*switch (data.message){
+      switch (data.message){
         case true:
           this.toastr.error('Ese nombre de usuario ya está en uso', 'ERROR!');
           break;
@@ -93,7 +93,7 @@ export class NuevasCredencialesComponent implements OnInit{
           this.toastr.success('Se han cambiado las credenciales.', 'CAMBIO EXITOSO ');
           this.router.navigate(['/login']);
           break;
-      }*/
+      }
     },error => {
       console.log(error);
     });

@@ -139,9 +139,9 @@ var controller = {
         var user = params.username;
         console.log(user);
         Usuario.findOne({ "username": user }, (err, user) => {
-            if (err) return res.status(200).send(true);
-            if (!user) return res.status(200).send(false);
-            return res.status(200).send(true);
+            if (err) return res.status(200).send({message: true});
+            if (!user) return res.status(200).send({message: false});
+            return res.status(200).send({message: true});
         })
     }
 
