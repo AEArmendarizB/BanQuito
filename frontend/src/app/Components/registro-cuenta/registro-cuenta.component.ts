@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Cuenta } from 'src/app/models/cuentas';
-import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
+import { Cuenta } from '../../models/cuentas';
+import { CuentaService } from '../../services/cuenta/cuenta.service';
 
 @Component({
   selector: 'app-registro-cuenta',

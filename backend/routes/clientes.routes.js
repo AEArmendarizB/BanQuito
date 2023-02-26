@@ -10,8 +10,11 @@ router.get('/inicio',clientesController.inicio);
 router.post('/guardar-cliente',clientesController.saveCliente);
 //ver todas las cuentas
 router.get('/clientes',clientesController.getClientes);
-
+//obtener Cliente
+router.post('/cliente',clientesController.getCliente);
 //validar cedula
 router.post('/validarCedula',clientesController.validarCedula);
+//actualizar Cliente
+router.post('/actualizar-cliente',clientesController.actualizarCliente);
 
 module.exports=router;
