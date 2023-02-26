@@ -256,7 +256,8 @@
                                         </div>
                                         <!--------------------->
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-3 mb-2">Entregar</button>
+                                    <button type="submit" [disabled]="formularioCuenta.invalid"
+                                    class="btn btn-primary mt-3 mb-2">Entregar</button>
                                     <div class="card mt-4">
                                         <div class="card-body">
                                             <p #infoCuenta id="infoCuenta">##Info de la cuenta##</p>
@@ -306,7 +307,8 @@
                                         El tama&ntilde;o m&aacute;ximo es 50 caracteres.
                                     </div>
                                     <!--------------------->
-                                    <button type="submit" class="btn btn-primary mt-3">Finalizar</button>
+                                    <button type="submit" [disabled]="formularioUsuario.invalid"
+                                    class="btn btn-primary mt-3">Finalizar</button>
 
                                 </form>
                             </div>
