@@ -11,13 +11,13 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { UsuarioService } from 'src/app/services/usuario/usuarios.service';
 
-var codigo;
 
 @Component({
   selector: 'app-registro-cliente',
   templateUrl: './registro-cliente.component.html',
   styleUrls: ['./registro-cliente.component.css']
 })
+
 export class RegistroClienteComponent implements OnInit {
 
   formularioCliente: FormGroup;
@@ -38,7 +38,7 @@ export class RegistroClienteComponent implements OnInit {
     private router: Router,
     private _clienteService: ClienteService,
     private _cuentaService: CuentaService,
-    private _credendialesService:  UsuarioService,
+    private _credendialesService: UsuarioService,
   ) {
     //Cliente
     this.formularioCliente = this.fb.group({
@@ -50,7 +50,8 @@ export class RegistroClienteComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       domicilio: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{1,50}$')]],
       ocupacion: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{1,50}$')]],
-      numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]]
+      numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]],
+      otp: ['', Validators.required]
     });
     //Cuenta
     this.formularioCuenta = this.fb.group({
@@ -87,17 +88,17 @@ export class RegistroClienteComponent implements OnInit {
   get fCliente() { return this.formularioCliente.controls }
 
   //Habilitar boton de correo
-  otp(){
+  otp() {
     if (this.formularioCliente.get('email')?.valid) {
-  /*   var correo = this.formularioCliente.get('email')?.value;
-     console.log(correo);
-     this.verificarCorreo(correo);
-    */ 
-    //Deshabilitar el botón de correo
-    document.getElementById('boton-correo')!.style.display='none';
-    document.getElementById('otp')!.style.display='block';
+      var correo = this.formularioCliente.get('email')?.value;
+
+      //Deshabilitar el botón de correo
+      document.getElementById('boton-correo')!.style.display = 'none';
+      document.getElementById('otp')!.style.display = 'block';
+      //enviar correo
+      this.verificarCorreo(correo);
+    }
   }
-   }
 
   agregarCliente() {
     const CLIENTE: Cliente = {
@@ -116,7 +117,7 @@ export class RegistroClienteComponent implements OnInit {
 
     //
     console.log("Cliente: " + CLIENTE);
-    
+
 
 
     //Envio de datos
@@ -129,7 +130,7 @@ export class RegistroClienteComponent implements OnInit {
       this.guardarCliente(CLIENTE);
     }
   }
-  
+
   agregarCuenta() {
     const CUENTA: Cuenta = {
       cedula: this.formularioCliente.get('cedula')?.value,
@@ -222,7 +223,7 @@ export class RegistroClienteComponent implements OnInit {
       }
     )
   }
-  guardarCuenta(cuenta: Cuenta){
+  guardarCuenta(cuenta: Cuenta) {
     console.log(cuenta);
     this._cuentaService.guardarCuenta(cuenta).subscribe(
       data => {
@@ -247,10 +248,10 @@ export class RegistroClienteComponent implements OnInit {
       }
     )
   }
-  guardarUsuario(credendiales: Usuario){
+  guardarUsuario(credendiales: Usuario) {
     console.log(credendiales);
     this._credendialesService.verificarUsuario(credendiales).subscribe(
-      data =>{
+      data => {
         console.log(data.message)
         switch (data.message) {
           case (200): {
@@ -274,14 +275,14 @@ export class RegistroClienteComponent implements OnInit {
     )
 
   }
-  verificarCliente(cliente: Cliente){
+  verificarCliente(cliente: Cliente) {
     console.log(cliente);
     this._clienteService.validarCliente(cliente).subscribe(
-      data=>{
-        if(data == true){
+      data => {
+        if (data == true) {
           //El cliente(cedula) existe en la base de datos
           this.toastr.error('El CI de este cliente ya existe dentro de la base de datos, no se puede crear un usuario duplicado.', 'El cliente ya existe!');
-        }else{
+        } else {
           //El cliente(cedula) es nuevo, no existe en la base de datos
           this.guardarCliente(cliente);
         }
@@ -290,14 +291,14 @@ export class RegistroClienteComponent implements OnInit {
     )
 
   }
-  verificarCuenta(cuenta: Cuenta){
+  verificarCuenta(cuenta: Cuenta) {
     console.log(cuenta);
     this._cuentaService.validarCuenta(cuenta).subscribe(
-      data=>{
-        if(data == true){
+      data => {
+        if (data == true) {
           //El cliente(cedula) existe en la base de datos
           this.toastr.error('Este n&uacute; de cuenta ya existe dentro de la base de datos, no se puede crear una cuenta duplicada.', 'La cuenta ya existe!');
-        }else{
+        } else {
           //El cliente(cedula) es nuevo, no existe en la base de datos
           this.guardarCuenta(cuenta);
         }
@@ -305,13 +306,27 @@ export class RegistroClienteComponent implements OnInit {
       }
     )
   }
-  verificarCorreo(email:String){
-    const correo = { correo: email}
-    console.log(correo);
+  verificarCorreo(email: String) {
+    var codigo = "";
+    var patron: RegExp;
+    const correo = { correo: email }
     this._clienteService.validarCorreo(correo).subscribe(
-      data=>{
-        console.log(data);
-        codigo=data;
+      data => {
+        codigo = data.toString();
+        let patron="^"+codigo+"$";  
+        //patron = /1234/g;
+        var campo = document.getElementById('otp-campo');
+        campo!.addEventListener('keyup',()=>{
+          var text = document.getElementById('text');
+          var otp = this.formularioCliente.get('otp')!.value;
+          console.log(patron);
+          console.log(otp);
+          if(otp.match(patron)==null){
+           text!.innerHTML="Codigo invalido"
+          }else{
+           text!.innerHTML="Codigo valido"
+          }
+        })
       }
     )
   }

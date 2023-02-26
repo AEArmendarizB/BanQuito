@@ -13,7 +13,7 @@ var controller = {
         var mensaje2 = '\n\n'+"Tenga en cuenta que si no verifica su dirección de correo electrónico, su cuenta no estará completamente activa y no podrá acceder a todos los servicios en línea que ofrecemos."+'\n\n'+"Si tiene alguna pregunta o necesita ayuda, no dude en ponerse en contacto con nuestro equipo de soporte al cliente. Estamos disponibles las 24 horas del día para ayudarlo en todo lo que necesite."+'\n\n'+"Gracias por elegir BanQuito. Esperamos poder servirle en el futuro."+'\n\n';
         var otp = "";
         //generacion del número de validacion
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 6; i++) {
             otp += Math.floor(Math.random() * 10).toString();
         }
         //inicializar el correo
@@ -41,9 +41,9 @@ var controller = {
             } else {
                 res.status("200");
             }
-        })
 
-        return res.send(otp);
+            return res.send(otp);
+        }) 
     },
 
 
