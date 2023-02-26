@@ -18,7 +18,7 @@ router.post('/verificar-usuario',usuariosController.verificarUsuario);
 router.post('/generarCodigoOTP',usuariosController.generarCodigoOTP);
 //actualizar un usuario
 router.post('/actualizarUsuario',usuariosController.actualizarUsuario);
-
-
+//validar username
+router.post('/validarUsername',usuariosController.validarUsername);
 
 module.exports=router;

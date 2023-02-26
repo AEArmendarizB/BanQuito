@@ -132,8 +132,19 @@ var controller = {
 
         return res.status(500).send({ otp });
 
-    }
+    },
 
+    validarUsername:function (req, res) {
+        var params = req.body;
+        console.log(params.username);
+        var user = params.username;
+        console.log(user);
+        Usuario.findOne({ "username": user }, (err, user) => {
+            if (err) return res.status(200).send(true);
+            if (!user) return res.status(200).send(false);
+            return res.status(200).send(true);
+        })
+    },
 
 
 
