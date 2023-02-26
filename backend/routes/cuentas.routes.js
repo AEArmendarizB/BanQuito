@@ -14,4 +14,8 @@ router.get('/cuentas',cuentasController.getCuentas);
 router.post('/validarNumeroCuenta',cuentasController.validarNumeroCuenta);
 //transaccion
 router.put('/transaccion-interna',cuentasController.transaccionInterna);
+//generar numero de cuenta (12digitos)aleatorio
+router.post('/generarNumero',cuentasController.generarNumeroCuenta);
+//Obtener una cuenta a partir de un numero de cedula.
+router.post('/get-Cuenta-byCI',cuentasController.getCuentaByCI);
 module.exports=router;

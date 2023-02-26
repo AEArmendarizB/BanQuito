@@ -7,98 +7,126 @@
     <div class="card w-75 mx-auto">
         <div class="row mx-auto mt-2">
             <span>
-                <h2>Registra una nueva cuenta</h2>
+                <h2 #letrero>Registra una nueva cuenta</h2>
             </span>
         </div>
         <div class="row mx-auto mt-3">
             <h5>Ingresa el n&uacute;mero de c&eacute;dula del cliente</h5>
             <hr>
         </div>
-        <div class="row mx-auto mt-2">
-            <div class="col mt-1">
-                <input #cedula type="text">
+        <form [formGroup]="formularioCedula" class="mx-auto mt-2 text-center" (ngSubmit)="buscarCliente()">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-9 mt-1">
+                        <input #cedula formControlName="cedula" formControlName="cedula" class="form-control"
+                            type="text" placeholder="Ej.1753647740">
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" [disabled]="formularioCedula.invalid"
+                            class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+                <div class="row mx-auto mt-1 text-danger text-center">
+                    <span
+                        *ngIf="formularioCedula.get('cedula')?.hasError('required') && formularioCedula.get('cedula')?.touched">
+                        Este campo es obligatorio
+                    </span>
+                    <span *ngIf="formularioCedula.get('cedula')?.hasError('pattern')">
+                        Solo se aceptan diez d&iacute;gitos, sin espacios en blanco.
+                    </span>
+                </div>
+                <div class="row card mx-auto mb-2">
+                    <div class="card-body">
+                        <p #infoCuentas>##Info de la cuenta##</p>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <button class="btn btn-primary">Buscar</button>
-            </div>
-        </div>
-        <div class="row mx-auto mt-1 text-danger text-center">
-            <span>
-                Este campo es obligatorio
-            </span>
-            <span>
-                Solo se aceptan diez d&iacute;gitos, sin espacios en blanco.
-            </span>
-        </div>
-        <div class="card-body mx-auto">
-            <p #infoUsuario id="infoCuenta">##Info de la cuenta##</p>
-        </div>
+        </form>
     </div>
     <div class="card w-75  mx-auto mt-2">
         <div class="card-body mx-4">
-            <h5 class="float-start">Configura tu nueva cuenta</h5>
-            <br>
-            <hr>
-            <div class="row mt-3 text-center">
-                <div class="col">
-                    <label>N&uacute;mero de cuenta:</label>
+            <form [formGroup]="formularioCuenta" (ngSubmit)="agregarCuenta()">
+                <h5 class="float-start">Configura una nueva cuenta</h5>
+                <br>
+                <hr>
+                <div class="row mt-3 text-center">
+                    <div class="col">
+                        <label>N&uacute;mero de cuenta:</label>
+                    </div>
+                    <div class="col">
+                        <span #spanNumCuenta id="numeroCuenta"
+                            class="badge rounded-pill bg-info text-dark col-5">##</span>
+                    </div>
                 </div>
-                <div class="col">
-                    <span #spanNumCuenta id="numeroCuenta" class="badge rounded-pill bg-info text-dark col-5">##</span>
-                </div>
-            </div>
-            <div class="my-3  text-center">
-                <div class="col">
-                    <div ngbDropdown>
-                        <button type="button" class="btn btn-primary" id="TipoCuenta" ngbDropdownToggle>Selecciona el
-                            tipo de cuenta</button>
-                        <div ngbDropdownMenu="TipoCuenta">
-                            <button type="button" ngbDropdownItem>Cuenta de
-                                ahorros</button>
-                            <button type="button" ngbDropdownItem>Cuenta
-                                Corriente</button>
+                <div class="my-3  text-center">
+                    <div class="col">
+                        <div ngbDropdown>
+                            <button type="button" class="btn btn-primary" id="TipoCuenta" ngbDropdownToggle>Selecciona
+                                el
+                                tipo de cuenta</button>
+                            <div ngbDropdownMenu="TipoCuenta">
+                                <button type="button" (click)="ahorros()" ngbDropdownItem>Cuenta de
+                                    ahorros</button>
+                                <button type="button" (click)="corriente()" ngbDropdownItem>Cuenta
+                                    Corriente</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-3 mt-2">
-                    <label class="float-start">Ingreso mensual promedio</label>
-                </div>
-                <div class="col-3 mt-1">
-                    <div class="row">
-                        <div class="col-lg-9">
-                            <input type="number" class="form-control " placeholder="Ej. 1000">
-                        </div>
-                        <div class="col-lg-2 float-end mt-1">
-                            <span class="badge badge-secondary text-dark">USD</span>
-                        </div>
+                <div class="row mt-3">
+                    <div class="col-3 mt-2">
+                        <label class="float-start">Ingreso mensual promedio</label>
                     </div>
-                    <div class="row text-danger">
-                        <span>Este campo es obligatorio.</span>
-                        <span>Solo se aceptan valores enteros o valores con dos digitos decimales.</span>
-                    </div>
-                </div>
-                <div class="col-3 mt-2 text-center">
-                    <label>Aporte inicial</label>
-                </div>
-                <div class="col-3 mt-1">
-                    <div class="row">
-                        <div class="col-lg-9">
-                            <input type="number" formControlName="ingreso_promedio" class="form-control "
-                                placeholder="Ej. 20">
+                    <div class="col-3 mt-1">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <input type="number" formControlName="ingreso_promedio" class="form-control "
+                                    placeholder="Ej. 1000">
+                            </div>
+                            <div class="col-lg-2 float-end mt-1">
+                                <span class="badge badge-secondary text-dark">USD</span>
+                            </div>
                         </div>
-                        <div class="col-lg-2 float-end mt-1">
-                            <span class="badge badge-secondary text-dark">USD</span>
+                        <!--Letreros de error-->
+                        <div class="row text-danger">
+                            <span
+                                *ngIf="formularioCuenta.get('ingreso_promedio')?.hasError('required') && formularioCuenta.get('ingreso_promedio')?.touched">Este
+                                campo es obligatorio.</span>
+                            <span *ngIf="formularioCuenta.get('ingreso_promedio')?.hasError('pattern')">Solo se aceptan
+                                valores enteros o valores con dos digitos decimales.</span>
                         </div>
+                        <!--------------------->
                     </div>
-                    <div class="row text-danger">
-                        <span>Este campo es obligatorio.</span>
-                        <span>Solo se aceptan valores enteros o valores con dos digitos decimales.</span>
+                    <div class="col-3 mt-2 text-center">
+                        <label>Aporte inicial</label>
+                    </div>
+                    <div class="col-3 mt-1">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <input type="number" formControlName="monto_inicial" class="form-control "
+                                    placeholder="Ej. 20">
+                            </div>
+                            <div class="col-lg-2 float-end mt-1">
+                                <span class="badge badge-secondary text-dark">USD</span>
+                            </div>
+                        </div>
+                        <!--Letreros de error-->
+                        <div class="row text-danger">
+                            <span
+                                *ngIf="formularioCuenta.get('monto_inicial')?.hasError('required') && formularioCuenta.get('monto_inicial')?.touched">Este
+                                campo es obligatorio.</span>
+                            <span *ngIf="formularioCuenta.get('monto_inicial')?.hasError('pattern')">Solo se aceptan
+                                valores enteros o valores con dos digitos decimales.</span>
+                        </div>
+                        <!--------------------->
+                    </div>
+                    <button class="btn btn-primary col-3 mx-auto mt-3"
+                        [disabled]="formularioCuenta.invalid">Enviar</button>
+                    <div class="card-body mx-auto text-center">
+                        <p #infoCuentaNueva>##Info de la cuenta##</p>
                     </div>
                 </div>
-                <button class="btn btn-primary col-3 mx-auto mt-3">Enviar</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>

@@ -64,20 +64,30 @@ export class RegistroClienteComponent implements OnInit {
   corriente() {
     //20 para corriente
     const numCuenta = this.cuenta.nativeElement;
-    this.num = 20 + this.formularioCliente.get('cedula')?.value;
-    this.renderer2.setProperty(numCuenta, 'innerHTML', this.num);
-    this.formularioCuenta.patchValue({ tipo_cuenta: '20' });
-    this.formularioCuenta.patchValue({ numero_cuenta: this.num });
-    console.log(this.formularioCuenta);
+    let cuenta = {
+      ahorro: false,
+      digitos: 12
+    }
+    this._cuentaService.generarNumCuenta(cuenta).subscribe(
+      data => {
+        this.renderer2.setProperty(numCuenta, 'innerHTML', data.numero);
+        this.formularioCuenta.patchValue({ tipo_cuenta: '20' });
+        this.formularioCuenta.patchValue({ numero_cuenta: data.numero });
+      });
   }
   ahorros() {
     //10 para corriente
     const numCuenta = this.cuenta.nativeElement;
-    this.num = 10 + this.formularioCliente.get('cedula')?.value;
-    this.renderer2.setProperty(numCuenta, 'innerHTML', this.num);
-    this.formularioCuenta.patchValue({ tipo_cuenta: '10' });
-    this.formularioCuenta.patchValue({ numero_cuenta: this.num });
-    console.log(this.num);
+    let cuenta = {
+      ahorro: true,
+      digitos: 12
+    }
+    this._cuentaService.generarNumCuenta(cuenta).subscribe(
+      data => {
+        this.renderer2.setProperty(numCuenta, 'innerHTML', data.numero);
+        this.formularioCuenta.patchValue({ tipo_cuenta: '10' });
+        this.formularioCuenta.patchValue({ numero_cuenta: data.numero });
+      });
   }
   //get
   get fCliente() { return this.formularioCliente.controls }
@@ -97,10 +107,6 @@ export class RegistroClienteComponent implements OnInit {
       //State define si el usuario esta activo=>true o pasivo=>false
       state: true
     }
-
-    //
-    console.log("Cliente: " + CLIENTE);
-
     //Envio de datos
     if (this.formularioCliente.valid) {
       this.verificarCliente(CLIENTE);
@@ -111,8 +117,35 @@ export class RegistroClienteComponent implements OnInit {
       this.guardarCliente(CLIENTE);
     }
   }
+    printCuenta(cuenta: Cuenta) {
+    let numParams = 7;
+    let salida = "-".repeat(20);
+    salida = salida + '<br>' +
+      "Número de cuenta: " + cuenta.numero_cuenta + '<br>' +
+      "Cédula: " + cuenta.cedula + '<br>';
+    if (cuenta.tipo_cuenta == '10') {
+      salida = salida +
+        "Tipo de cuenta: Ahorros" + '<br>';
+    } else if (cuenta.tipo_cuenta == '20') {
+      salida = salida +
+        "Tipo de cuenta: Corriente" + '<br>';
+    }
+    salida = salida +
+      "Monto: " + cuenta.monto_inicial + '<br>' +
+      "Ingresos promedio del cliente: " + cuenta.ingreso_promedio + '<br>';
+    if (cuenta.state) {
+      salida = salida +
+        "Estado de la cuenta: Activo" + '<br>';
+    } else {
+      salida = salida +
+        "Estado de la cuenta: Pasivo" + '<br>';
+    }
+    salida = salida + "-".repeat(20);
+    return salida;
+  }
   agregarCuenta() {
-    const CUENTA: Cuenta = {
+    let salida: string;
+    const CUENTA: Cuenta = { 
       cedula: this.formularioCliente.get('cedula')?.value,
       tipo_cuenta: this.formularioCuenta.get('tipo_cuenta')?.value,
       monto_inicial: this.formularioCuenta.get('monto_inicial')?.value,
@@ -125,14 +158,9 @@ export class RegistroClienteComponent implements OnInit {
     console.log("Cuenta: " + CUENTA);
     //Mostramos info de la cuenta
     const info = this.infoCuenta.nativeElement;
+    salida = this.printCuenta(CUENTA);
+    this.renderer2.setProperty(info, 'innerHTML', salida);
 
-    this.renderer2.setProperty(info, 'innerHTML',
-      "Tipo de cuenta: " + CUENTA.tipo_cuenta +
-      "<br/>Monto inicial: " + CUENTA.monto_inicial +
-      "<br/>Ingresos promedio: " + CUENTA.ingreso_promedio +
-      "<br/>Numero de cuenta: " + CUENTA.numero_cuenta +
-      "<br/>Cedula del titular: " + CUENTA.cedula
-    )
     /// Llamamos a la funcion para poder crear un usuario y contraseña
     const user_login = this.user.nativeElement;
     const pass_login = this.pass.nativeElement;
@@ -182,7 +210,6 @@ export class RegistroClienteComponent implements OnInit {
     console.log(cliente);
     this._clienteService.guardarCliente(cliente).subscribe(
       data => {
-        console.log(data.message);
         switch (data.message) {
           case (200): {
             this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');

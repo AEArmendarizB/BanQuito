@@ -1,7 +1,8 @@
 <div id="cuerpo" class="container mt-3">
     <div class="row">
         <div class="mb-3">
-            <button routerLink="/menu-admin" type="submit" class="btn btn-danger float-end col-lg-2 col-md-2 ">Regresar</button>
+            <button routerLink="/menu-admin" type="submit"
+                class="btn btn-danger float-end col-lg-2 col-md-2 ">Regresar</button>
         </div>
         <div class="col-lg-12 ">
             <div id="caja" class="card">
@@ -94,8 +95,22 @@
                                     </div>
                                     <div class="form-group my-2">
                                         <label class="float-start">Correo electr&oacute;nico</label>
-                                        <input type="email" formControlName="email" class="form-control"
-                                            placeholder="Ej. johndoe@example.com">
+                                        <br>
+                                        <div class="row" >
+                                            <div class="col-7">
+                                                <input type="email" formControlName="email" class="form-control"
+                                                    placeholder="Ej. johndoe@example.com">
+                                            </div>
+                                            <div class="col-5">
+                                                <button type="button" class="col btn btn-primary">Enviar c&oacute;digo</button>
+                                            </div>
+                                            <!--ESTO DEBE APARECER LUEGO DE PULSAR EL BOTON-->
+                                            <div class="col-5">
+                                                <input type="text" class="form-control" placeholder="ej. abc123">
+                                                <small class="text-muted"><a href="#">Reenviar c&oacute;digo</a></small>
+                                            </div>
+                                            <!---->
+                                        </div>
                                         <!--Letreros de error-->
                                         <div class="text-danger"
                                             *ngIf="formularioCliente.get('email')?.hasError('required') && formularioCliente.get('email')?.touched">
@@ -234,7 +249,8 @@
                                         </div>
                                         <!--------------------->
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-3 mb-2">Entregar</button>
+                                    <button type="submit" [disabled]="formularioCuenta.invalid"
+                                    class="btn btn-primary mt-3 mb-2">Entregar</button>
                                     <div class="card mt-4">
                                         <div class="card-body">
                                             <p #infoCuenta id="infoCuenta">##Info de la cuenta##</p>
@@ -249,20 +265,22 @@
                                 <form [formGroup]="formularioUsuario" (ngSubmit)="agregarUsuario()">
                                     <div class="form-group mt-3">
                                         <label class="float-start">Usuario</label>
-                                        <input type="text" #user  class="form-control" id="user"
-                                            value="Usuario temporal" readonly>
+                                        <input type="text" #user class="form-control" id="user" value="Usuario temporal"
+                                            readonly>
                                     </div>
                                     <div class="form-group mt-2">
                                         <label class="float-start">Contrase&ntilde;a</label>
-                                        <input type="text" #password  class="form-control"
+                                        <input type="text" #password class="form-control"
                                             value="Contrase&ntilde;a temporal" readonly>
                                     </div>
                                     <div class="form-group  mt-2 ">
                                         <div ngbDropdown class="row">
-                                            <button type="button" #botonPregunta class="btn btn-primary  col-11 mx-3" id="TipoCuenta"
-                                                ngbDropdownToggle>Selecciona la pregunta de seguridad</button>
+                                            <button type="button" #botonPregunta class="btn btn-primary  col-11 mx-3"
+                                                id="TipoCuenta" ngbDropdownToggle>Selecciona la pregunta de
+                                                seguridad</button>
                                             <div ngbDropdownMenu="TipoCuenta" class="col-11 ">
-                                                <button type="button" (click)="pregunta1()" ngbDropdownItem>¿Cu&aacute;l es tu sabor de helado
+                                                <button type="button" (click)="pregunta1()" ngbDropdownItem>¿Cu&aacute;l
+                                                    es tu sabor de helado
                                                     favorito?</button>
                                             </div>
                                         </div>
@@ -282,7 +300,8 @@
                                         El tama&ntilde;o m&aacute;ximo es 50 caracteres.
                                     </div>
                                     <!--------------------->
-                                    <button type="submit" class="btn btn-primary mt-3">Finalizar</button>
+                                    <button type="submit" [disabled]="formularioUsuario.invalid"
+                                    class="btn btn-primary mt-3">Finalizar</button>
 
                                 </form>
                             </div>

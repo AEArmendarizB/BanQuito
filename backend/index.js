@@ -24,8 +24,12 @@ var port='3600';
 mongoose.promise=global.Promise;
 mongoose.set("strictQuery",false);
 var app=require('./app');
-//coneccion
+//var nodemailer = require('nodemailer');
+//var express = require('express');
+var app1 = require('./app');
 
+//coneccion a la base de datos de MONGODB
+ 
 const cors = require("cors");
 app.use(cors())
 
@@ -43,3 +47,9 @@ mongoose.connect(uri)
     })
 })
 .catch(err=>console.log(err))
+
+
+//Coneccion para enviar correos
+app1.listen(3000,()=>{
+    console.log("Servidor en -> http://localhost:3000");
+});
