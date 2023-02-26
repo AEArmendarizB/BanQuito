@@ -22,7 +22,20 @@ export class UsuarioService{
     constructor(private http: HttpClient) { }
 
     verificarUsuario(usuario: LoginUsuario): Observable <any>{
+        
         return this.http.post(this.url, usuario);
     }
+    
 
+    url2= 'http://localhost:3600/actualizarUsuario/';
+
+    actualizarUsuario(cedulaObj: object): Observable <any>{
+        return this.http.post(this.url2, cedulaObj);
+    }
+
+    url3= 'http://localhost:3600/validarUsername/';
+
+    verificarUsername(usuario: LoginUsuario): Observable <any>{
+        return this.http.post(this.url3, usuario);
+    }
 }

@@ -1,113 +1,54 @@
 'use strict'
-var Cliente=require('../models/cliente');
-var fs=require('path');
+var Cliente = require('../models/cliente');
+var fs = require('path');
 const path = require('path');
-var controller={
-    inicio:function(req,res){
+var controller = {
+    inicio: function (req, res) {
         return res.status(201).send(
             "<h1>Hola 2</h1>"
         );
     },
-    getClientes:function(req,res){
-        Cliente.find({}).sort().exec((err,clientes)=>{
-            if (err) return res.status(500).send({message:'Error al recuperar los datos'});
-            if(!clientes) return res.status(404).send({message:'No hay clientes para mostrar'});
-            return res.status(200).send({clientes});
+    getClientes: function (req, res) {
+        Cliente.find({}).sort().exec((err, clientes) => {
+            if (err) return res.status(500).send({ message: 'Error al recuperar los datos' });
+            if (!clientes) return res.status(404).send({ message: 'No hay clientes para mostrar' });
+            return res.status(200).send({ clientes });
         })
 
     },
-    saveCliente:function(req,res){
-        var cliente=new Cliente();
-        var params=req.body;
+    saveCliente: function (req, res) {
+        var cliente = new Cliente();
+        var params = req.body;
 
-        cliente.nombres=params.nombres;
-        cliente.apellidos=params.apellidos;
-        cliente.cedula=params.cedula;
-        cliente.codigo_dactilar=params.codigo_dactilar;
-        cliente.fecha_nacimiento=params.fecha_nacimiento;
-        cliente.correo_electronico=params.correo_electronico;
-        cliente.direccion=params.direccion;
-        cliente.ocupacion=params.ocupacion;
-        cliente.numero_telefono=params.numero_telefono;
-        
-        cliente.save((err,clienteGuardado)=>{
-            if (err) return res.status(500).send({message:'Error al guardar'});
-            if(!clienteGuardado) return res.status(404).send({message:'No se pudo guardar el cliente'});
-            return res.status(200).send({clienteGuardado});
-        })
-    
-    },
+        cliente.nombres = params.nombres;
+        cliente.apellidos = params.apellidos;
+        cliente.cedula = params.cedula;
+        cliente.codigo_dactilar = params.codigo_dactilar;
+        cliente.fecha_nacimiento = params.fecha_nacimiento;
+        cliente.correo_electronico = params.correo_electronico;
+        cliente.direccion = params.direccion;
+        cliente.ocupacion = params.ocupacion;
+        cliente.numero_telefono = params.numero_telefono;
+        cliente.state = params.state;
 
-    /*
-    getLibro:function(req,res){
-        var libroId=req.params.id;
-        if(libroId==null) return res.status(404).send({message:'El libro no existe'});
-        
-        Cliente.findById(libroId,(err,libro)=>{
-            if (err) return res.status(500).send({message:'Error al recuperar los datos'});
-            if(!libro) return res.status(404).send({message:'El libro no existe'});
-            return res.status(200).send({libro});
+        console.log(cliente);
+        cliente.save((err, clienteGuardado) => {
+            if (err) return res.status(500).send({ message: 500 });
+            if (!clienteGuardado) return res.status(404).send({ message: 404 });
+            return res.status(200).send({ message: 200 });
         })
 
     },
-    deleteLibro:function(req,res){
-        var libroId=req.params.id;
-                
-        Cliente.findByIdAndRemove(libroId,(err,libroBorrado)=>{
-            if (err) return res.status(500).send({message:'Error al borrar los datos'});
-            if(!libroBorrado) return res.status(404).send({message:'No se puede eliminar el libro'});
-            return res.status(200).send({libro:libroBorrado});
+    validarCedula: function (req, res) {
+        var params = req.body;
+        console.log(params);
+        var cedula = params.cedula;
+        console.log(cedula);
+        Cliente.findOne({ "cedula": cedula }, (err, guardarcliente) => {
+            if (err) return res.status(200).send(true);
+            if (!guardarcliente) return res.status(200).send(false);
+            return res.status(200).send(true);
         })
-
     },
-    updateLibro:function(req,res){
-        var libroId=req.params.id;
-        var update=req.body;
-                
-        Cliente.findByIdAndUpdate(libroId,update,{new:true},(err,libroActualizado)=>{
-            if (err) return res.status(500).send({message:'Error al actualizar los datos'});
-            if(!libroActualizado) return res.status(404).send({message:'El libro no existe para actulizar'});
-            return res.status(200).send({libro:libroActualizado});
-        })
-
-    },
-    uploadImage:function(req,res){
-        var libroId=req.params.id;
-        var fileName='Imagen no subida';
-
-        if(req.files){
-            var filePath=req.files.imagen.path;
-            var file_split=filePath.split('\\');
-            var fileName=file_split[1];
-            var extSplit=fileName.split('\.');
-            var fileExt=extSplit[1];
-            if(fileExt=='png'||fileExt=='jpg'||fileExt=='jpeg'||fileExt=='gif'){
-                Cliente.findByIdAndUpdate(libroId,{imagen:fileName},{new:true},(err,libroActualizado)=>{
-                    if (err) return res.status(500).send({message:'La imagen no se ha subido'});
-                    if(!libroActualizado) return res.status(404).send({message:'El libro no existe y no se subiuo la imagen'});
-                    return res.status(200).send({libro:libroActualizado});
-                });
-            }else{
-                fs.unlink(filePath,(err)=>{
-                    return res.status(200).send({message:'La extension no es valida'});
-                });
-            }
-        }else{
-            return res.status(200).send({message:fileName});
-        }
-    },
-    getImagen:function(req,res){
-        var file=req.params.imagen;
-        var path_file="./uploads"+file;
-        fs.exists(path_file,(exists)=>{
-            if(exists){
-                return res.sendFile(path.resolve(path_file));
-            }else{
-                res.status(200).send({message:'La imagen no existe'});
-            }
-        })
-    }
-    */
-
 }
-module.exports=controller;
+module.exports = controller;

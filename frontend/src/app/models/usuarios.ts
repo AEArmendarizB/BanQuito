@@ -11,9 +11,7 @@ export class Usuario {
         this.username=username;
         this.password=password;
         this.pregunta=pregunta;
-        this.isNew=true;
+        this.isNew= isNew;
     }
-
-    
 
 }

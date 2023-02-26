@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LoginUsuario } from 'src/app/models/login.usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -13,8 +14,14 @@ export class NuevasCredencialesComponent implements OnInit{
   title = 'Nuevas credenciales BanQuito';
 
   public FormNuevasCredenciales!:FormGroup;
+  public NEW_USUARIO: any;
 
-  constructor(private fb: FormBuilder,private router: Router, private _usuarioService: UsuarioService ){
+  constructor(
+    private fb: FormBuilder,
+    private router: Router, 
+    private _usuarioService: UsuarioService,
+    private toastr: ToastrService
+  ){
     this.FormNuevasCredenciales = this.fb.group({
       usuario:['',Validators.required],
       password:['',Validators.required]
@@ -22,7 +29,7 @@ export class NuevasCredencialesComponent implements OnInit{
   }
   
   ngOnInit(): void {
-      
+    
   }
 
   public submitFormulario(){
@@ -46,8 +53,36 @@ export class NuevasCredencialesComponent implements OnInit{
       username: this.FormNuevasCredenciales.get('usuario')?.value,
       password: this.FormNuevasCredenciales.get('password')?.value
     };
-    /*console.log(LOGIN_USUARIO);
-    console.log(LOGIN_USUARIO.username);*/
-    //this.verificarUsuario(NEW_USUARIO);
+    this.actualizarUsuario(NEW_USUARIO);
+  }
+
+  actualizarUsuario(nuevo_usuario:LoginUsuario){
+    const cedula = history.state.cedulaObj;
+    const new_user = { username: nuevo_usuario.username, 
+                  password: nuevo_usuario.password,
+                  cedula: history.state.cedulaObj.cedula,
+    };
+
+    this._usuarioService.verificarUsername(new_user).subscribe(data =>{
+      console.log(data.message);
+      switch (data.message){
+        case true:
+          this.toastr.error('Ese nombre de usuario ya está en uso', 'ERROR!');
+          break;
+        
+        case false:
+          this._usuarioService.actualizarUsuario(new_user).subscribe(data => {
+            console.log(data);
+          }, error => {
+            console.log(error);
+          });
+      
+          this.toastr.success('Se han cambiado las credenciales.', 'CAMBIO EXITOSO ');
+          this.router.navigate(['/login']);
+          break;
+      }
+    },error => {
+      console.log(error);
+    });
   }
 }

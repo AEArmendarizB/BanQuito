@@ -1,9 +1,13 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/clientes';
 import { Cuenta } from 'src/app/models/cuentas';
 import { Usuario } from 'src/app/models/usuarios';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
+import { UsuarioService } from 'src/app/services/usuario/usuarios.service';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -26,7 +30,11 @@ export class RegistroClienteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private renderer2: Renderer2
+    private renderer2: Renderer2,
+    private router: Router,
+    private _clienteService: ClienteService,
+    private _cuentaService: CuentaService,
+    private _credendialesService:  UsuarioService,
   ) {
     //Cliente
     this.formularioCliente = this.fb.group({
@@ -73,6 +81,7 @@ export class RegistroClienteComponent implements OnInit {
   }
   //get
   get fCliente() { return this.formularioCliente.controls }
+  
 
   agregarCliente() {
     const CLIENTE: Cliente = {
@@ -84,7 +93,9 @@ export class RegistroClienteComponent implements OnInit {
       correo_electronico: this.formularioCliente.get('email')?.value,
       direccion: this.formularioCliente.get('domicilio')?.value,
       ocupacion: this.formularioCliente.get('ocupacion')?.value,
-      numero_telefono: this.formularioCliente.get('numeroTelefono')?.value
+      numero_telefono: this.formularioCliente.get('numeroTelefono')?.value,
+      //State define si el usuario esta activo=>true o pasivo=>false
+      state: true
     }
 
     //
@@ -92,11 +103,12 @@ export class RegistroClienteComponent implements OnInit {
 
     //Envio de datos
     if (this.formularioCliente.valid) {
+      this.verificarCliente(CLIENTE);
       console.log('VALID')
-      this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');
+      //llamar funcion BD
     } else {
       console.log('INVALID')
-      this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
+      this.guardarCliente(CLIENTE);
     }
   }
   agregarCuenta() {
@@ -105,7 +117,10 @@ export class RegistroClienteComponent implements OnInit {
       tipo_cuenta: this.formularioCuenta.get('tipo_cuenta')?.value,
       monto_inicial: this.formularioCuenta.get('monto_inicial')?.value,
       ingreso_promedio: this.formularioCuenta.get('ingreso_promedio')?.value,
-      numero_cuenta: this.formularioCuenta.get('numero_cuenta')?.value
+      numero_cuenta: this.formularioCuenta.get('numero_cuenta')?.value,
+      //State define si el usuario esta activo=>true o pasivo=>false
+      state: true
+
     }
     console.log("Cuenta: " + CUENTA);
     //Mostramos info de la cuenta
@@ -126,11 +141,12 @@ export class RegistroClienteComponent implements OnInit {
 
     //Envio de datos
     if (this.formularioCuenta.valid) {
-      console.log('VALID')
-      this.toastr.info('La cuenta se registro con exito!', 'Cliente registrado');
+      console.log('VALID');
+      this.guardarCuenta(CUENTA);
     } else {
-      console.log('INVALID')
-      this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cuenta no registrado');
+      console.log('INVALID');
+      this.guardarCuenta(CUENTA);
+
     }
   }
   agregarUsuario() {
@@ -141,14 +157,14 @@ export class RegistroClienteComponent implements OnInit {
       pregunta: this.formularioUsuario.get('pregunta')?.value,
       isNew: true
     }
-    console.log("Usuario: " + USUARIO);
+    console.log(USUARIO);
     //Envio de datos
     if (this.formularioUsuario.valid) {
-      console.log('VALID')
-      this.toastr.info('El usuario se registro con exito!', 'Usuario registrado');
+      console.log('VALID');
+      this.guardarUsuario(USUARIO);
     } else {
-      console.log('INVALID')
-      this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Usuario no registrado');
+      console.log('INVALID');
+      this.guardarUsuario(USUARIO);
     }
   }
   pregunta1() {
@@ -162,5 +178,113 @@ export class RegistroClienteComponent implements OnInit {
   }*/
   ngOnInit(): void {
   }
+  guardarCliente(cliente: Cliente) {
+    console.log(cliente);
+    this._clienteService.guardarCliente(cliente).subscribe(
+      data => {
+        console.log(data.message);
+        switch (data.message) {
+          case (200): {
+            this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');
+            console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            break;
+          }
+          case (404): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
+            console.log("Error del servidor mi 🔑");
+            break;
+          }
+          case (500): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
+            console.log("No se guardo el dato mi 🔑");
+            break;
+          }
+        }
+      }
+    )
+  }
+  guardarCuenta(cuenta: Cuenta){
+    console.log(cuenta);
+    this._cuentaService.guardarCuenta(cuenta).subscribe(
+      data => {
+        console.log(data.message)
+        switch (data.message) {
+          case (200): {
+            this.toastr.info('La cuenta se registro con exito!', 'Cuenta registrada');
+            console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            break;
+          }
+          case (404): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD404', 'Cuenta no registrado');
+            console.log("Error del servidor mi 🔑");
+            break;
+          }
+          case (500): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD500', 'Cuenta no registrada');
+            console.log("No se guardo el dato mi 🔑");
+            break;
+          }
+        }
+      }
+    )
+  }
+  guardarUsuario(credendiales: Usuario){
+    console.log(credendiales);
+    this._credendialesService.verificarUsuario(credendiales).subscribe(
+      data =>{
+        console.log(data.message)
+        switch (data.message) {
+          case (200): {
+            this.toastr.info('El usuario se registro con exito!', 'Usuario registrada');
+            console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            this.router.navigate(['']);
+            break;
+          }
+          case (404): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD404', 'Usuario no registrado');
+            console.log("Error del servidor mi 🔑");
+            break;
+          }
+          case (500): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD500', 'Usuario no registrada');
+            console.log("No se guardo el dato mi 🔑");
+            break;
+          }
+        }
+      }
+    )
 
+  }
+  verificarCliente(cliente: Cliente){
+    console.log(cliente);
+    this._clienteService.validarCliente(cliente).subscribe(
+      data=>{
+        if(data == true){
+          //El cliente(cedula) existe en la base de datos
+          this.toastr.error('El CI de este cliente ya existe dentro de la base de datos, no se puede crear un usuario duplicado.', 'El cliente ya existe!');
+        }else{
+          //El cliente(cedula) es nuevo, no existe en la base de datos
+          this.guardarCliente(cliente);
+        }
+
+      }
+    )
+
+  }
+  verificarCuenta(cuenta: Cuenta){
+    console.log(cuenta);
+    this._cuentaService.validarCuenta(cuenta).subscribe(
+      data=>{
+        if(data == true){
+          //El cliente(cedula) existe en la base de datos
+          this.toastr.error('Este n&uacute; de cuenta ya existe dentro de la base de datos, no se puede crear una cuenta duplicada.', 'La cuenta ya existe!');
+        }else{
+          //El cliente(cedula) es nuevo, no existe en la base de datos
+          this.guardarCuenta(cuenta);
+        }
+
+      }
+    )
+
+  }
 }

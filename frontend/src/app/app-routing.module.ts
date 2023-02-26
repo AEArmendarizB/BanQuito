@@ -11,6 +11,10 @@ import { RegistroClienteComponent } from './Components/registro-cliente/registro
 import { TransferenciasInternasResumenComponent } from './Components/transferencias-internas-resumen/transferencias-internas-resumen.component';
 import { TransferenciasInternasComponent } from './Components/transferencias-internas/transferencias-internas.component';
 import { TransferenciasComponent } from './Components/transferencias/transferencias.component';
+import { TransferenciasExternasComponent } from './Components/transferencias-externas/transferencias-externas.component';
+import { MenuAdminComponent } from './Components/menu-admin/menu-admin.component';
+import { RegistroCuentaComponent } from './Components/registro-cuenta/registro-cuenta.component';
+import { SuspencionClientesComponent } from './Components/suspencion-clientes/suspencion-clientes.component';
 
 
 
@@ -20,10 +24,14 @@ const routes: Routes = [
     { path: 'menu', component: MenuPrincipalComponent},
     { path: 'usuario', component: NuevasCredencialesComponent},
     { path: 'pregunta', component: PreguntaSeguridadComponent},
+    { path: 'menu-admin', component: MenuAdminComponent},
     { path: 'registro-cliente', component: RegistroClienteComponent},
+    { path: 'registro-cuenta', component: RegistroCuentaComponent},
+    { path: 'suspender-cliente', component: SuspencionClientesComponent},
     { path: 'transferencia', component: TransferenciasComponent},
     { path: 'transferencia-interna', component: TransferenciasInternasComponent},
     { path: 'transferencia-interna-resumen', component: TransferenciasInternasResumenComponent},
+    { path: 'transferencia-externa', component: TransferenciasExternasComponent},
     { path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
 

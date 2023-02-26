@@ -1,0 +1,22 @@
+header{
+    display: flex;
+    height: 70px;
+    background-color: #161719;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.logo img{
+    height: 50px;
+    margin-right: 25px;
+    margin-left: 10px;
+}
+.nombre-banco{
+    color: #9e0004;
+    font-size: 50px;
+}
