@@ -41,7 +41,9 @@ var controller = {
             } else {
                 res.status("200");
             }
-        }) 
+        })
+
+        return res.send(otp);
     },
 
 

@@ -101,11 +101,12 @@
                                                 <input type="email" formControlName="email" class="form-control"
                                                     placeholder="Ej. johndoe@example.com">
                                             </div>
-                                            <div class="col-5">
-                                                <button type="button" class="col btn btn-primary">Enviar c&oacute;digo</button>
+                                            <div class="col-5" >
+                                                <button type="button" (click)="otp()" [disabled]="formularioCliente.get('email')?.invalid" id="boton-correo"
+                                                class="col btn btn-primary">Enviar c&oacute;digo</button>
                                             </div>
                                             <!--ESTO DEBE APARECER LUEGO DE PULSAR EL BOTON-->
-                                            <div class="col-5">
+                                            <div class="col-5" id="otp">
                                                 <input type="text" class="form-control" placeholder="ej. abc123">
                                                 <small class="text-muted"><a href="#">Reenviar c&oacute;digo</a></small>
                                             </div>

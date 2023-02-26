@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Obj } from '@popperjs/core';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/clientes';
 import { Cuenta } from 'src/app/models/cuentas';
@@ -8,6 +9,8 @@ import { Usuario } from 'src/app/models/usuarios';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { UsuarioService } from 'src/app/services/usuario/usuarios.service';
+
+var codigo;
 
 @Component({
   selector: 'app-registro-cliente',
@@ -81,7 +84,25 @@ export class RegistroClienteComponent implements OnInit {
   }
   //get
   get fCliente() { return this.formularioCliente.controls }
-  
+
+  //Habilitar boton de correo
+  otp(){
+    if (this.formularioCliente.get('email')?.valid) {
+  /*   var correo = this.formularioCliente.get('email')?.value;
+     console.log(correo);
+     this.verificarCorreo(correo);
+    */ 
+    //Deshabilitar el botón de correo
+    let boton = document.getElementById('boton-correo');
+    if(boton?.style.display=='none'){
+      console.log(boton);
+      boton.style.display='block';
+    }else if(boton?.style.display=='block'){
+      console.log(boton);
+      boton.style.display='none';
+    }
+  }
+   }
 
   agregarCliente() {
     const CLIENTE: Cliente = {
@@ -100,6 +121,8 @@ export class RegistroClienteComponent implements OnInit {
 
     //
     console.log("Cliente: " + CLIENTE);
+    
+
 
     //Envio de datos
     if (this.formularioCliente.valid) {
@@ -111,6 +134,7 @@ export class RegistroClienteComponent implements OnInit {
       this.guardarCliente(CLIENTE);
     }
   }
+  
   agregarCuenta() {
     const CUENTA: Cuenta = {
       cedula: this.formularioCliente.get('cedula')?.value,
@@ -285,6 +309,15 @@ export class RegistroClienteComponent implements OnInit {
 
       }
     )
-
+  }
+  verificarCorreo(email:String){
+    const correo = { correo: email}
+    console.log(correo);
+    this._clienteService.validarCorreo(correo).subscribe(
+      data=>{
+        console.log(data);
+        codigo=data;
+      }
+    )
   }
 }
