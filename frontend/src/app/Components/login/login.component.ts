@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
             break;
           case 1:
             console.log({ message: 'No se pudo encontrar el usuario' })
-            this.toastr.error('No se encontró el usuario', 'Error, No existe el usuario!');
+            this.toastr.error('Usuario o contraseña incorrectos', 'Error, No existe el usuario!');
             break;
           case false:
             this.router.navigate(['/pregunta']);

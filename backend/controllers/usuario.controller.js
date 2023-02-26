@@ -136,7 +136,6 @@ var controller = {
 
     validarUsername:function (req, res) {
         var params = req.body;
-        console.log(params.username);
         var user = params.username;
         console.log(user);
         Usuario.findOne({ "username": user }, (err, user) => {
@@ -144,9 +143,7 @@ var controller = {
             if (!user) return res.status(200).send(false);
             return res.status(200).send(true);
         })
-    },
-
-
+    }
 
 
 }

@@ -26,7 +26,7 @@
               <i class="fas fa-user icon"></i>
               <input formControlName="usuario" [class.is-invalid]='f.usuario.errors && f.usuario.touched' type="text" placeholder="Usuario" required pattern = "[a-zA-Z0-9]+">
               <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                Por favor ingrese el usuario
+                Por favor, ingrese el usuario
               </div>
             </div>
               
@@ -34,7 +34,7 @@
               <i class="fas fa-key icon"></i>
               <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Contraseña"  required pattern = "[a-zA-Z0-9]+">
               <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                Por favor ingrese la contraseña
+                Por favor, ingrese la contraseña
               </div>
             </div>
             <button class="button btn-success">Entrar</button>
