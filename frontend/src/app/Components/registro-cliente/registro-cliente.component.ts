@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -93,14 +94,8 @@ export class RegistroClienteComponent implements OnInit {
      this.verificarCorreo(correo);
     */ 
     //Deshabilitar el botón de correo
-    let boton = document.getElementById('boton-correo');
-    if(boton?.style.display=='none'){
-      console.log(boton);
-      boton.style.display='block';
-    }else if(boton?.style.display=='block'){
-      console.log(boton);
-      boton.style.display='none';
-    }
+    document.getElementById('boton-correo')!.style.display='none';
+    document.getElementById('otp')!.style.display='block';
   }
    }
 
