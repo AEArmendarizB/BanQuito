@@ -80,15 +80,14 @@ export class LoginComponent implements OnInit {
             this.toastr.error('Usuario o contraseña incorrectos', 'Error, No existe el usuario!');
             break;
           case false:
-            this.router.navigate(['/pregunta']);
+            //this.router.navigate(['/pregunta']);
+            const cedula = data.cedula;
+            const cedulaObj = { cedula: cedula };
+            this.router.navigate(['/menu'],{state:{cedulaObj}});
             this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
             break;
           case true:
-
-            const cedula = data.cedula;
-            const cedulaObj = { cedula: cedula };
-            this.router.navigate(['/usuario'], { state: { cedulaObj } });
-            //this.router.navigate(['/usuario']);
+            //this.router.navigate(['/usuario'], { state: { cedulaObj } });
             this.toastr.info('Por favor, a continuación debes cambiar tus credenciales', 'Usuario con claves temporales');
             break;
         }

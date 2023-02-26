@@ -50,5 +50,16 @@ var controller = {
             return res.status(200).send(true);
         })
     },
+    getClienteID: function(req, res){
+        var params = req.body;
+        var cedula = params.cedula;
+        console.log(cedula);
+        Cliente.findOne({"cedula":cedula},(err, extraerCliente)=>{
+            if(err) return res.status(500).send({ message: 'Error al recuperar los datos' });
+            if(!extraerCliente) return res.satus(404).send({ message: 'No hay clientes con esa cédula' });
+            return res.status(200).send( extraerCliente);
+        })
+    }
+
 }
 module.exports = controller;
