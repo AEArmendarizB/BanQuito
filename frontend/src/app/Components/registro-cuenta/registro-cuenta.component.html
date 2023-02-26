@@ -22,7 +22,8 @@
                             type="text" placeholder="Ej.1753647740">
                     </div>
                     <div class="col-3">
-                        <button type="submit" class="btn btn-primary">Buscar</button>
+                        <button type="submit" [disabled]="formularioCedula.invalid"
+                        class="btn btn-primary">Buscar</button>
                     </div>
                 </div>
                 <div class="row mx-auto mt-1 text-danger text-center">
@@ -117,7 +118,7 @@
                         </div>
                         <!--------------------->
                     </div>
-                    <button class="btn btn-primary col-3 mx-auto mt-3">Enviar</button>
+                    <button class="btn btn-primary col-3 mx-auto mt-3" [disabled]="formularioCuenta.invalid">Enviar</button>
                     <div class="card-body mx-auto text-center">
                         <p #infoCuentaNueva>##Info de la cuenta##</p>
                     </div>
