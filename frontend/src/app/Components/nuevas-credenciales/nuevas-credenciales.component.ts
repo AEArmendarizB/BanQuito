@@ -53,10 +53,7 @@ export class NuevasCredencialesComponent implements OnInit{
       username: this.FormNuevasCredenciales.get('usuario')?.value,
       password: this.FormNuevasCredenciales.get('password')?.value
     };
-    this.actualizarUsuario(NEW_USUARIO)
-    /*console.log(LOGIN_USUARIO);
-    console.log(LOGIN_USUARIO.username);*/
-    //this.verificarUsuario(NEW_USUARIO);
+    this.actualizarUsuario(NEW_USUARIO);
   }
 
   actualizarUsuario(nuevo_usuario:LoginUsuario){
@@ -64,19 +61,9 @@ export class NuevasCredencialesComponent implements OnInit{
     const new_user = { username: nuevo_usuario.username, 
                   password: nuevo_usuario.password,
                   cedula: history.state.cedulaObj.cedula,
-  
     };
-    //console.log("Soy el segundo index");
-    //console.log(cedula.cedula);
-    /*this._usuarioService.actualizarUsuario(new_user).subscribe(data => {
-      console.log(data);
-    }, error => {
-      console.log(error);
-    });
 
-    this.toastr.success('Se han cambiado las credenciales.', 'CAMBIO EXITOSO ');
-    this.router.navigate(['/login']);*/
-    this._usuarioService.verificarUsername(nuevo_usuario).subscribe(data =>{
+    this._usuarioService.verificarUsername(new_user).subscribe(data =>{
       console.log(data.message);
       switch (data.message){
         case true:
