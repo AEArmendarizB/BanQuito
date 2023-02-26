@@ -11,8 +11,8 @@ import { Cliente } from "src/app/models/clientes";
 })
 export class ClienteService {
     url = "http://localhost:3600/guardar-cliente/";
-
     urlVerificar = "http://localhost:3600/validarCedula/";
+    urlCorreo = "http://localhost:3600/validar-email/";
 
     constructor(
         private http: HttpClient
@@ -22,6 +22,9 @@ export class ClienteService {
     }
     validarCliente(cliente: Cliente): Observable<any> {
         return this.http.post(this.urlVerificar, cliente);
+    }
+    validarCorreo(correo:Object){
+        return this.http.post(this.urlCorreo, correo);
     }
 
 }
