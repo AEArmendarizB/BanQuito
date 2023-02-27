@@ -35,7 +35,6 @@ export class PreguntaSeguridadComponent {
   validar(){
     const cedula = history.state.cedulaObj;
 
-    
     const pregunta = {
 
       
