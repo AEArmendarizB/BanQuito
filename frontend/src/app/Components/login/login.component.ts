@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginUsuario } from 'src/app/models/login.usuario';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
-import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
