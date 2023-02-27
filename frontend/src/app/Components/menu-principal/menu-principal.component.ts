@@ -18,11 +18,9 @@ export class MenuPrincipalComponent {
   listCuentas:Cuenta[]=[];
 
   constructor(
-    private fb: FormBuilder,
     private router: Router, 
     private _clienteService: ClienteService,
     private _cuentaService: CuentaService,
-    private toastr: ToastrService
   ){}
 
   ngOnInit(): void {
@@ -41,8 +39,8 @@ export class MenuPrincipalComponent {
     const cedula = history.state.cedula.cedula;
     //const cedula = 1753647740;
     console.log(cedula);
+
     const nombre = {cedula: cedula};
-    console.log(nombre);
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
       var nombres = data.nombres.toString();
       var apellidos = data.apellidos.toString();
@@ -74,8 +72,10 @@ export class MenuPrincipalComponent {
   }
 
   transferenciaMenu(){
-    //const 
-    //this.router.navigate(['/menu'],{state:{cedulaObj}});
+    const cedulaObj = history.state.cedulaObj.cedula;
+    const cuentasObj = this.listCuentas;
+    const transferenciaObj = {cedula:cedulaObj, cuentas:cuentasObj}
+    this.router.navigate(['/transferencia'],{state:{transferenciaObj}});
   }
 
 }

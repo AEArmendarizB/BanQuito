@@ -22,13 +22,11 @@
   
       <div class="options__menu">
   
-        <a href="/menu">
           <div class="option">
-            <i class="fas fa-home" title="Inicio"></i>
+            <i class="fas fa-home" title="Inicio" (click)="transferenciaMenu()"></i>
             <h4>INICIO</h4>
           </div>
-        </a>
-  
+ 
         <a >
           <div class="option">
             <i class="far fa-file" title="Pagos"></i>
@@ -77,7 +75,7 @@
           </div>
           <div class="col-4" id="cliente">
             <img src="../../../assets/media/usuario.png" alt="cliente">
-            <h1 class="nombre-cliente">Jhon Lenon Doe Moore</h1>
+            <h1 class="nombre-cliente" id="nombre-cliente"></h1>
           </div>
         </div>
       </header>
@@ -100,7 +98,7 @@
                   <button type="button"> Transferencias Internas</button>
                 </a>
                 <a href="/transferencia-externa">
-                  <button type="button" class="btn btn-primary btn-lg">Transferencias Externas</button>
+                  <button type="button">Transferencias Externas</button>
                 </a>
               </div>
             </div>
