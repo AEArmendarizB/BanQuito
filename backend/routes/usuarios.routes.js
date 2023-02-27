@@ -22,5 +22,7 @@ router.post('/actualizarUsuario',usuariosController.actualizarUsuario);
 router.post('/getUsuario',usuariosController.getUsuario);
 //validar username
 router.post('/validarUsername',usuariosController.validarUsername);
+//validar respuesta
+router.post('/verificarPregunta',usuariosController.verificarPregunta);
 
 module.exports=router;

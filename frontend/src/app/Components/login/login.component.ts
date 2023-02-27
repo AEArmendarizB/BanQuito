@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
     switch(this.control){
       case 0:
         document.getElementById('otp')!.style.display = 'none';
+        document.getElementById('user')!.style.display = 'block';
+        document.getElementById('pass')!.style.display = 'block';
         break;
 
       case 1:
@@ -106,9 +108,7 @@ export class LoginComponent implements OnInit {
               break;
             case false:
               this.id = data.cedula;
-              this.control++;
               this.extraerCorreo();
-              this.activarCuadros();
               break;
             case true:
               const cedula = data.cedula;
@@ -124,13 +124,15 @@ export class LoginComponent implements OnInit {
   }
 
   verificarOTP(){
+    const cedula = this.id;
+    const cedulaObj = { cedula: cedula };
     var codigo = this.codigo;
     let patron="^"+codigo+"$";  
     var otp = this.myForm.get('otp')!.value.toString();
     if(otp.match(patron)==null){
       this.toastr.error('El código no coincide', 'Error, código inválido');
     }else{
-      this.router.navigate(['/pregunta']);
+      this.router.navigate(['/pregunta'] , { state: { cedulaObj } });
       this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
     };
   }
@@ -139,8 +141,16 @@ export class LoginComponent implements OnInit {
     const cedula = this.id;
     const nombre = {cedula: cedula};
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
-      this.correo = data.correo_electronico.toString();;
-      this.enviarCorreo(this.correo);
+      if(data.state.toString() == 'true'){
+        //control de formularios
+        this.control++;
+        this.activarCuadros();
+        //----------------------------
+        this.correo = data.correo_electronico.toString();
+        this.enviarCorreo(this.correo);
+      }else if(data.state.toString() == 'false'){
+        this.toastr.error('EL usuario se encuentra deshabilitado, comuniquese con el banco', 'Usuario bloqueado');
+      }
     });
 
   }
