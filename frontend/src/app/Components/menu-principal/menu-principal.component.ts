@@ -18,25 +18,29 @@ export class MenuPrincipalComponent {
   listCuentas:Cuenta[]=[];
 
   constructor(
-    private fb: FormBuilder,
     private router: Router, 
     private _clienteService: ClienteService,
     private _cuentaService: CuentaService,
-    private toastr: ToastrService
   ){}
 
   ngOnInit(): void {
+
+    //const cedula = history.state.cedula;
+    //const cedula = 1753647740;
+    //console.log("soy cedula: "+ cedula);
+    //console.log("soy la otra cedula:  " + cedula.cedula);
+
     //Mostrar el nombre del cliente que se logea
     this.extraerCliente();
     //Mostrar las cuentas asociadas al cliente
     this.extraerCuentas();
   }
   extraerCliente(){
-    //const cedula = history.state.cedulaObj.cedula;
-    const cedula = 1753647740;
+    const cedula = history.state.cedula.cedula;
+    //const cedula = 1753647740;
     console.log(cedula);
+
     const nombre = {cedula: cedula};
-    console.log(nombre);
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
       var nombres = data.nombres.toString();
       var apellidos = data.apellidos.toString();
@@ -46,7 +50,8 @@ export class MenuPrincipalComponent {
   }
 
   extraerCuentas(){
-    const cedula = 1753647740;
+    const cedula = history.state.cedula.cedula;
+   // const cedula = 1753647740;
     console.log(cedula);
     const cuenta = {cedula: cedula};
     this._cuentaService.getCuentaByCI(cuenta).subscribe(data=>{
@@ -67,8 +72,10 @@ export class MenuPrincipalComponent {
   }
 
   transferenciaMenu(){
-    //const 
-    //this.router.navigate(['/menu'],{state:{cedulaObj}});
+    const cedulaObj = history.state.cedulaObj.cedula;
+    const cuentasObj = this.listCuentas;
+    const transferenciaObj = {cedula:cedulaObj, cuentas:cuentasObj}
+    this.router.navigate(['/transferencia'],{state:{transferenciaObj}});
   }
 
 }
