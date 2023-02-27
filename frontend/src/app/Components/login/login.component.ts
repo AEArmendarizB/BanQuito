@@ -139,8 +139,13 @@ export class LoginComponent implements OnInit {
     const cedula = this.id;
     const nombre = {cedula: cedula};
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
-      this.correo = data.correo_electronico.toString();;
-      this.enviarCorreo(this.correo);
+      if(data.status == true){
+        this.correo = data.correo_electronico.toString();;
+        this.enviarCorreo(this.correo);
+      }else{
+        this.toastr.error('EL usuario se encuentra deshabilitado, comuniquese con el banco', 'Usuario bloqueado');
+      }
+      
     });
 
   }
