@@ -14,6 +14,9 @@ export class ClienteService {
     urlVerificar = "http://localhost:3600/validarCedula/";
     urlObtenerCliente = "http://localhost:3600/cliente/";
     urlActualizarCliente = "http://localhost:3600/actualizar-cliente/";
+    urlCorreo = "http://localhost:3600/validar-email/";
+    urlNombreCliente = "http://localhost:3600/get-nombre/"
+
     constructor(
         private http: HttpClient
     ) { }
@@ -28,5 +31,11 @@ export class ClienteService {
     }
     actualizarCliente(cliente: object): Observable<any> {
         return this.http.post(this.urlActualizarCliente, cliente);
+    }
+    validarCorreo(correo:Object){
+        return this.http.post(this.urlCorreo, correo);
+    }
+    extraerNombre(cedula:Object): Observable<any>{
+        return this.http.post(this.urlNombreCliente, cedula);
     }
 }

@@ -7,7 +7,6 @@
   <title>Inicio</title>
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <link rel="icon" type="favicon/x-icon" href="../../../assets/media/Logo.png">
-  <link rel="stylesheet" type="text/css" href="../transferencias/transferencias.component.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   <link rel="stylesheet" href="https://kit.fontawesome.com/39d269d22a.css" crossorigin="anonymous">
 
@@ -83,30 +82,60 @@
       </header>
 
 
-
       <div class="row">
         <div class="colum-6">
           <div class="transferencia">
             <div class="transferencia_contenido">
-              <div class="encabezado">
-                <h1>Transferencias</h1>
-                <h4>Realiza todas tus transacciones cuando quieras.</h4>
-                <p>
-                  Para poder realizar transferencias locales, utiliza únicamente el número de cuenta del destinatario.
-                </p>
-              </div>
-              <div class="ts-interna">
-                <a href="/transferencia-interna">
-                  <button type="button"> Transferencias Internas</button>
-                </a>
-                <a href="/transferencia-externa">
-                  <button type="button" class="btn btn-primary btn-lg">Transferencias Externas</button>
-                </a>
-              </div>
+              <h1>Transferencias locales</h1>
+              <form>
+                <!--Cuenta origen-->
+                <div class=" row">
+                  <label class="col-sm-3 ">Cuenta origen:</label>
+                  <div class="col-sm-6">
+                    <select id="inputState" class="form-control" formControlName="cuentaOrigen">
+                      <option selected>Selecciona una cuenta ...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                </div>
+                <!--Monto-->
+                <div class="row">
+                  <label  class="col-sm-3">Monto:</label>
+                  <div class="col-sm-6">
+                    <input type="number" formControlName="monto" class="form-control"placeholder="Monto">
+                  </div>
+                </div>
+                <!--Cuenta Destino-->
+                <div class=" row">
+                  <label  class="col-sm-3">Cuenta Destino:</label>
+                  <div class="col-sm-5">
+                    <input type="number" formControlName="cuentaDestino" class="form-control" placeholder="Cuenta destino">
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-primary" id="validar" type="submit">Validar</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <p class="cuenta_destino">Este texto es solo de prueba, aqui debe aparecer la informacion extraida de la cuenta destino</p>
+                </div>
+                <!--Descripcion-->
+                <div class=" row">
+                  <label class="col-sm-3">Descripción:</label>
+                  <div class="col-sm-6">
+                    <input type="text" formControlName="descripcion" class="form-control"  placeholder="Descripcion">
+                  </div>
+                </div>
+                <!--Boton enviar-->
+                <div class="mb-4">
+                  <button class="btn btn-primary" id="enviar" type="submit">Transferir</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+
     </main>
   </body>
 </html>
+
