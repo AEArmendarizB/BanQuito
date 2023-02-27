@@ -19,6 +19,7 @@ router.post('/validarCedula',clientesController.validarCedula);
 router.post('/actualizar-cliente',clientesController.actualizarCliente);
 //validar email
 router.post('/validar-email',correoController.validarCorreo);
-//obtener nombre de cliente a partir del numero de cedula
-router.post('/get-nombre',clientesController.getClienteID);
+//validar email login
+router.post('/verificar-email',correoController.verificarCorreoLogin);
+
 module.exports=router;
