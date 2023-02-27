@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginUsuario } from 'src/app/models/login.usuario';
-import { LoginUsuarioOTP } from 'src/app/models/loginOTP';
-import { Usuario } from 'src/app/models/usuarios';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -17,7 +16,13 @@ export class LoginComponent implements OnInit {
   title = 'BanQuito';
   public myForm!: FormGroup;
   public LOGIN_USUARIO: any;
+
+  //Control de formulario
   public control: number;
+
+  //Verificacion
+  public id:string;
+  public correo:string;
 
   constructor(
     private fb: FormBuilder,
@@ -25,7 +30,6 @@ export class LoginComponent implements OnInit {
     private _usuarioService: UsuarioService,
     private toastr: ToastrService,
     private _clienteService: ClienteService
-
   ) {
     this.myForm = this.fb.group({
       usuario: ['', Validators.required],
@@ -33,6 +37,9 @@ export class LoginComponent implements OnInit {
       otp: ['', Validators.required]
     });
     this.control=0 ;
+
+    this.id='';
+    this.correo='';
   }
 
   ngOnInit(): void {
@@ -83,12 +90,12 @@ export class LoginComponent implements OnInit {
         break;
 
       case 1:
-        const LOGIN_USUARIO_OTP: LoginUsuario = {
+        /*const LOGIN_USUARIO_OTP: LoginUsuario = {
           username: this.myForm.get('usuario')?.value,
           password: this.myForm.get('password')?.value,
           //otp: this.myForm.get('otp')?.value
-        };
-        this.verificarOTP();
+        };*/
+        //this.extraerCorreo();
         break;
         
     }
@@ -128,9 +135,10 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/menu'],{state:{cedulaObj}});*/
               //--------------------------------------------
               
-              this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
-              
+              //this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
+              this.id = data.cedula;
               this.control++;
+              this.extraerCorreo();
               this.activarCuadros();
               break;
             case true:
@@ -150,7 +158,39 @@ export class LoginComponent implements OnInit {
 
   }
 
-  OTP(){
+  extraerCorreo(){
+    const cedula = this.id;
+    console.log(cedula);
+    const nombre = {cedula: cedula};
+    this._clienteService.obtenerCliente(nombre).subscribe(data=>{
+      this.correo = data.correo_electronico.toString();;
+      console.log(this.correo);
+      this.enviarCorreo(this.correo);
+    });
 
+  }
+
+  enviarCorreo(email:string){
+    var codigo = "";
+    const correo = { correo: email }
+    console.log("HOLA");
+    console.log(correo);
+    this._clienteService.validarCorreoLogin(correo).subscribe(data => {
+        codigo = data.toString();
+        /*
+        let patron="^"+codigo+"$";  
+        var campo = document.getElementById('otp-campo');
+        campo!.addEventListener('keyup',()=>{
+          var text = document.getElementById('text');
+          var otp = this.formularioCliente.get('otp')!.value;
+          console.log(patron);
+          console.log(otp);
+          if(otp.match(patron)==null){
+           text!.innerHTML="Codigo invalido"
+          }else{
+           text!.innerHTML="Codigo valido"
+          }
+        })*/
+      });
   }
 }
