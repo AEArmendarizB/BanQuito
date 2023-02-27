@@ -60,7 +60,7 @@ export class MenuPrincipalComponent {
     })
   }
 
-  transferenciaMenu(){
+  transferencias(){
     const cedulaObj = history.state.cedula.cedula;
     const cuentasObj = this.listCuentas;
     const transferenciaObj = {cedula:cedulaObj, cuentas:cuentasObj}
