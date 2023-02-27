@@ -33,4 +33,9 @@ export class UsuarioService{
         return this.http.post(this.url2, cedulaObj);
     }
 
+    url3= 'http://localhost:3600/validarUsername/';
+
+    verificarUsername(usuario: LoginUsuario): Observable <any>{
+        return this.http.post(this.url3, usuario);
+    }
 }
