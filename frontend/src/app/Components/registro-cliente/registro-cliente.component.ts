@@ -125,12 +125,6 @@ export class RegistroClienteComponent implements OnInit {
       //State define si el usuario esta activo=>true o pasivo=>false
       state: true
     }
-
-    //
-    console.log("Cliente: " + CLIENTE);
-
-
-
     //Envio de datos
     if (this.formularioCliente.valid) {
       this.verificarCliente(CLIENTE);
@@ -238,7 +232,6 @@ export class RegistroClienteComponent implements OnInit {
     console.log(cliente);
     this._clienteService.guardarCliente(cliente).subscribe(
       data => {
-        console.log(data.message);
         switch (data.message) {
           case (200): {
             this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');

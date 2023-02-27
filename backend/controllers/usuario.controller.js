@@ -10,6 +10,15 @@ var controller = {
             "<h1>Hola 2</h1>"
         );
     },
+    getUsuario: function (req, res) {
+        var params = req.body;
+        var cedula = params.cedula;
+        Usuario.findOne({ "cedula": cedula }, (err, usuario) => {
+            if (err) return res.status(200).send({message:500});
+            if (!usuario) return res.status(200).send({message:404});
+            return res.status(200).send(usuario);
+        })
+    },
 
     login: function(req, res){
 

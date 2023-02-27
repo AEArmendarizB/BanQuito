@@ -50,6 +50,29 @@ var controller = {
             return res.status(200).send(true);
         })
     },
+    getCliente: function (req, res) {
+        var params = req.body;
+        console.log("Parametros en la funcion getCliente:");
+        console.log(params);
+        var cedula = params.cedula;
+        Cliente.findOne({ "cedula": cedula }, (err, cliente) => {
+            if (err) return res.status(200).send({message:500});
+            if (!cliente) return res.status(200).send({message:404});
+            return res.status(200).send(cliente);
+        })
+    },
+    actualizarCliente: function (req, res) {
+        //se recibe un onbjeto->{idCliente,cliente}
+        var params= req.body;
+        var idCliente = params.idCliente
+        var cliente = params.cliente
+        Cliente.findOneAndUpdate({ "_id": idCliente}, cliente, { new: true }, (err, cliente) => {
+            if (err) return res.status(500).send({ message: 404 });
+            if (!cliente) return res.status(404).send({ message: 404 });
+            return res.status(200).send({ message: 200 });
+        });
+    },
+    
     getClienteID: function(req, res){
         var params = req.body;
         var cedula = params.cedula;
@@ -62,4 +85,5 @@ var controller = {
     }
 
 }
+
 module.exports = controller;
