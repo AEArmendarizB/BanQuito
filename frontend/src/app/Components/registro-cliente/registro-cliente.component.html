@@ -175,7 +175,7 @@
                                         </div>
                                         <!--------------------->
                                     </div>
-                                    <button type="submit" [disabled]="formularioCliente.invalid"
+                                    <button type="submit" [disabled]= "formularioCliente.invalid && otpNotOk"
                                         class="btn btn-primary mt-3 mb-2">Entregar</button>
                                 </form>
                             </div>
