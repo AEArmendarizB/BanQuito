@@ -15,5 +15,7 @@ router.get('/clientes',clientesController.getClientes);
 router.post('/validarCedula',clientesController.validarCedula);
 //validar email
 router.post('/validar-email',correoController.validarCorreo);
+//verificacion opt login
+router.post('/validar-email-otp',correoController.verificarCorreoLogin);
 
 module.exports=router;

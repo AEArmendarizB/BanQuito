@@ -141,4 +141,8 @@ export class LoginComponent implements OnInit {
   verificarOTP(){
 
   }
+
+  OTP(){
+
+  }
 }
