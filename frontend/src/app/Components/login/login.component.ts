@@ -6,7 +6,6 @@ import { LoginUsuario } from 'src/app/models/login.usuario';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,9 +15,6 @@ export class LoginComponent implements OnInit {
   title = 'BanQuito';
   public myForm!: FormGroup;
   public LOGIN_USUARIO: any;
-
-  //para la cedula
-  //public cedula: string;
 
   //Control de formulario
   public control: number;
@@ -45,11 +41,9 @@ export class LoginComponent implements OnInit {
     this.id='';
     this.correo='';
     this.codigo='';
-    
   }
 
   ngOnInit(): void {
-
     this.control=0 ;
     this.activarCuadros();
   }
@@ -117,7 +111,7 @@ export class LoginComponent implements OnInit {
               this.activarCuadros();
               break;
             case true:
-              const cedula= data.cedula;
+              const cedula = data.cedula;
               const cedulaObj = { cedula: cedula };
               this.router.navigate(['/usuario'], { state: { cedulaObj } });
               this.toastr.info('Por favor, a continuación debes cambiar tus credenciales', 'Usuario con claves temporales');
@@ -130,15 +124,13 @@ export class LoginComponent implements OnInit {
   }
 
   verificarOTP(){
-    const cedula = this.id;
-    const cedulaObj = { cedula: cedula };
     var codigo = this.codigo;
     let patron="^"+codigo+"$";  
     var otp = this.myForm.get('otp')!.value.toString();
     if(otp.match(patron)==null){
       this.toastr.error('El código no coincide', 'Error, código inválido');
     }else{
-      this.router.navigate(['/pregunta'], { state: { cedulaObj } });
+      this.router.navigate(['/pregunta']);
       this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
     };
   }
@@ -153,7 +145,6 @@ export class LoginComponent implements OnInit {
       }else{
         this.toastr.error('EL usuario se encuentra deshabilitado, comuniquese con el banco', 'Usuario bloqueado');
       }
-      
     });
 
   }
