@@ -8,4 +8,6 @@ router.post('/validar-email',correoController.validarCorreo);
 
 router.post('/verificar-email',correoController.verificarCorreoLogin);
 
+router.post('/bienvenido',correoController.bienvenidoBanquito);
+
 module.exports = router; 

@@ -21,5 +21,7 @@ router.post('/actualizar-cliente',clientesController.actualizarCliente);
 router.post('/validar-email',correoController.validarCorreo);
 //validar email login
 router.post('/verificar-email',correoController.verificarCorreoLogin);
+//enviar por correo credenciales al cliente
+router.post('/bienvenido',correoController.bienvenidoBanquito);
 
 module.exports=router;

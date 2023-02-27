@@ -113,6 +113,44 @@ var controller = {
             }
         })
         return res.send(otp);
+    },
+    bienvenidoBanquito: function (req, res) {
+        //parametros 
+        var nodemailer = require('nodemailer');
+        var params = req.body;
+        var username = params.username;
+        var pass = params.pass;
+        var correo = params.correo;
+        var mensaje1 = "Hola, Bienvenido"+'\n\n'+"Gracias por registrarse en nuestro servicio bancario en línea. Para completar el proceso de registro, necesitamos verificar su dirección de correo electrónico. "+'\n\n'+"Para hacerlo, simplemente proporcione el siguiente código al ascesor."+'\n\n';
+        var mensaje2 = '\n\n'+"Tenga en cuenta que si no verifica su dirección de correo electrónico, su cuenta no estará completamente activa y no podrá acceder a todos los servicios en línea que ofrecemos."+'\n\n'+"Si tiene alguna pregunta o necesita ayuda, no dude en ponerse en contacto con nuestro equipo de soporte al cliente. Estamos disponibles las 24 horas del día para ayudarlo en todo lo que necesite."+'\n\n'+"Gracias por elegir BanQuito. Esperamos poder servirle en el futuro."+'\n\n';
+        
+        //inicializar el correo
+        console.log("Email enviado");
+        var transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'sfqaeab@gmail.com',
+                pass: 'uylohfcmmhhqdonk'
+            },
+        });
+        
+        //Redactar correo
+        var mailOptions = {
+            from: "Banquito - Registro Exitoso <sfqaeab@gmail.com>",
+            to: correo,
+            subject: "Bienvenido a tu nueva Banca Web",
+            text: mensaje1 + '\n' + username+ '\n'+pass+ '\n' +mensaje2
+        }
+        //enviar correo
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                res.status(500).send(error.message);
+            } else {
+                res.status("200");
+            }
+        })
     }
 }
 module.exports = controller;
