@@ -226,12 +226,14 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Selecciona la cuenta que deseas configurar</mat-label>
                         <mat-select formControlName="cuenta">
-                            <mat-option *ngFor ="let cuenta of cuentasDisponibles" [value] = cuenta.numero (click) = "cuentaSeleccionada()">{{cuenta.numero}}</mat-option>
+                            <mat-option *ngFor="let cuenta of cuentasDisponibles" [value]=cuenta.numero
+                                (click)="cuentaSeleccionada()">{{cuenta.numero}}</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-error *ngIf="formularioCuenta.get('cuenta')?.hasError('required') && formularioCuenta.get('cuenta')?.touched">
+                    <mat-error
+                        *ngIf="formularioCuenta.get('cuenta')?.hasError('required') && formularioCuenta.get('cuenta')?.touched">
                         Este campo es obligatorio
-                      </mat-error>
+                    </mat-error>
                 </div>
                 <div class="row text-center">
                     <label>
@@ -310,12 +312,58 @@
                     <!--------------------->
                 </div>
                 <button type="submit" [disabled]="formularioCuenta.invalid"
-                class="btn btn-primary mt-3 mb-2">Entregar</button>
+                    class="btn btn-primary mt-3 mb-2">Entregar</button>
                 <div class="card mt-4">
                     <div class="card-body text-center">
                         <p #infoCuentaNueva id="infoCuenta">##Info de la cuenta##</p>
                     </div>
                 </div>
+            </form>
+        </div>
+        <!--Cuerpo 3>USUARIO-->
+        <div class="card-body mx-auto w-50">
+            <form>
+                <div class="row text-center">
+                    <label>
+                        <mat-radio-group formControlName="estado">
+                            <mat-radio-button value=1>Activa</mat-radio-button>
+                            <mat-radio-button value="">Pasiva</mat-radio-button>
+                        </mat-radio-group>
+                    </label>
+                </div>
+                <div class="form-group mt-3">
+                    <label class="float-start">Usuario</label>
+                    <input type="text" #user class="form-control" id="user" value="Usuario temporal">
+                </div>
+                <div class="form-group mt-2">
+                    <label class="float-start">Contrase&ntilde;a</label>
+                    <input type="text" #password class="form-control" value="Contrase&ntilde;a temporal">
+                </div>
+                <div class="form-group  mt-2 ">
+                    <div ngbDropdown class="row">
+                        <button type="button" #botonPregunta class="btn btn-primary  col-11 mx-3" id="TipoCuenta"
+                            ngbDropdownToggle>Selecciona la pregunta de seguridad</button>
+                        <div ngbDropdownMenu="TipoCuenta" class="col-11 ">
+                            <button type="button" ngbDropdownItem>¿Cu&aacute;l es tu sabor de
+                                helado
+                                favorito?</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-2">
+                    <label class="float-start">Respuesta</label>
+                    <input type="text" class="form-control" value="Respuesta de la pregunta">
+                </div>
+                <!--Letreros de error-->
+                <div class="text-danger">
+                    Este campo es obligatorio
+                </div>
+                <div class="text-danger">
+                    El tama&ntilde;o m&aacute;ximo es 50 caracteres.
+                </div>
+                <!--------------------->
+                <button type="submit" class="btn btn-primary mt-3">Finalizar</button>
+
             </form>
         </div>
     </div>

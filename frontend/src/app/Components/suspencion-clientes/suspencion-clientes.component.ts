@@ -23,6 +23,7 @@ export class SuspencionClientesComponent implements OnInit {
   formularioCedula: FormGroup;
   formularioCliente: FormGroup;
   formularioCuenta: FormGroup;
+  formularioUsuario:FormGroup;
 
   private CI: string = "";
   public nombreUsuario: String = "";
@@ -30,8 +31,10 @@ export class SuspencionClientesComponent implements OnInit {
   private idCuenta: number | undefined = 0;
   public cuentasDisponibles: any[] = [];
   private cuentasXusuario: any;
+
   public showForm1 = false;
   public showForm2 = false;
+  public showForm3 = true;
   public showToggle = false;
   // formularioCuenta: FormGroup;
   // formularioUsuario: FormGroup;
@@ -75,6 +78,10 @@ export class SuspencionClientesComponent implements OnInit {
       ingreso_promedio: ['', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')]],
       numero_cuenta: ['', Validators.required],
     });
+    //Cliente
+    this.formularioUsuario = this.fb.group({
+      pregunta: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{1,25}$')]],
+  });
   }
   ngOnInit(): void {
   }
