@@ -28,8 +28,7 @@
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/ngx-toastr/toastr.css",
-              "./node_modules/ngx-mat-select/styles/ngx-mat-select.styles.css"
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
