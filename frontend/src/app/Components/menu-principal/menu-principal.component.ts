@@ -24,12 +24,6 @@ export class MenuPrincipalComponent {
   ){}
 
   ngOnInit(): void {
-
-    //const cedula = history.state.cedula;
-    //const cedula = 1753647740;
-    //console.log("soy cedula: "+ cedula);
-    //console.log("soy la otra cedula:  " + cedula.cedula);
-
     //Mostrar el nombre del cliente que se logea
     this.extraerCliente();
     //Mostrar las cuentas asociadas al cliente
@@ -37,9 +31,6 @@ export class MenuPrincipalComponent {
   }
   extraerCliente(){
     const cedula = history.state.cedula.cedula;
-    //const cedula = 1753647740;
-    console.log(cedula);
-
     const nombre = {cedula: cedula};
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
       var nombres = data.nombres.toString();
@@ -51,8 +42,6 @@ export class MenuPrincipalComponent {
 
   extraerCuentas(){
     const cedula = history.state.cedula.cedula;
-   // const cedula = 1753647740;
-    console.log(cedula);
     const cuenta = {cedula: cedula};
     this._cuentaService.getCuentaByCI(cuenta).subscribe(data=>{
       //Convertir el valor de tipo de cuenta numerico a string
@@ -72,7 +61,7 @@ export class MenuPrincipalComponent {
   }
 
   transferenciaMenu(){
-    const cedulaObj = history.state.cedulaObj.cedula;
+    const cedulaObj = history.state.cedula.cedula;
     const cuentasObj = this.listCuentas;
     const transferenciaObj = {cedula:cedulaObj, cuentas:cuentasObj}
     this.router.navigate(['/transferencia'],{state:{transferenciaObj}});

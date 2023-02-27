@@ -30,11 +30,11 @@ export class TransferenciasComponent {
       text!.innerHTML= nombres+' '+apellidos;
     })
   }
-  transferenciaMenu(){
+  menu(){
     const objeto = history.state.transferenciaObj;
-    const cedula = objeto.cedula;
-    const cedulaObj = {cedula:cedula}
-    this.router.navigate(['/menu'],{state:{cedulaObj}});
+    const cedulaObj = objeto.cedula;
+    const cedula = {cedula:cedulaObj} 
+    this.router.navigate(['/menu'],{state:{cedula}});
   }
   
 }
