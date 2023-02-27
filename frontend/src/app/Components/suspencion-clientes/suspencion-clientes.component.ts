@@ -27,8 +27,11 @@ export class SuspencionClientesComponent implements OnInit {
   private CI: string = "";
   public nombreUsuario: String = "";
   private idCliente: number | undefined = 0;
+  private idCuenta: number | undefined = 0;
+  public cuentasDisponibles: any[] = [];
+  private cuentasXusuario: any;
   public showForm1 = false;
-  public showForm2 = true;
+  public showForm2 = false;
   public showToggle = false;
   // formularioCuenta: FormGroup;
   // formularioUsuario: FormGroup;
@@ -65,6 +68,7 @@ export class SuspencionClientesComponent implements OnInit {
     });
     //Cuenta
     this.formularioCuenta = this.fb.group({
+      cuenta: ['', Validators.required],
       estado: ['1'],
       tipo_cuenta: ['', Validators.required],
       monto_inicial: ['', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')]],
@@ -112,7 +116,7 @@ export class SuspencionClientesComponent implements OnInit {
     const cedula = { cedula: cliente.cedula };
     this._cuentaService.getCuentaByCI(cedula).subscribe(
       data => {
-        cuentas = data.cuentas;
+        cuentas = data;
         num_cuentas = cuentas.length;
         this._usuarioService.getUsuario(cedula).subscribe(
           data => {
@@ -200,7 +204,6 @@ export class SuspencionClientesComponent implements OnInit {
       cliente: CLIENTE
     }
     const infoCuentas = this.infoCuentas.nativeElement;
-    console.log(clienteobj)
     this._clienteService.actualizarCliente(clienteobj).subscribe(
       data => {
         switch (data.message) {
@@ -208,6 +211,7 @@ export class SuspencionClientesComponent implements OnInit {
             this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
             this.showForm1 = false;
+            this.showToggle = false;
             this.renderer2.setProperty(infoCuentas, 'innerHTML', "");
             break;
           }
@@ -246,6 +250,7 @@ export class SuspencionClientesComponent implements OnInit {
       ahorro: true,
       digitos: 12
     }
+
     this._cuentaService.generarNumCuenta(cuenta).subscribe(
       data => {
         this.renderer2.setProperty(numCuenta, 'innerHTML', data.numero);
@@ -262,50 +267,52 @@ export class SuspencionClientesComponent implements OnInit {
       monto_inicial: this.formularioCuenta.get('monto_inicial')?.value,
       ingreso_promedio: this.formularioCuenta.get('ingreso_promedio')?.value,
       numero_cuenta: this.formularioCuenta.get('numero_cuenta')?.value,
-      //State define si el usuario esta activo=>true o pasivo=>false
-      state: true
-
+      state: this.formularioCuenta.get('estado')?.value
     }
+
     //Mostramos info de la cuenta
     const info = this.infoCuentaNueva.nativeElement;
     salida = this.printCuenta(CUENTA);
     this.renderer2.setProperty(info, 'innerHTML', salida);
-    
+
     //Envio de datos
-    if (this.formularioCuenta.valid) {
-      console.log('VALID');
-      this.guardarCuenta(CUENTA);
+    if (CUENTA.state) {
+      CUENTA.state = true;
     } else {
-      console.log('INVALID');
-      this.guardarCuenta(CUENTA);
+      CUENTA.state = false;
     }
-  }
-  guardarCuenta(cuenta: Cuenta) {
-    console.log(cuenta);
-    this._cuentaService.guardarCuenta(cuenta).subscribe(
-      data => {
-        console.log(data.message)
+    const cuentaObj = {
+      idCuenta: this.idCuenta,
+      cuenta: CUENTA
+    }
+    console.log(cuentaObj)
+    const infoCuentas = this.infoCuentas.nativeElement;
+    this._cuentaService.actualizarCuenta(cuentaObj).subscribe(
+      data=>{
+        console.log(data)
         switch (data.message) {
           case (200): {
             this.toastr.info('La cuenta se registro con exito!', 'Cuenta registrada');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            this.showForm2 = false;
+            this.showToggle=false;
+            this.renderer2.setProperty(infoCuentas, 'innerHTML', "");
             break;
           }
           case (404): {
-            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD404', 'Cuenta no registrado');
+            this.toastr.error('Revisa las entradas ingresadas en el formulario:COD404', 'Cuenta no registrada');
             console.log("Error del servidor mi 🔑");
             break;
           }
           case (500): {
-            this.toastr.error('Revisa las entradas ingresadas en el formulario: COD500', 'Cuenta no registrada');
+            this.toastr.error('Revisa las entradas ingresadas en el formulario,COD500', 'Cuenta no registrada');
             console.log("No se guardo el dato mi 🔑");
             break;
           }
         }
       }
-    )
+    );
   }
-
   configCliente() {
     const cedula = { cedula: this.CI };
     this._clienteService.obtenerCliente(cedula).subscribe(
@@ -331,15 +338,53 @@ export class SuspencionClientesComponent implements OnInit {
         this.formularioCliente.patchValue({ estado: cliente.state });
       });
     this.showForm1 = true;
+    this.showForm2 = false;
+
   }
-  configCuenta(){
+  configCuenta() {
     const cedula = { cedula: this.CI };
     this._cuentaService.getCuentaByCI(cedula).subscribe(
-      data=>{
-        const cuenta = <Cuenta>data;
-        console.log(cuenta)
+      data => {
+        this.cuentasXusuario = data;
+        for (let i = 0; i < this.cuentasXusuario.length; i++) {
+          let cuenta = <Cuenta>this.cuentasXusuario[i];
+           
+          this.cuentasDisponibles[i] = { numero: cuenta.numero_cuenta };
+        }
       }
     );
-
+    this.showForm2 = true;
+    this.showForm1 = false;
+  }
+  findCuenta(numCuenta: string) {
+    let cuenta;
+    for (let i = 0; i < this.cuentasXusuario.length; i++) {
+      cuenta = <Cuenta>this.cuentasXusuario[i];
+      if (cuenta.numero_cuenta == numCuenta) {
+        return cuenta;
+      } else {
+        cuenta == null;
+      }
+    }
+    return cuenta;
+  }
+  cuentaSeleccionada() {
+    const numCuenta = this.cuenta.nativeElement;
+    let _numCuenta = this.formularioCuenta.get("cuenta")?.value;
+    this.renderer2.setProperty(numCuenta, 'innerHTML', _numCuenta);
+    let selectedCuenta = this.findCuenta(_numCuenta);
+    if (selectedCuenta != undefined) {
+      if(selectedCuenta.state){
+        selectedCuenta.state = <boolean><unknown>"1";
+      }else{
+        selectedCuenta.state= <boolean><unknown>"";
+      }
+    }
+    this.idCuenta = selectedCuenta?._id;    
+    this.formularioCuenta.patchValue({ estado: selectedCuenta?.state });
+    this.formularioCuenta.patchValue({ tipo_cuenta: selectedCuenta?.tipo_cuenta });
+    this.formularioCuenta.patchValue({ monto_inicial: selectedCuenta?.monto_inicial });
+    this.formularioCuenta.patchValue({ ingreso_promedio: selectedCuenta?.ingreso_promedio });
+    this.formularioCuenta.patchValue({ numero_cuenta: selectedCuenta?.numero_cuenta });
   }
 }

@@ -56,7 +56,8 @@
                         <div ngbDropdownMenu="TipoCuenta">
                             <button type="button" (click)="configCliente()" ngbDropdownItem>Configurar datos del
                                 cliente</button>
-                            <button type="button" (click)="configCuenta()" ngbDropdownItem>Configurar datos de la cuenta</button>
+                            <button type="button" (click)="configCuenta()" ngbDropdownItem>Configurar datos de la
+                                cuenta</button>
                             <button type="button" ngbDropdownItem>Configurar datos del usuario</button>
                         </div>
                     </div>
@@ -222,6 +223,17 @@
         <div class="card-body mx-auto w-50">
             <form [formGroup]="formularioCuenta" (ngSubmit)="agregarCuenta()" *ngIf="showForm2">
                 <div class="row text-center">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Selecciona la cuenta que deseas configurar</mat-label>
+                        <mat-select formControlName="cuenta">
+                            <mat-option *ngFor ="let cuenta of cuentasDisponibles" [value] = cuenta.numero (click) = "cuentaSeleccionada()">{{cuenta.numero}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="formularioCuenta.get('cuenta')?.hasError('required') && formularioCuenta.get('cuenta')?.touched">
+                        Este campo es obligatorio
+                      </mat-error>
+                </div>
+                <div class="row text-center">
                     <label>
                         <mat-radio-group formControlName="estado">
                             <mat-radio-button value=1>Activa</mat-radio-button>
@@ -297,10 +309,11 @@
                     </div>
                     <!--------------------->
                 </div>
-                <button type="submit" class="btn btn-primary mt-3 mb-2">Entregar</button>
+                <button type="submit" [disabled]="formularioCuenta.invalid"
+                class="btn btn-primary mt-3 mb-2">Entregar</button>
                 <div class="card mt-4">
                     <div class="card-body text-center">
-                        <p #infoCuenta id="infoCuenta">##Info de la cuenta##</p>
+                        <p #infoCuentaNueva id="infoCuenta">##Info de la cuenta##</p>
                     </div>
                 </div>
             </form>

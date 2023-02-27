@@ -24,6 +24,7 @@ import { RegistroCuentaComponent } from './Components/registro-cuenta/registro-c
 import { SuspencionClientesComponent } from './Components/suspencion-clientes/suspencion-clientes.component';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgbModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
