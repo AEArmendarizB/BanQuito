@@ -28,6 +28,7 @@ export class MenuPrincipalComponent {
   ngOnInit(): void {
     //Mostrar el nombre del cliente que se logea
     this.extraerCliente();
+    //Mostrar las cuentas asociadas al cliente
     this.extraerCuentas();
   }
   extraerCliente(){
@@ -36,7 +37,7 @@ export class MenuPrincipalComponent {
     console.log(cedula);
     const nombre = {cedula: cedula};
     console.log(nombre);
-    this._clienteService.extraerNombre(nombre).subscribe(data=>{
+    this._clienteService.obtenerCliente(nombre).subscribe(data=>{
       var nombres = data.nombres.toString();
       var apellidos = data.apellidos.toString();
       var text = document.getElementById('nombre-cliente');
@@ -66,7 +67,8 @@ export class MenuPrincipalComponent {
   }
 
   transferenciaMenu(){
-    
+    //const 
+    //this.router.navigate(['/menu'],{state:{cedulaObj}});
   }
 
 }

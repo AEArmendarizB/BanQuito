@@ -15,7 +15,6 @@ export class ClienteService {
     urlObtenerCliente = "http://localhost:3600/cliente/";
     urlActualizarCliente = "http://localhost:3600/actualizar-cliente/";
     urlCorreo = "http://localhost:3600/validar-email/";
-    urlNombreCliente = "http://localhost:3600/get-nombre/";
     urlCorreoLogin = "http://localhost:3600/verificar-email";
 
     constructor(
@@ -35,9 +34,6 @@ export class ClienteService {
     }
     validarCorreo(correo:Object){
         return this.http.post(this.urlCorreo, correo);
-    }
-    extraerNombre(cedula:Object): Observable<any>{
-        return this.http.post(this.urlNombreCliente, cedula);
     }
     validarCorreoLogin(correo:Object){
         return this.http.post(this.urlCorreoLogin, correo);
