@@ -23,7 +23,6 @@ export class CuentaService {
     validarCuenta(cuenta: Cuenta): Observable<any> {
         return this.http.post(this.urlVerificar, cuenta);
     }
-
     getCuentaByCI(cedula: Object):Observable<any>{
         return this.http.post(this.urlGetCuentaByCI, cedula);
     }
