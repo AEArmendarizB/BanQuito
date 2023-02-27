@@ -3,6 +3,7 @@ var express=require('express');
 var router=express.Router();
 var cuentasController=require('../controllers/cuentas.controller');
 var multiparty=require('connect-multiparty');
+const cuenta = require('../models/cuenta');
 var mutipartyMiddleWare=multiparty({uploadDir:'./uploads'});
 //pagina de inicio
 router.get('/inicio',cuentasController.inicio);
@@ -18,4 +19,6 @@ router.put('/transaccion-interna',cuentasController.transaccionInterna);
 router.post('/generarNumero',cuentasController.generarNumeroCuenta);
 //Obtener una cuenta a partir de un numero de cedula.
 router.post('/get-Cuenta-byCI',cuentasController.getCuentaByCI);
+//actualizar Cuenta
+router.post('/actualizar-cuenta',cuentasController.actualizarCuenta);
 module.exports=router;
