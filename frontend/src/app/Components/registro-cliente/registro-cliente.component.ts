@@ -103,6 +103,7 @@ export class RegistroClienteComponent implements OnInit {
       var correo = this.formularioCliente.get('email')?.value;
 
       //Deshabilitar el botón de correo
+      document.getElementById('boton-correo')
       document.getElementById('boton-correo')!.style.display = 'none';
       document.getElementById('otp')!.style.display = 'block';
       //enviar correo
@@ -343,13 +344,11 @@ export class RegistroClienteComponent implements OnInit {
   }
   verificarCorreo(email: String) {
     var codigo = "";
-    var patron: RegExp;
     const correo = { correo: email }
     this._clienteService.validarCorreo(correo).subscribe(
       data => {
         codigo = data.toString();
         let patron="^"+codigo+"$";  
-        //patron = /1234/g;
         var campo = document.getElementById('otp-campo');
         campo!.addEventListener('keyup',()=>{
           var text = document.getElementById('text');

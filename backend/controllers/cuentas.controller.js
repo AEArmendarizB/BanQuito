@@ -24,9 +24,10 @@ var controller = {
         console.log(cedula)
 
         Cuenta.find({ "cedula": cedula }, (err, cuentas) => {
+            console.log(cuentas);
             if (err) return res.status(500).send({ message: 500 });
             if (!cuentas) return res.status(404).send({ message: 404 });
-            return res.status(200).send({ cuentas });
+            return res.status(200).send( cuentas );
         })
     },
     saveCuenta: function (req, res) {

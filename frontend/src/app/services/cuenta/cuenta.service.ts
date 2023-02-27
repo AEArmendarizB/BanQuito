@@ -14,6 +14,7 @@ export class CuentaService {
     urlVerificar = "http://localhost:3600/validarNumeroCuenta/";
     urlGetCuentaByCI = "http://localhost:3600/get-Cuenta-byCI/";
     urlGenerarnumCuenta = "http://localhost:3600/generarNumero/";
+
     constructor(
         private http: HttpClient
     ) { }
