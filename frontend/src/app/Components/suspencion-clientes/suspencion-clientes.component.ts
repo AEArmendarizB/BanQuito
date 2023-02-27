@@ -23,18 +23,19 @@ export class SuspencionClientesComponent implements OnInit {
   formularioCedula: FormGroup;
   formularioCliente: FormGroup;
   formularioCuenta: FormGroup;
-  formularioUsuario:FormGroup;
+  formularioUsuario: FormGroup;
 
   private CI: string = "";
   public nombreUsuario: String = "";
   private idCliente: number | undefined = 0;
   private idCuenta: number | undefined = 0;
+  private idUsuario: number | undefined = 0;
   public cuentasDisponibles: any[] = [];
   private cuentasXusuario: any;
 
   public showForm1 = false;
   public showForm2 = false;
-  public showForm3 = true;
+  public showForm3 = false;
   public showToggle = false;
   // formularioCuenta: FormGroup;
   // formularioUsuario: FormGroup;
@@ -80,8 +81,11 @@ export class SuspencionClientesComponent implements OnInit {
     });
     //Cliente
     this.formularioUsuario = this.fb.group({
-      pregunta: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{1,25}$')]],
-  });
+      pregunta: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
+      user: ['', [Validators.required, Validators.pattern("^[0-9A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
+      password: ['', [Validators.required, Validators.pattern("^(?=.*[A-Z])(?=.*[@a-z0-9])[0-9a-zA-Z@]{8,10}$")]],
+      estado: ['1'],
+    });
   }
   ngOnInit(): void {
   }
@@ -295,14 +299,14 @@ export class SuspencionClientesComponent implements OnInit {
     console.log(cuentaObj)
     const infoCuentas = this.infoCuentas.nativeElement;
     this._cuentaService.actualizarCuenta(cuentaObj).subscribe(
-      data=>{
+      data => {
         console.log(data)
         switch (data.message) {
           case (200): {
             this.toastr.info('La cuenta se registro con exito!', 'Cuenta registrada');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
             this.showForm2 = false;
-            this.showToggle=false;
+            this.showToggle = false;
             this.renderer2.setProperty(infoCuentas, 'innerHTML', "");
             break;
           }
@@ -313,6 +317,49 @@ export class SuspencionClientesComponent implements OnInit {
           }
           case (500): {
             this.toastr.error('Revisa las entradas ingresadas en el formulario,COD500', 'Cuenta no registrada');
+            console.log("No se guardo el dato mi 🔑");
+            break;
+          }
+        }
+      }
+    );
+  }
+  agregarUsuario() {
+    const USUARIO: Usuario = {
+      cedula: this.formularioCedula.get('cedula')?.value,
+      username: this.formularioUsuario.get('user')?.value,
+      password: this.formularioUsuario.get('password')?.value,
+      pregunta: this.formularioUsuario.get('pregunta')?.value,
+      isNew: this.formularioUsuario.get('estado')?.value
+    }
+    if (USUARIO.isNew) {
+      USUARIO.isNew = true;
+    } else {
+      USUARIO.isNew = false;
+    }
+    const usuarioObj = {
+      idusuario: this.idUsuario,
+      usuario: USUARIO
+    }
+    const infoCuentas = this.infoCuentas.nativeElement;
+    this._usuarioService.configurarUsuario(usuarioObj).subscribe(
+      data=>{
+        switch (data.message) {
+          case (200): {
+            this.toastr.info('El usuario se registro con exito!', 'Usuario registrado');
+            console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            this.showToggle = false;
+            this.showForm3 = false;
+            this.renderer2.setProperty(infoCuentas, 'innerHTML', "");
+            break;
+          }
+          case (404): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario:COD404', 'Usuario no registrado');
+            console.log("Error del servidor mi 🔑");
+            break;
+          }
+          case (500): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario,COD500', 'Usuario no registrado');
             console.log("No se guardo el dato mi 🔑");
             break;
           }
@@ -346,6 +393,7 @@ export class SuspencionClientesComponent implements OnInit {
       });
     this.showForm1 = true;
     this.showForm2 = false;
+    this.showForm3 = false;
 
   }
   configCuenta() {
@@ -355,13 +403,14 @@ export class SuspencionClientesComponent implements OnInit {
         this.cuentasXusuario = data;
         for (let i = 0; i < this.cuentasXusuario.length; i++) {
           let cuenta = <Cuenta>this.cuentasXusuario[i];
-           
+
           this.cuentasDisponibles[i] = { numero: cuenta.numero_cuenta };
         }
       }
     );
     this.showForm2 = true;
     this.showForm1 = false;
+    this.showForm3 = false;
   }
   findCuenta(numCuenta: string) {
     let cuenta;
@@ -381,17 +430,39 @@ export class SuspencionClientesComponent implements OnInit {
     this.renderer2.setProperty(numCuenta, 'innerHTML', _numCuenta);
     let selectedCuenta = this.findCuenta(_numCuenta);
     if (selectedCuenta != undefined) {
-      if(selectedCuenta.state){
+      if (selectedCuenta.state) {
         selectedCuenta.state = <boolean><unknown>"1";
-      }else{
-        selectedCuenta.state= <boolean><unknown>"";
+      } else {
+        selectedCuenta.state = <boolean><unknown>"";
       }
     }
-    this.idCuenta = selectedCuenta?._id;    
+    this.idCuenta = selectedCuenta?._id;
     this.formularioCuenta.patchValue({ estado: selectedCuenta?.state });
     this.formularioCuenta.patchValue({ tipo_cuenta: selectedCuenta?.tipo_cuenta });
     this.formularioCuenta.patchValue({ monto_inicial: selectedCuenta?.monto_inicial });
     this.formularioCuenta.patchValue({ ingreso_promedio: selectedCuenta?.ingreso_promedio });
     this.formularioCuenta.patchValue({ numero_cuenta: selectedCuenta?.numero_cuenta });
+  }
+  configUsuario() {
+    const cedula = { cedula: this.CI };
+    this._usuarioService.getUsuario(cedula).subscribe(
+      data => {
+        const usuario = <Usuario>data;
+        if (usuario.isNew) {
+          usuario.isNew = <boolean><unknown>"1";
+        } else {
+          usuario.isNew = <boolean><unknown>"";
+        }
+        this.idUsuario = usuario._id;
+        this.formularioUsuario.patchValue({ pregunta: usuario.pregunta });
+        this.formularioUsuario.patchValue({ user: usuario.username });
+        this.formularioUsuario.patchValue({ password: usuario.password });
+        this.formularioUsuario.patchValue({ estado: usuario.isNew });
+      }
+    );
+    this.showForm3 = true;
+    this.showForm1 = false;
+    this.showForm2 = false;
+
   }
 }

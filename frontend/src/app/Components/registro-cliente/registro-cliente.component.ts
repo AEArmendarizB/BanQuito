@@ -204,7 +204,7 @@ export class RegistroClienteComponent implements OnInit {
     const USUARIO: Usuario = {
       cedula: this.formularioCliente.get('cedula')?.value,
       username: this.formularioCliente.get('nombres')?.value.split(' ')[0] + this.formularioCliente.get('cedula')?.value.substring(0, 6),
-      password: this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6),
+      password: this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6)+"@A",
       pregunta: this.formularioUsuario.get('pregunta')?.value,
       isNew: true
     }
