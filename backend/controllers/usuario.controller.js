@@ -48,8 +48,6 @@ var controller = {
         res.redirect('/login');
 
     },
-
-
     verificarUsuario: function (req, res) {
         var params = req.body;
         console.log(params)
@@ -60,13 +58,6 @@ var controller = {
             //return res.status(200).send({ message: usuario.isNew });
             return res.status(200).send({ message: usuario.isNew , cedula: usuario.cedula});
         })
-
-
-
-
-
-
-
     },
     saveUsuario: function (req, res) {
         var usuario = new Usuario();
@@ -81,17 +72,24 @@ var controller = {
         usuario.otp = params.otp;
 
         usuario.save((err, usuarioGuardado) => {
-            if (err) return res.status(500).send({ message: 500 });
-            if (!usuarioGuardado) return res.status(404).send({ message: 404 });
+            if (err) return res.status(200).send({ message: 500 });
+            if (!usuarioGuardado) return res.status(200).send({ message: 404 });
             return res.status(200).send({ message: 200 });
         })
 
     },
-
-
+    configurarCuenta: function (req, res) {
+        //se recibe un onbjeto->{idCuenta,cuenta}
+        var params= req.body;
+        var idusuario = params.idusuario
+        var usuario= params.usuario
+        Usuario.findOneAndUpdate({ "_id": idusuario}, usuario, { new: true }, (err, usuario) => {
+            if (err) return res.status(200).send({ message: 404 });
+            if (!usuario) return res.status(200).send({ message: 404 });
+            return res.status(200).send({ message: 200 });
+        });
+    },
     actualizarUsuario: function (req, res){
-
-        
         console.log("Consola 2")
         var update=req.body;
         var cedula= update.cedula;
@@ -103,26 +101,6 @@ var controller = {
             if(!usuario) return res.status(404).send({message:'El libro no existe para actulizar'});
             return res.status(200).send({usuario});
         })
-                
-       
-
-       
-
-        /*
-        var update=req.body;
-        var cedula= update.cedula;
-        console.log(cedula)
-                
-        Usuario.findOneAndUpdate({"cedula":cedula},update,{new:true},(err,usuario)=>{
-            if (err) return res.status(500).send({message:'Error al actualizar los datos'});
-            if(!usuario) return res.status(404).send({message:'El libro no existe para actulizar'});
-            return res.status(200).send({usuario});
-        })
-        
-        
-        
-        */ 
-
 
     },
 
@@ -151,6 +129,25 @@ var controller = {
             if (err) return res.status(200).send({message: true});
             if (!user) return res.status(200).send({message: false});
             return res.status(200).send({message: true});
+        })
+    },
+
+    verificarPregunta:function (req, res) {
+        var params = req.body;
+        var cedula = params.cedula;
+        var pregunta = params.pregunta;
+        console.log(cedula);
+        console.log(params);
+
+        
+        Usuario.findOne({ "cedula": cedula }, (err, user) => {
+            if (err) return res.status(200).send({message: "Error al encontar el usuario"});
+            if (!user) return res.status(200).send({message: "Nose encontro el usuario"});
+            if(user.pregunta == pregunta){
+                return res.status(200).send({message: "true"});
+            }else{
+                return res.status(200).send({message: "La respuesta a la pregunta de seguridad no coincide"});
+            }
         })
     }
 

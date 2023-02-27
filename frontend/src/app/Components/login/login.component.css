@@ -51,7 +51,8 @@ header{
     font-size: 35px;
 }
 input[type="text"],
-input[type="password"]{
+input[type="password"],
+input[type="number"]{
     font-size: 20px;
     width: 82%;
     padding: 10px;

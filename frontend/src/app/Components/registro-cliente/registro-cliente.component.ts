@@ -31,6 +31,7 @@ export class RegistroClienteComponent implements OnInit {
   @ViewChild('infoCuenta') infoCuenta!: ElementRef;
 
   private num: String = "";
+  public otpNotOk = true;
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -48,8 +49,8 @@ export class RegistroClienteComponent implements OnInit {
       codDactilar: ['', [Validators.required, Validators.pattern("^([A-Za-z]{1}[0-9]{4}){2}$")]],
       fechaNacimiento: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      domicilio: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{1,50}$')]],
-      ocupacion: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{1,50}$')]],
+      domicilio: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
+      ocupacion: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
       numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]],
       otp: ['', Validators.required]
     });
@@ -203,7 +204,7 @@ export class RegistroClienteComponent implements OnInit {
     const USUARIO: Usuario = {
       cedula: this.formularioCliente.get('cedula')?.value,
       username: this.formularioCliente.get('nombres')?.value.split(' ')[0] + this.formularioCliente.get('cedula')?.value.substring(0, 6),
-      password: this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6),
+      password: this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6)+"@A",
       pregunta: this.formularioUsuario.get('pregunta')?.value,
       isNew: true
     }
@@ -286,7 +287,7 @@ export class RegistroClienteComponent implements OnInit {
           case (200): {
             this.toastr.info('El usuario se registro con exito!', 'Usuario registrada');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
-            this.router.navigate(['']);
+            this.router.navigate(['/login']);
             break;
           }
           case (404): {
@@ -350,8 +351,10 @@ export class RegistroClienteComponent implements OnInit {
           console.log(otp);
           if(otp.match(patron)==null){
            text!.innerHTML="Codigo invalido"
+           this.otpNotOk = true;
           }else{
            text!.innerHTML="Codigo valido"
+           this.otpNotOk = false;
           }
         })
       }
