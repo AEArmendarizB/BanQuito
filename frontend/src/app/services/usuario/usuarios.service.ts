@@ -13,6 +13,8 @@ import { Usuario } from "src/app/models/usuarios";
 export class UsuarioService{
     url= "http://localhost:3600/guardar-usuario/";
     urlgetUsuario= "http://localhost:3600/getUsuario/";
+    urlPregunta= "http://localhost:3600/verificarPregunta/";
+
     constructor(
         private http: HttpClient
     ){}
@@ -21,5 +23,12 @@ export class UsuarioService{
     }
     getUsuario(cedula:object): Observable <any>{
         return this.http.post(this.urlgetUsuario, cedula);
+    }
+
+    
+
+   
+    verificarPregunta(pregunta: Object): Observable <any>{
+        return this.http.post(this.urlPregunta, pregunta);
     }
 }
