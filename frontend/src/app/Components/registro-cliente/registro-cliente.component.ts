@@ -31,6 +31,7 @@ export class RegistroClienteComponent implements OnInit {
   @ViewChild('infoCuenta') infoCuenta!: ElementRef;
 
   private num: String = "";
+  public otpNotOk = true;
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -286,7 +287,7 @@ export class RegistroClienteComponent implements OnInit {
           case (200): {
             this.toastr.info('El usuario se registro con exito!', 'Usuario registrada');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
-            this.router.navigate(['']);
+            this.router.navigate(['/login']);
             break;
           }
           case (404): {
@@ -350,8 +351,10 @@ export class RegistroClienteComponent implements OnInit {
           console.log(otp);
           if(otp.match(patron)==null){
            text!.innerHTML="Codigo invalido"
+           this.otpNotOk = true;
           }else{
            text!.innerHTML="Codigo valido"
+           this.otpNotOk = false;
           }
         })
       }
