@@ -64,14 +64,6 @@ export class LoginComponent implements OnInit {
   }
 
   public submitFormulario() {
-    /*if (this.myForm.invalid) {
-      Object.values(this.myForm.controls).forEach(control => {
-        control.markAllAsTouched();
-        //document.getElementById('btn')?.setAttribute('disabled', ''); //Desactivar el boton
-      });
-      return;
-    }*/
-    console.log(this.myForm.value);
     this.crearUsuario();
   }
 
@@ -99,7 +91,6 @@ export class LoginComponent implements OnInit {
 
   verificarUsuario(login: LoginUsuario) {
     this._usuarioService.verificarUsuario(login).subscribe(data => {
-        console.log(data);
         if (login.username == "admin" && login.password == "admin") {
           this.toastr.success('Bienvenido usuario Administrador', 'Login Exitoso!');
           this.router.navigate(['/menu-admin']);
@@ -136,10 +127,7 @@ export class LoginComponent implements OnInit {
   verificarOTP(){
     var codigo = this.codigo;
     let patron="^"+codigo+"$";  
-    var otp = this.myForm.get('otp')!.value;
-    console.log(patron);
-    console.log(otp);
-    console.log(otp.match(patron));
+    var otp = this.myForm.get('otp')!.value.toString();
     if(otp.match(patron)==null){
       this.toastr.error('El código no coincide', 'Error, código inválido');
     }else{
@@ -150,11 +138,9 @@ export class LoginComponent implements OnInit {
 
   extraerCorreo(){
     const cedula = this.id;
-    console.log(cedula);
     const nombre = {cedula: cedula};
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
       this.correo = data.correo_electronico.toString();;
-      console.log(this.correo);
       this.enviarCorreo(this.correo);
     });
 
@@ -162,13 +148,8 @@ export class LoginComponent implements OnInit {
 
   enviarCorreo(email:string){
     const correo = { correo: email }
-
-    console.log("HOLA");
-    console.log(correo);
-
     this._clienteService.validarCorreoLogin(correo).subscribe(data => {
         this.codigo = data.toString();
-        console.log(this.codigo);
       });
   }
 }
