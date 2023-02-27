@@ -26,14 +26,20 @@ export class MenuPrincipalComponent {
   ){}
 
   ngOnInit(): void {
+
+    //const cedula = history.state.cedula;
+    //const cedula = 1753647740;
+    //console.log("soy cedula: "+ cedula);
+    //console.log("soy la otra cedula:  " + cedula.cedula);
+
     //Mostrar el nombre del cliente que se logea
     this.extraerCliente();
     //Mostrar las cuentas asociadas al cliente
     this.extraerCuentas();
   }
   extraerCliente(){
-    //const cedula = history.state.cedulaObj.cedula;
-    const cedula = 1753647740;
+    const cedula = history.state.cedula.cedula;
+    //const cedula = 1753647740;
     console.log(cedula);
     const nombre = {cedula: cedula};
     console.log(nombre);
@@ -46,7 +52,8 @@ export class MenuPrincipalComponent {
   }
 
   extraerCuentas(){
-    const cedula = 1753647740;
+    const cedula = history.state.cedula.cedula;
+   // const cedula = 1753647740;
     console.log(cedula);
     const cuenta = {cedula: cedula};
     this._cuentaService.getCuentaByCI(cuenta).subscribe(data=>{

@@ -25,16 +25,18 @@
         <h1 class="titulo1">Responde la pregunta de seguridad</h1>
         <h2 class="titulo2">Pregunta de seguridad</h2>
         
-
+        
+          
             <select class="combo">
-                <option value="mascota">Cual fue el nombre de tu primera mascota ?</option>
-                <option value="apodo">Cual es tu apodo?</option>
-                <option value="amigo">Cual es el nombre de tu mejor amigo?</option>
+                <option value="mascota">¿Cu&aacute;l
+                  es tu sabor de helado
+                  favorito?</option>
+                
             </select>
 
             <input  formControlName="respuesta" type="text" id="respuesta" class="respuesta" placeholder="respuesta">
             
-
+            
             <button    type="submit" [disabled]="respuestaForm.invalid"   class="button" >Enviar</button>
             
         
