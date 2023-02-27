@@ -62,8 +62,8 @@ export class SuspencionClientesComponent implements OnInit {
       codDactilar: ['', [Validators.required, Validators.pattern("^([A-Za-z]{1}[0-9]{4}){2}$")]],
       fechaNacimiento: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      domicilio: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{1,50}$')]],
-      ocupacion: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{1,50}$')]],
+      domicilio: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
+      ocupacion: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
       numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]]
     });
     //Cuenta
