@@ -103,6 +103,7 @@ export class RegistroClienteComponent implements OnInit {
       var correo = this.formularioCliente.get('email')?.value;
 
       //Deshabilitar el botón de correo
+      document.getElementById('boton-correo')
       document.getElementById('boton-correo')!.style.display = 'none';
       document.getElementById('otp')!.style.display = 'block';
       //enviar correo
@@ -124,12 +125,6 @@ export class RegistroClienteComponent implements OnInit {
       //State define si el usuario esta activo=>true o pasivo=>false
       state: true
     }
-
-    //
-    console.log("Cliente: " + CLIENTE);
-
-
-
     //Envio de datos
     if (this.formularioCliente.valid) {
       this.verificarCliente(CLIENTE);
@@ -237,7 +232,6 @@ export class RegistroClienteComponent implements OnInit {
     console.log(cliente);
     this._clienteService.guardarCliente(cliente).subscribe(
       data => {
-        console.log(data.message);
         switch (data.message) {
           case (200): {
             this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');
@@ -343,13 +337,11 @@ export class RegistroClienteComponent implements OnInit {
   }
   verificarCorreo(email: String) {
     var codigo = "";
-    var patron: RegExp;
     const correo = { correo: email }
     this._clienteService.validarCorreo(correo).subscribe(
       data => {
         codigo = data.toString();
         let patron="^"+codigo+"$";  
-        //patron = /1234/g;
         var campo = document.getElementById('otp-campo');
         campo!.addEventListener('keyup',()=>{
           var text = document.getElementById('text');

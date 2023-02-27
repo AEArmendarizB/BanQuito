@@ -1,23 +1,3 @@
-//para hacer la coneccion en la nube
-
-/*
-'use strict'
-var mongoose=require('mongoose');
-var port = '3600';
-mongoose.Promise=global.Promise;
-//para un posible error lo siguiente
-mongoose.set("strictQuery", false);
-
-//var app=require()
-mongoose.connect('mongodb://127.0.0.1:27017/libros')
-.then(()=>{
-    console.log("Conexion establecido con la bdd");
-
-})
-.catch(err)
-
-*/
-
 'use strict'
 var mongoose=require('mongoose');
 var port='3600';

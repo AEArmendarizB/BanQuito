@@ -121,7 +121,15 @@ export class LoginComponent implements OnInit {
             case false:
               //this.router.navigate(['/pregunta']);
               //this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
-              //control de formulario
+
+              //PARTE DE ANDRES
+              /*const cedula = data.cedula;
+              const cedulaObj = { cedula: cedula };
+              this.router.navigate(['/menu'],{state:{cedulaObj}});*/
+              //--------------------------------------------
+              
+              this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
+              
               this.control++;
               this.activarCuadros();
               break;

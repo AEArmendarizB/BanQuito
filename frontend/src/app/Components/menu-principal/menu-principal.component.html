@@ -38,7 +38,7 @@
   
         <a href="/transferencia" >
           <div class="option">
-            <i class="fas fa-video" title="Transferencias"></i>
+            <i class="fas fa-video" title="Transferencias" (click)="transferenciaMenu()"></i>
             <h4>Transferencias</h4>
           </div>
         </a>
@@ -77,10 +77,32 @@
           </div>
           <div class="col-4" id="cliente">
             <img src="../../../assets/media/usuario.png" alt="cliente">
-            <h1 class="nombre-cliente">Jhon Lenon Doe Moore</h1>
+            <h1 class="nombre-cliente" id="nombre-cliente"></h1>
           </div>
         </div>
       </header>
+
+      <div class="cuenta" *ngFor="let cuenta of listCuentas">
+        <div class="cuenta-contenido">
+          <div class="row">
+            <div class="col-6">
+              <h1 class="numero">{{cuenta.numero_cuenta}}</h1>
+            </div>
+            <div class="col-6">
+              <h2 class="tipo" >{{cuenta.tipo_cuenta}}</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <h2 class="ingreso">{{cuenta.monto_inicial | currency:'USD'}}</h2>
+            </div>
+            <div class="col-6">
+              <h2 class="ingresoP">{{cuenta.ingreso_promedio | currency:'USD'}}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </body>
 </html>

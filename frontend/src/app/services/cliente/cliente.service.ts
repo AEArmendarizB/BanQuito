@@ -12,7 +12,10 @@ import { Cliente } from "src/app/models/clientes";
 export class ClienteService {
     url = "http://localhost:3600/guardar-cliente/";
     urlVerificar = "http://localhost:3600/validarCedula/";
+    urlObtenerCliente = "http://localhost:3600/cliente/";
+    urlActualizarCliente = "http://localhost:3600/actualizar-cliente/";
     urlCorreo = "http://localhost:3600/validar-email/";
+    urlCorreoLogin = "http://localhost:3600/verificar-email";
 
     constructor(
         private http: HttpClient
@@ -23,8 +26,16 @@ export class ClienteService {
     validarCliente(cliente: Cliente): Observable<any> {
         return this.http.post(this.urlVerificar, cliente);
     }
+    obtenerCliente(cedula:object):Observable<any>{
+        return this.http.post(this.urlObtenerCliente, cedula);
+    }
+    actualizarCliente(cliente: object): Observable<any> {
+        return this.http.post(this.urlActualizarCliente, cliente);
+    }
     validarCorreo(correo:Object){
         return this.http.post(this.urlCorreo, correo);
     }
-
+    validarCorreoLogin(correo:Object){
+        return this.http.post(this.urlCorreoLogin, correo);
+    }
 }

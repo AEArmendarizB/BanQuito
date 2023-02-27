@@ -50,6 +50,14 @@ var controller = {
     verificarCorreoLogin: function (req, res) {
         //parametros 
         var nodemailer = require('nodemailer');
+        var params = req.body;
+        var correo = params.correo;
+        var otp = "";
+        var mensaje = "Estimado cliente,"+'\n\n'+"BanQuito le informa: a las "+getTime()+" se ha generado una solicitud para ingresar a su Banca Virtual. \n\nPor tu seguridad no compartas esta informacion con NADIE. Su código para la Banca Virtual es: \n\n "+otp+"\n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
+        //generacion del número de validacion
+        for (let i = 0; i < 6; i++) {
+            otp += Math.floor(Math.random() * 10).toString();
+        }
         //Funcion para mostrar la fecha y hora actual para el correo
         function getTime(){
             var date = new Date();
@@ -80,7 +88,6 @@ var controller = {
         var correo = params.correo;
         var otp = params.otp;
 
-        var mensaje = "Estimado cliente,"+'\n\n'+"BanQuito le informa: a las "+getTime()+" se ha generado una solicitud para ingresar a su Banca Virtual. \n\nPor tu seguridad no compartas esta informacion con NADIE. Su código para la Banca Virtual es: \n\n "+otp+"\n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -107,6 +114,7 @@ var controller = {
                 res.status("200");
             }
         })
+        return res.send(otp);
     }
 }
 module.exports = controller;
