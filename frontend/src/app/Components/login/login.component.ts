@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   //Verificacion
   public id:string;
   public correo:string;
+  public codigo:string;
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
 
     this.id='';
     this.correo='';
+    this.codigo='';
   }
 
   ngOnInit(): void {
@@ -69,7 +71,6 @@ export class LoginComponent implements OnInit {
       });
       return;
     }*/
-    
     console.log(this.myForm.value);
     this.crearUsuario();
   }
@@ -90,22 +91,10 @@ export class LoginComponent implements OnInit {
         break;
 
       case 1:
-        /*const LOGIN_USUARIO_OTP: LoginUsuario = {
-          username: this.myForm.get('usuario')?.value,
-          password: this.myForm.get('password')?.value,
-          //otp: this.myForm.get('otp')?.value
-        };*/
-        //this.extraerCorreo();
+        this.verificarOTP();
         break;
         
     }
-    /*const LOGIN_USUARIO: LoginUsuario = {
-      username: this.myForm.get('usuario')?.value,
-      password: this.myForm.get('password')?.value
-    };
-    console.log(LOGIN_USUARIO);
-    console.log(LOGIN_USUARIO.username);
-    this.verificarUsuario(LOGIN_USUARIO);*/
   }
 
   verificarUsuario(login: LoginUsuario) {
@@ -126,16 +115,6 @@ export class LoginComponent implements OnInit {
               this.toastr.error('Usuario o contraseña incorrectos', 'Error, No existe el usuario!');
               break;
             case false:
-              //this.router.navigate(['/pregunta']);
-              //this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
-
-              //PARTE DE ANDRES
-              /*const cedula = data.cedula;
-              const cedulaObj = { cedula: cedula };
-              this.router.navigate(['/menu'],{state:{cedulaObj}});*/
-              //--------------------------------------------
-              
-              //this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
               this.id = data.cedula;
               this.control++;
               this.extraerCorreo();
@@ -155,7 +134,18 @@ export class LoginComponent implements OnInit {
   }
 
   verificarOTP(){
-
+    var codigo = this.codigo;
+    let patron="^"+codigo+"$";  
+    var otp = this.myForm.get('otp')!.value;
+    console.log(patron);
+    console.log(otp);
+    console.log(otp.match(patron));
+    if(otp.match(patron)==null){
+      this.toastr.error('El código no coincide', 'Error, código inválido');
+    }else{
+      this.router.navigate(['/pregunta']);
+      this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
+    };
   }
 
   extraerCorreo(){
@@ -171,26 +161,14 @@ export class LoginComponent implements OnInit {
   }
 
   enviarCorreo(email:string){
-    var codigo = "";
     const correo = { correo: email }
+
     console.log("HOLA");
     console.log(correo);
+
     this._clienteService.validarCorreoLogin(correo).subscribe(data => {
-        codigo = data.toString();
-        /*
-        let patron="^"+codigo+"$";  
-        var campo = document.getElementById('otp-campo');
-        campo!.addEventListener('keyup',()=>{
-          var text = document.getElementById('text');
-          var otp = this.formularioCliente.get('otp')!.value;
-          console.log(patron);
-          console.log(otp);
-          if(otp.match(patron)==null){
-           text!.innerHTML="Codigo invalido"
-          }else{
-           text!.innerHTML="Codigo valido"
-          }
-        })*/
+        this.codigo = data.toString();
+        console.log(this.codigo);
       });
   }
 }
