@@ -6,7 +6,7 @@ var multiparty=require('connect-multiparty');
 var mutipartyMiddleWare=multiparty({uploadDir:'./uploads'});
 
 //login usuario
-//router.post('/login-usuario',usuariosController.login);
+router.post('/login-usuario',usuariosController.login);
 //logout usuario
 router.get('/logoutn-usuario',usuariosController.logout);
 
@@ -20,7 +20,7 @@ router.post('/generarCodigoOTP',usuariosController.generarCodigoOTP);
 router.post('/actualizarUsuario',usuariosController.actualizarUsuario);
 //Obtener un usuario
 router.post('/getUsuario',usuariosController.getUsuario);
-
-
+//validar username
+router.post('/validarUsername',usuariosController.validarUsername);
 
 module.exports=router;

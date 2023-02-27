@@ -71,8 +71,7 @@ var controller = {
             if (!cliente) return res.status(404).send({ message: 404 });
             return res.status(200).send({ message: 200 });
         });
-    },
-    
+    }
 }
 
 module.exports = controller;

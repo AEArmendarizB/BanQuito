@@ -14,6 +14,7 @@ export class CuentaService {
     urlVerificar = "http://localhost:3600/validarNumeroCuenta/";
     urlGetCuentaByCI = "http://localhost:3600/get-Cuenta-byCI/";
     urlGenerarnumCuenta = "http://localhost:3600/generarNumero/";
+    urlActualizarCuenta = "http://localhost:3600/actualizar-cuenta/"; 
     constructor(
         private http: HttpClient
     ) { }
@@ -23,11 +24,13 @@ export class CuentaService {
     validarCuenta(cuenta: Cuenta): Observable<any> {
         return this.http.post(this.urlVerificar, cuenta);
     }
-
     getCuentaByCI(cedula: Object):Observable<any>{
         return this.http.post(this.urlGetCuentaByCI, cedula);
     }
     generarNumCuenta(cuenta: Object):Observable<any>{
         return this.http.post(this.urlGenerarnumCuenta, cuenta);
+    }
+    actualizarCuenta(cuenta: object): Observable<any> {
+        return this.http.post(this.urlActualizarCuenta, cuenta);
     }
 }

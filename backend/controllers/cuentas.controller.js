@@ -21,12 +21,10 @@ var controller = {
         console.log("Recolectando datos de las cuentas del usuario:")
         var params = req.body;
         var cedula = params.cedula;
-        console.log(cedula)
-
         Cuenta.find({ "cedula": cedula }, (err, cuentas) => {
             if (err) return res.status(500).send({ message: 500 });
             if (!cuentas) return res.status(404).send({ message: 404 });
-            return res.status(200).send({ cuentas });
+            return res.status(200).send( cuentas );
         })
     },
     saveCuenta: function (req, res) {
@@ -99,8 +97,6 @@ var controller = {
             return res.status(500).send({ message: 'Error al procesar la transacción' });
         }
     },
-
-
     generarNumeroCuenta: async function (req, res) {
 
         try {
@@ -134,6 +130,18 @@ var controller = {
             console.error(error);
             return res.status(500).send({ message: 'Error al generar el numero' });
         }
+    },
+    actualizarCuenta: function (req, res) {
+        //se recibe un onbjeto->{idCuenta,cuenta}
+        var params= req.body;
+        var idCuenta = params.idCuenta
+        var cuenta= params.cuenta
+        console.log(idCuenta)
+        Cuenta.findOneAndUpdate({ "_id": idCuenta}, cuenta, { new: true }, (err, cuenta) => {
+            if (err) return res.status(200).send({ message: 404 });
+            if (!cuenta) return res.status(200).send({ message: 404 });
+            return res.status(200).send({ message: 200 });
+        });
     }
 }
 

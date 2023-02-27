@@ -182,48 +182,98 @@ body {
 main {
     padding-left: 180px;
 }
-/*FIN MENU */
-/*-----------------------------------------------------*/
-.cuenta{
+/*-------------------------------------------------------*/
+
+.transferencia{
     margin-top: 5%;
     margin-left: 15%;
     padding: 10px;
-    width: 70%;
+width: 70%;
+
 background: #85684b;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 50px;
 }
-.cuenta-contenido{
-    margin: 1%;
-    padding: 2%;
+.transferencia_contenido{
+    margin: 5%;
+    padding-left: 5%;
+    padding-top: 2%;
+    width: 90%;
+  
     background: #fae1c0;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
 }
-.numero{
-    font-family: 'Times New Roman', Times, serif;
-    color: #000000;
-    font-weight: bold;
+
+.transferencia_contenido h1{
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
     text-align: center;
-    text-decoration: underline;
+    font-weight: bold;
+    color: #000000;
+    padding-bottom: 5px;
 }
-.tipo{
+
+.transferencia_contenido label{
     font-family: 'Times New Roman', Times, serif;
-    color: #422929;
-    text-align: right;
-    margin-right: 5%;
+    font-size: 20px;
+    color: #000000;
 }
-.ingreso{
+.transferencia_contenido input{
     font-family: 'Times New Roman', Times, serif;
-    color: #422929;
-    text-align: left;
+    font-size: 15px;
+    color: #272424;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.transferencia_contenido .row{
+    margin: 10px;
+}
+#validar{
+    font-family: 'Inter';
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 10px;
+    background: #85684b;
+    border: 1px solid #130f0f;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+#validar:hover{
+    background-color: #000000;
+    color: #9e0004;
+    border: 1px solid white;
+    font-style: oblique;
+}
+.transferencia_contenido p{
     margin-left: 10%;
-    margin-top: 2%;
+    color: #4b4545;
+    font-family: 'Iter';
+    font-size: 15px;
 }
-.ingresoP{
-    font-family: 'Times New Roman', Times, serif;
-    color: #422929;
-    text-align: right;
-    margin-right: 5%;
-    margin-top: 2%;
+#enviar{
+    font-family: 'Inter';
+    font-size: x-large;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: 30%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #85684b;
+    border: 1px solid #130f0f;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+#enviar:hover{
+    background-color: #000000;
+    color: #9e0004;
+    border: 1px solid white;
+    font-style: oblique;
 }
