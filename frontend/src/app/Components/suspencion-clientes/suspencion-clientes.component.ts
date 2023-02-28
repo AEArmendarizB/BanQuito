@@ -522,6 +522,20 @@ export class SuspencionClientesComponent implements OnInit {
     }
     
   }
+  reenviar(){
+    var cedula = { cedula: this.CI }
+      this._clienteService.obtenerCliente(cedula).subscribe(
+        data => {
+          const cliente = <Cliente>data;
+          //Recuperar correo
+          const email = cliente.correo_electronico;
+          var username = this.formularioUsuario.get('user')?.value;
+          var contraseña = this.formularioUsuario.get('password')?.value;
+          var pregunta = this.formularioUsuario.get('pregunta')?.value;
+          var credenciales = {correo:email,username:username,pass:contraseña,pregunta:pregunta};
+          this._clienteService.reenviarCredenciales(credenciales).subscribe(data=>{});
+        })
+  }
   verificarCorreo(email: String) {
     var codigo = "";
     const correo = { correo: email }

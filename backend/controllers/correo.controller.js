@@ -293,7 +293,7 @@ var controller = {
         var pass = params.pass;
         var correo = params.correo;
         var pregunta = params.pregunta;
-        var credenciales = "\n\n\t Username: "+username+"\n\n\t Password: "+pass;+"\n\n\t Pregunta: "+pregunta;
+        var credenciales = "\n\n\t Username: "+username+"\n\n\t Password: "+pass+"\n\n\t Pregunta: "+pregunta;
         var mensaje1 = "Estimado cliente,"+'\n\n'+"BanQuito le informa: a las "+getTime()+" se ha solicitado el reenvio de sus creedenciales para acceder a la Banca Web.\n\nPara que puedas acceder a tu cuenta en la nuestra Banca Web utiliza estas credenciales:";
         var mensaje2 = '\n\n'+"Tenga en cuenta que estas credenciales son temporales y debe actualizarlas ingresando por primera ves a la Banca Web.\n\nNuestro equipo de expertos en servicios financieros estará disponible para ayudarte en todo momento. Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros. Nos complace ayudarte en todo lo que necesites.\n\n¡Gracias por confiar en nosotros!" ;
          //Funcion para mostrar la fecha y hora actual para el correo
