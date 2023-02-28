@@ -1,4 +1,5 @@
 import { HttpClient } from "@angular/common/http";
+import { core } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Cliente } from "src/app/models/clientes";
@@ -20,6 +21,7 @@ export class ClienteService {
     urlReenviar = "http://localhost:3600/reenviar";
     urlNuevasTempo = "http://localhost:3600/nuevas-temp";
     urlActualizarUsuario = "http://localhost:3600/actualizar-usuario";
+    urlActualizarCorreoCliente = "http://localhost:3600/actualizar-correo";
 
     constructor(
         private http: HttpClient
@@ -53,5 +55,8 @@ export class ClienteService {
     }
     actualizarUsuario(credenciales:Object){
         return this.http.post(this.urlActualizarUsuario, credenciales);
+    }
+    actualizarCorreoCliente(correo:Object){
+        return this.http.post(this.urlActualizarCorreoCliente, correo);
     }
 }

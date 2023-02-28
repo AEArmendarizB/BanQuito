@@ -25,9 +25,11 @@ router.post('/verificar-email',correoController.verificarCorreoLogin);
 router.post('/bienvenido',correoController.bienvenidoBanquito);
 //enviar confirmacion de cambio de credenciales
 router.post('/actualizar-usuario',correoController.actualizarUsuario);
-//enviar por correo nuevas credenciales temporales del cliente
+//enviar correo por nuevas credenciales temporales del cliente
 router.post('/nuevas-temp',correoController.nuevasCredencialesTemp);
 //reenviar las credenciales
 router.post('/reenviar',correoController.reenviar);
+//enviar correo por cambio de correo en actualizacion del cliente
+router.post('/actualizar-correo',correoController.actualizarCliente);
 
 module.exports=router;

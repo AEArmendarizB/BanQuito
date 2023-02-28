@@ -66,7 +66,7 @@
             </div>
         </div>
         <!--Cuerpo 1>CLIENTE-->
-        <div class="card-body mx-auto w-50">
+        <div class="card-body mx-auto w-50" >
             <form [formGroup]="formularioCliente" (ngSubmit)="agregarCliente()" *ngIf="showForm1">
                 <div class="form-group my-2">
                     <div class="row text-center">
@@ -151,16 +151,16 @@
                     <div class="row">
                         <div class="col-7">
                             <input type="email" formControlName="email" class="form-control" id="correo-campo"
-                                placeholder="Ej. johndoe@example.com">
+                                placeholder="Ej. johndoe@example.com" (keyup)="validarCorreoOriginal()">
                         </div>
                         <div class="col-5" id="boton-correo">
-                            <button type="button" (click)="otp()" [disabled]="formularioCliente.get('email')?.invalid"
+                            <button type="button" (click)="otp()" [disabled]="formularioCliente.get('email')?.valid && otpNotOk"
                             class="col btn btn-primary">Enviar c&oacute;digo</button>
                         </div>
                         <!--ESTO DEBE APARECER LUEGO DE PULSAR EL BOTON-->
                         <div class="col-5" id="otp" style="display: none;">
                             <input type="text" class="form-control" formControlName="otp" placeholder="ej. abc123" id="otp-campo">
-                            <small class="text-muted" (click)="otp" >
+                            <small class="text-muted" (click)="otp()" >
                                 <a >Reenviar c&oacute;digo</a></small>
                         </div>
                         <!---->
@@ -224,7 +224,7 @@
                     </div>
                     <!--------------------->
                 </div>
-                <button type="submit" [disabled]="formularioCliente.invalid"
+                <button type="submit" [disabled]="formularioCliente.invalid && otpNotOk2"
                     class="btn btn-primary mt-3 mb-2">Entregar</button>
             </form>
         </div>

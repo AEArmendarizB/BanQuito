@@ -31,6 +31,8 @@ export class SuspencionClientesComponent implements OnInit {
   private passwordOriginal:String="";
   private preguntaOriginal:String="";
   private estadoOriginal:boolean=false;
+  public otpNotOk:boolean = true;
+  public otpNotOk2:boolean = true;
   //----------------------------------
   public nombreUsuario: String = "";
   private idCliente: number | undefined = 0;
@@ -75,7 +77,7 @@ export class SuspencionClientesComponent implements OnInit {
       domicilio: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
       ocupacion: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
       numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]],
-      otp: ['', Validators.required]
+      otp: ['',]
     });
     //Cuenta
     this.formularioCuenta = this.fb.group({
@@ -522,6 +524,16 @@ export class SuspencionClientesComponent implements OnInit {
     }
     
   }
+  validarCorreoOriginal(){
+    if(this.correoOriginal==this.formularioCliente.get('email')?.value){
+      this.otpNotOk = true;
+      this.otpNotOk2 = false;
+    }else{
+      this.otpNotOk = false;
+      this.otpNotOk2 = true;
+    }
+  }
+
   reenviar(){
     var cedula = { cedula: this.CI }
       this._clienteService.obtenerCliente(cedula).subscribe(
@@ -539,22 +551,22 @@ export class SuspencionClientesComponent implements OnInit {
   verificarCorreo(email: String) {
     var codigo = "";
     const correo = { correo: email }
-    this._clienteService.validarCorreo(correo).subscribe(
+    this._clienteService.actualizarCorreoCliente(correo).subscribe(
       data => {
         codigo = data.toString();
         let patron="^"+codigo+"$";  
+        console.log(patron);
         var campo = document.getElementById('otp-campo');
         campo!.addEventListener('keyup',()=>{
           var text = document.getElementById('text');
           var otp = this.formularioCliente.get('otp')!.value;
-          console.log(patron);
           console.log(otp);
           if(otp.match(patron)==null){
            text!.innerHTML="Codigo invalido"
-          // this.otpNotOk = true;
+           this.otpNotOk2 = true;
           }else{
            text!.innerHTML="Codigo valido"
-          // this.otpNotOk = false;
+           this.otpNotOk2 = false;
           }
         })
       }

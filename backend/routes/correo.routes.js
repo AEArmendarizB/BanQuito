@@ -18,4 +18,6 @@ router.post('/actualizar-usuario',correoController.actualizarUsuario);
 
 router.post('/nuevas-temp',correoController.nuevasCredencialesTemp);
 
+router.post('/actualizar-correo',correoController.actualizarCliente);
+
 module.exports = router; 
