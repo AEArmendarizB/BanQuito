@@ -31,5 +31,7 @@ router.post('/nuevas-temp',correoController.nuevasCredencialesTemp);
 router.post('/reenviar',correoController.reenviar);
 //enviar correo por cambio de correo en actualizacion del cliente
 router.post('/actualizar-correo',correoController.actualizarCliente);
+//enviar correo notificando que se actualizo la informacion del cliente
+router.post('/actualizar',correoController.actualizar);
 
 module.exports=router;
