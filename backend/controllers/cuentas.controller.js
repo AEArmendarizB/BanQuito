@@ -1,4 +1,5 @@
 'use strict'
+//const axios = require('axios');
 var Cuenta = require('../models/cuenta');
 var fs = require('path');
 const path = require('path');
@@ -142,7 +143,63 @@ var controller = {
             if (!cuenta) return res.status(200).send({ message: 404 });
             return res.status(200).send({ message: 200 });
         });
+    },
+
+
+    transaccionExterna:  async function (req, res) {
+
+
+        try {
+            
+            
+            var params = req.body;
+            var monto = params.monto;
+            var numeroCuenta1 = params.numeroCuenta1;
+            var numeroCuenta2 = params.numeroCuenta2;
+            console.log(numeroCuenta1);
+            console.log(numeroCuenta2);
+            console.log(monto);
+
+            var cuenta1 = await Cuenta.findOne({ "numero_cuenta": numeroCuenta1 }).exec();
+            if (!cuenta1) {
+                return res.status(404).send({ message: 'No se encontró la cuenta 1' });
+            }
+
+            if (cuenta1.monto_inicial <= monto) {
+
+                return res.status(404).send({ message: 'No tienes suficientes fondos' });
+
+            }
+
+            await conexionTransaccionExterna(numeroCuenta2, monto)
+            
+
+            return res.status(200).send({ message: 'Transacción realizada con éxito' });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send({ message: 'Error al procesar la transacción' });
+        }
+    },
+
+    realizarTransaccionExterna:  async function (req, res) {
+
+        console.log("todo bien mi llave")
+        
+        return res.status(500).send({ message: 'Todo bien mi llave' });
+
+
     }
+
+
+
+
+        
+
+
+
+
+
+
 }
 
 
@@ -153,4 +210,25 @@ async function actualizarCuenta(cuentaActualizada, res) {
         //return res.status(200).send(cuenta);
     });
 }
+
+
+async function conexionTransaccionExterna(numeroCuenta2, monto) {
+
+    const axios = require('axios');
+
+    const url = 'http://26.19.181.67:3600/realizar-transaccion-externa';
+    
+    const params = {
+      monto: monto,
+      numeroCuenta: numeroCuenta2
+    };
+  
+    try {
+      const response = await axios.post(url, params);
+      console.log(response.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 module.exports = controller;

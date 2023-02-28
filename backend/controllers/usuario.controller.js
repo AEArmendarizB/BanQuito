@@ -43,10 +43,14 @@ var controller = {
     },
 
     logout: function(req, res){
+        
+            return res.status(200).send({ message: "Si valio"});
 
+
+/*
         req.session.destroy();
         res.redirect('/login');
-
+*/
     },
     verificarUsuario: function (req, res) {
         var params = req.body;
