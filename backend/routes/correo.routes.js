@@ -10,4 +10,12 @@ router.post('/verificar-email',correoController.verificarCorreoLogin);
 
 router.post('/bienvenido',correoController.bienvenidoBanquito);
 
+router.post('/actualizar-usuario',correoController.actualizarUsuario);
+
+router.post('/reenviar',correoController.reenviar);
+
+router.post('/actualizar-usuario',correoController.actualizarUsuario);
+
+router.post('/nuevas-temp',correoController.nuevasCredencialesTemp);
+
 module.exports = router; 

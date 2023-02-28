@@ -16,7 +16,10 @@ export class ClienteService {
     urlActualizarCliente = "http://localhost:3600/actualizar-cliente/";
     urlCorreo = "http://localhost:3600/validar-email/";
     urlCorreoLogin = "http://localhost:3600/verificar-email";
-    utlRegistroExitoso = "http://localhost:3600/bienvenido";
+    urlRegistroExitoso = "http://localhost:3600/bienvenido";
+    urlReenviar = "http://localhost:3600/reenviar";
+    urlNuevasTempo = "http://localhost:3600/nuevas-temp";
+    urlActualizarUsuario = "http://localhost:3600/actualizar-usuario";
 
     constructor(
         private http: HttpClient
@@ -40,6 +43,15 @@ export class ClienteService {
         return this.http.post(this.urlCorreoLogin, correo);
     }
     enviarCredenciales(credenciales:Object){
-        return this.http.post(this.utlRegistroExitoso, credenciales);
+        return this.http.post(this.urlRegistroExitoso, credenciales);
+    }
+    reenviarCredenciales(credenciales:Object){
+        return this.http.post(this.urlReenviar, credenciales);
+    }
+    nuevasCredencialesTempo(credenciales:Object){
+        return this.http.post(this.urlNuevasTempo, credenciales);
+    }
+    actualizarUsuario(credenciales:Object){
+        return this.http.post(this.urlActualizarUsuario, credenciales);
     }
 }

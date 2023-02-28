@@ -26,6 +26,12 @@ export class SuspencionClientesComponent implements OnInit {
   formularioUsuario: FormGroup;
 
   private CI: string = "";
+  private correoOriginal:String="";
+  private usernameOriginal:String="";
+  private passwordOriginal:String="";
+  private preguntaOriginal:String="";
+  private estadoOriginal:boolean=false;
+  //----------------------------------
   public nombreUsuario: String = "";
   private idCliente: number | undefined = 0;
   private idCuenta: number | undefined = 0;
@@ -68,7 +74,8 @@ export class SuspencionClientesComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       domicilio: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
       ocupacion: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
-      numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]]
+      numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]],
+      otp: ['', Validators.required]
     });
     //Cuenta
     this.formularioCuenta = this.fb.group({
@@ -87,7 +94,19 @@ export class SuspencionClientesComponent implements OnInit {
       estado: ['1'],
     });
   }
-  ngOnInit(): void {
+
+  otp() {
+    if (this.formularioCliente.get('email')?.valid) {
+      var correo = this.formularioCliente.get('email')?.value;
+      //Deshabilitar el botón de correo
+      document.getElementById('boton-correo')!.style.display = 'none';
+      document.getElementById('otp')!.style.display = 'block';
+      //enviar correo
+      this.verificarCorreo(correo);
+    }
+  }
+
+  ngOnInit(): void {   
   }
   buscarCliente() {
     this.CI = this.formularioCedula.get('cedula')?.value;
@@ -379,7 +398,7 @@ export class SuspencionClientesComponent implements OnInit {
         }
         this.idCliente = cliente._id;
         this.nombreUsuario = cliente.nombres;
-
+        this.correoOriginal = cliente.correo_electronico;
         this.formularioCliente.patchValue({ nombres: cliente.nombres });
         this.formularioCliente.patchValue({ apellidos: cliente.apellidos });
         this.formularioCliente.patchValue({ cedula: cliente.cedula });
@@ -394,8 +413,9 @@ export class SuspencionClientesComponent implements OnInit {
     this.showForm1 = true;
     this.showForm2 = false;
     this.showForm3 = false;
-
+      
   }
+ 
   configCuenta() {
     const cedula = { cedula: this.CI };
     this._cuentaService.getCuentaByCI(cedula).subscribe(
@@ -458,11 +478,72 @@ export class SuspencionClientesComponent implements OnInit {
         this.formularioUsuario.patchValue({ user: usuario.username });
         this.formularioUsuario.patchValue({ password: usuario.password });
         this.formularioUsuario.patchValue({ estado: usuario.isNew });
+        this.preguntaOriginal = usuario.pregunta;
+        this.usernameOriginal = usuario.username;
+        this.passwordOriginal = usuario.password;
+        this.estadoOriginal = usuario.isNew;
       }
     );
     this.showForm3 = true;
     this.showForm1 = false;
     this.showForm2 = false;
 
+  }
+  enviarCorreo() {
+    if(this.passwordOriginal == this.formularioUsuario.get('password')?.value &&
+        this.usernameOriginal == this.formularioUsuario.get('user')?.value &&
+        this.preguntaOriginal == this.formularioUsuario.get('pregunta')?.value &&
+        this.estadoOriginal == this.formularioUsuario.get('estado')?.value){
+          //No se envia correo 
+    }else{
+      //Se envia correo
+      //Recuperar cliente
+      var cedula = { cedula: this.CI }
+      this._clienteService.obtenerCliente(cedula).subscribe(
+        data => {
+          const cliente = <Cliente>data;
+          //Recuperar correo
+          const email = cliente.correo_electronico;
+          if (this.formularioUsuario.get('estado')?.value == "1") {
+            //Correo cuando es credencial Temporal
+            var username = this.formularioUsuario.get('user')?.value;
+            var contraseña = this.formularioUsuario.get('password')?.value;
+            var pregunta = this.formularioUsuario.get('pregunta')?.value;
+            var credenciales = {correo:email,username:username,pass:contraseña,pregunta:pregunta};
+            this._clienteService.nuevasCredencialesTempo(credenciales).subscribe(data=>{});
+          } else {
+          //Correo cuando es credencial Propia
+          var correo = {correo: email};
+          this._clienteService.actualizarUsuario(correo).subscribe(data=>{});
+        }
+        
+      }
+    )
+    }
+    
+  }
+  verificarCorreo(email: String) {
+    var codigo = "";
+    const correo = { correo: email }
+    this._clienteService.validarCorreo(correo).subscribe(
+      data => {
+        codigo = data.toString();
+        let patron="^"+codigo+"$";  
+        var campo = document.getElementById('otp-campo');
+        campo!.addEventListener('keyup',()=>{
+          var text = document.getElementById('text');
+          var otp = this.formularioCliente.get('otp')!.value;
+          console.log(patron);
+          console.log(otp);
+          if(otp.match(patron)==null){
+           text!.innerHTML="Codigo invalido"
+          // this.otpNotOk = true;
+          }else{
+           text!.innerHTML="Codigo valido"
+          // this.otpNotOk = false;
+          }
+        })
+      }
+    )
   }
 }

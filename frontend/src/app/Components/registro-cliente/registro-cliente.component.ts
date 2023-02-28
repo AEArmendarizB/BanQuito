@@ -366,8 +366,6 @@ export class RegistroClienteComponent implements OnInit {
     var pass= this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6)+"@A";
     const objeto = { correo: correo, username : username, pass : pass};
     this._clienteService.enviarCredenciales(objeto).subscribe(
-      data => {
-        console.log('COrreo enviado');
-      })
+      data => {})
   }
 }

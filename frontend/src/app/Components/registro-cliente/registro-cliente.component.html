@@ -109,7 +109,7 @@
                                             <div class="col-5" id="otp" style="display: none;">
                                                 <input type="text" formControlName="otp" class="form-control" placeholder="ej. abc123" id="otp-campo">
                                                 <small class="text-muted" (click)="otp()">
-                                                <a (click)="otp">Reenviar c&oacute;digo</a></small>
+                                                <a >Reenviar c&oacute;digo</a></small>
                                             </div>
                                             <!---->
                                         </div>
@@ -308,7 +308,7 @@
                                         El tama&ntilde;o m&aacute;ximo es 50 caracteres.
                                     </div>
                                     <!--------------------->
-                                    <button type="submit"
+                                    <button type="submit" [disabled]= "formularioUsuario.invalid"
                                     class="btn btn-primary mt-3" (click)="registroExitoso()">Finalizar</button>
 
                                 </form>
