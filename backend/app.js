@@ -13,10 +13,13 @@ var usuariosRoutes=require('./routes/usuarios.routes');
 var cuentasRoutes=require('./routes/cuentas.routes');
 
 //para respuesta
-var respuestasRoutes=require('./routes/respuestas.routes');
+//var respuestasRoutes=require('./routes/respuestas.routes');
 
 //para correos
 var enviarCorreo=require('./routes/correo.routes');
+
+//para transacciones externas
+var transaccionesExternasRoutes=require('./routes/transaccionesExternas.routes');
 
 
 app.use(bodyParser.urlencoded({extended:false}));
@@ -57,5 +60,5 @@ app.use('/',usuariosRoutes);
 app.use('/',clientesRoutes);
 app.use('/',enviarCorreo);
 app.use('/',cuentasRoutes);
-app.use('/',respuestasRoutes);
+app.use('/',transaccionesExternasRoutes);
 module.exports=app;
