@@ -31,7 +31,7 @@
               
             <div id="pass" class="input-contenedor">
               <i class="fas fa-key icon"></i>
-              <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Contraseña"  required pattern = "[a-zA-Z0-9]+">
+              <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Contraseña"  required pattern = "^(?=\w*\d?)(?=\w*[A-Z]?)(?=\w*[a-z])(?=\w*[@]?)\S{4,16}$">
               <div id="validationServerUsernameFeedback" class="invalid-feedback">
                 Por favor, ingrese la contraseña
               </div>
