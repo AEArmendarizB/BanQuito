@@ -88,12 +88,11 @@ export class TransferenciasInternasComponent {
     var texto = document.getElementById("text");
     this._CuentaService.obtenerCuenta(cuentaObj).subscribe(
       data=>{
-        console.log(data);
+        let cuenta = <Cuenta>data;
         //Recuperar el numero de cedula
-        const cedulaObj = "1234567890";
-        const cedula = {cedula:cedulaObj} 
+        const cedulaObj = {cedula:cuenta.cedula};
         //Recuperar cliente con el numero de cedula
-        this._clienteService.obtenerCliente(cedula).subscribe(data=>{
+        this._clienteService.obtenerCliente(cedulaObj).subscribe(data=>{
           console.log(data);
           texto!.innerHTML = "Cuenta encontrada. Esta cuenta le pertenece a: "+data.nombres+" "+data.apellidos;
         })
@@ -102,12 +101,12 @@ export class TransferenciasInternasComponent {
       })
   }
   transferir(){
+    var monto = "50";
     var cuenta1 = "109261050674";
     var cuenta2 = "102585213569";
-    var monto = "50";
-    const transferir = {cuneta1: cuenta1, cuenta2: cuenta2, monto:monto };
-    this._CuentaService.tranaccionInterna(transferir).subscribe(data =>{
-
+    const transferir = {cuenta1: cuenta1, cuenta2: cuenta2, monto:monto };
+    this._CuentaService.transaccionInterna(transferir).subscribe(data =>{
+      console.log(data);
     })
     
   }

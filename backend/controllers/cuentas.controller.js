@@ -63,10 +63,11 @@ var controller = {
     getCuenta: function(req,res){
         var params = req.body;
         var numero_cuenta = params.numero_cuenta;
-        Cuenta.find({"numero_cuenta": numero_cuenta},(err, guardarCuenta)=>{
+        Cuenta.findOne({"numero_cuenta": numero_cuenta},(err, guardarCuenta)=>{
             if (err) return res.status(200).send(true);
             if (!guardarCuenta) return res.status(200).send(false);
-            return res.send(guardarCuenta);
+            return res.status(200).send( guardarCuenta );
+            //return res.send(guardarCuenta);
         })
     },
 
