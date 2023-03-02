@@ -15,6 +15,8 @@ export class CuentaService {
     urlGetCuentaByCI = "http://localhost:3600/get-Cuenta-byCI/";
     urlGenerarnumCuenta = "http://localhost:3600/generarNumero/";
     urlActualizarCuenta = "http://localhost:3600/actualizar-cuenta/"; 
+    urlTransferenciaInterna ="http://localhost:3600/transaccion-interna";
+    urlGetCuenta = "http://localhost:3600/getCuenta/"
     constructor(
         private http: HttpClient
     ) { }
@@ -32,5 +34,11 @@ export class CuentaService {
     }
     actualizarCuenta(cuenta: object): Observable<any> {
         return this.http.post(this.urlActualizarCuenta, cuenta);
+    }
+    tranaccionInterna(cuenta: Object){
+        return this.http.put(this.urlTransferenciaInterna, cuenta);
+    }
+    obtenerCuenta(numero:Object){
+        return this.http.post(this.urlGetCuenta, numero);
     }
 }

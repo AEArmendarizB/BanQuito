@@ -52,11 +52,21 @@ var controller = {
         var params = req.body;
         console.log(params);
         var numero_cuenta = params.numero_cuenta;
-        console.log(cedula);
+        //console.log(cedula);
         Cuenta.findOne({ "numero_cuenta": numero_cuenta }, (err, guardarCuenta) => {
             if (err) return res.status(200).send(true);
             if (!guardarCuenta) return res.status(200).send(false);
             return res.status(200).send(true);
+        })
+    },
+
+    getCuenta: function(req,res){
+        var params = req.body;
+        var numero_cuenta = params.numero_cuenta;
+        Cuenta.find({"numero_cuenta": numero_cuenta},(err, guardarCuenta)=>{
+            if (err) return res.status(200).send(true);
+            if (!guardarCuenta) return res.status(200).send(false);
+            return res.send(guardarCuenta);
         })
     },
 
