@@ -23,4 +23,5 @@ router.post('/get-Cuenta-byCI',cuentasController.getCuentaByCI);
 router.post('/actualizar-cuenta',cuentasController.actualizarCuenta);
 //obtener cuenta a partir del numero de cuenta
 router.post('/getCuenta',cuentasController.getCuenta);
+
 module.exports=router;
