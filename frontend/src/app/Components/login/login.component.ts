@@ -43,9 +43,6 @@ export class LoginComponent implements OnInit {
     this.id='';
     this.correo='';
     this.codigo='';
-
-    //Solucion para la conexion de login con nuevos clientes
-    this.activarCuadros();
   }
 
   ngOnInit(): void {
