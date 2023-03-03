@@ -36,11 +36,16 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       otp: ['', Validators.required]
     });
+    //Control de formularios
     this.control=0 ;
 
+    //Datos para el codigo OTP
     this.id='';
     this.correo='';
     this.codigo='';
+
+    //Solucion para la conexion de login con nuevos clientes
+    this.activarCuadros();
   }
 
   ngOnInit(): void {
