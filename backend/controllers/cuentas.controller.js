@@ -38,6 +38,7 @@ var controller = {
         cuenta.ingreso_promedio = params.ingreso_promedio;
         cuenta.numero_cuenta = params.numero_cuenta;
         cuenta.state = params.state;
+        cuenta.monto_maximo= 5000;
 
         cuenta.save((err, cuentaGuardado) => {
             if (err) return res.status(500).send({ message: 500 });
@@ -51,11 +52,21 @@ var controller = {
         var params = req.body;
         console.log(params);
         var numero_cuenta = params.numero_cuenta;
-        console.log(cedula);
+        //console.log(cedula);
         Cuenta.findOne({ "numero_cuenta": numero_cuenta }, (err, guardarCuenta) => {
             if (err) return res.status(200).send(true);
             if (!guardarCuenta) return res.status(200).send(false);
             return res.status(200).send(true);
+        })
+    },
+
+    getCuenta: function(req,res){
+        var params = req.body;
+        var numero_cuenta = params.numero_cuenta;
+        Cuenta.find({"numero_cuenta": numero_cuenta},(err, guardarCuenta)=>{
+            if (err) return res.status(200).send(true);
+            if (!guardarCuenta) return res.status(200).send(false);
+            return res.send(guardarCuenta);
         })
     },
 
@@ -79,7 +90,12 @@ var controller = {
 
             }
 
-            /////falta el monto maximo por dia
+            if (cuenta1.monto_maximo <= monto) {
+
+                return res.status(404).send({ message: 'No puede transferir mas de 5000 en un solo dia' });
+
+            }
+            
 
             var cuenta2 = await Cuenta.findOne({ "numero_cuenta": numeroCuenta2 }).exec();
             if (!cuenta2) {
@@ -145,90 +161,16 @@ var controller = {
         });
     },
 
-
-    transaccionExterna:  async function (req, res) {
-
-
-        try {
-            
-            
-            var params = req.body;
-            var monto = params.monto;
-            var numeroCuenta1 = params.numeroCuenta1;
-            var numeroCuenta2 = params.numeroCuenta2;
-            console.log(numeroCuenta1);
-            console.log(numeroCuenta2);
-            console.log(monto);
-
-            var cuenta1 = await Cuenta.findOne({ "numero_cuenta": numeroCuenta1 }).exec();
-            if (!cuenta1) {
-                return res.status(404).send({ message: 'No se encontró la cuenta 1' });
-            }
-
-            if (cuenta1.monto_inicial <= monto) {
-
-                return res.status(404).send({ message: 'No tienes suficientes fondos' });
-
-            }
-
-            await conexionTransaccionExterna(numeroCuenta2, monto)
-            
-
-            return res.status(200).send({ message: 'Transacción realizada con éxito' });
-        } catch (error) {
-            console.error(error);
-            return res.status(500).send({ message: 'Error al procesar la transacción' });
-        }
-    },
-
-    realizarTransaccionExterna:  async function (req, res) {
-
-        console.log("todo bien mi llave")
-        
-        return res.status(500).send({ message: 'Todo bien mi llave' });
-
-
-    }
-
-
-
-
-        
-
-
-
-
-
-
 }
 
 
 async function actualizarCuenta(cuentaActualizada, res) {
     Cuenta.findOneAndUpdate({ "_id": cuentaActualizada._id }, cuentaActualizada, { new: true }, (err, cuenta) => {
         if (err) return res.status(500).send({ message: 'Error al actualizar los datos' });
-        if (!cuenta) return res.status(404).send({ message: 'El libro no existe para actualizar' });
+        if (!cuenta) return res.status(404).send({ message: 'La cuenta no existe para actualizar' });
         //return res.status(200).send(cuenta);
     });
 }
 
-
-async function conexionTransaccionExterna(numeroCuenta2, monto) {
-
-    const axios = require('axios');
-
-    const url = 'http://26.19.181.67:3600/realizar-transaccion-externa';
-    
-    const params = {
-      monto: monto,
-      numeroCuenta: numeroCuenta2
-    };
-  
-    try {
-      const response = await axios.post(url, params);
-      console.log(response.data.message);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
 module.exports = controller;

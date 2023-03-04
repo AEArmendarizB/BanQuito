@@ -21,12 +21,7 @@ router.post('/generarNumero',cuentasController.generarNumeroCuenta);
 router.post('/get-Cuenta-byCI',cuentasController.getCuentaByCI);
 //actualizar Cuenta
 router.post('/actualizar-cuenta',cuentasController.actualizarCuenta);
-
-
-//transaccion externa
-router.post('/transaccion-externa',cuentasController.transaccionExterna);
-router.post('/realizar-transaccion-externa',cuentasController.realizarTransaccionExterna);
-
-
+//obtener cuenta a partir del numero de cuenta
+router.post('/getCuenta',cuentasController.getCuenta);
 
 module.exports=router;
