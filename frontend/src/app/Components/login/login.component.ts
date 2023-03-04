@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.control=0 ;
     this.activarCuadros();
   }
 
@@ -63,6 +62,7 @@ export class LoginComponent implements OnInit {
         document.getElementById('user')!.style.display = 'none';
         document.getElementById('pass')!.style.display = 'none';
         break;
+      
     }
   }
 

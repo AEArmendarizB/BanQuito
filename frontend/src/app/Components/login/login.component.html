@@ -37,7 +37,7 @@
               </div>
             </div>
 
-            <div id="otp" class="input-contenedor">
+            <div id="otp" class="input-contenedor" style="display: none">
               <i class="fas fa-lock icon"></i>
               <input formControlName="otp" [class.is-invalid]='f.otp.errors && f.otp.touched' type="number" placeholder="Codigo de verificación"  required pattern = "^([0-9]+){6}$">
               <div id="validationServerUsernameFeedback" class="invalid-feedback">
