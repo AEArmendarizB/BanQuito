@@ -1,9 +1,9 @@
 'use strict'
 var Usuario = require('../models/usuario');
-var LoginUsuario = require('../models/login.usuario');
+
 var fs = require('path');
 const path = require('path');
-const loginUsuario = require('../models/login.usuario');
+
 var controller = {
     inicio: function (req, res) {
         return res.status(201).send(
@@ -43,10 +43,14 @@ var controller = {
     },
 
     logout: function(req, res){
+        
+            return res.status(200).send({ message: "Si valio"});
 
+
+/*
         req.session.destroy();
         res.redirect('/login');
-
+*/
     },
     verificarUsuario: function (req, res) {
         var params = req.body;

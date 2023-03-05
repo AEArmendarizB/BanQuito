@@ -35,12 +35,12 @@
             <h4>Pagos</h4>
           </div>
         </a>
-  
-          <div class="option">
-            <i class="fas fa-video" title="Transferencias" (click)="transferenciaMenu()"></i>
+        <a>
+          <div class="option" (click)="transferencias()">
+            <i class="fas fa-video" title="Transferencias" ></i>
             <h4>Transferencias</h4>
           </div>
-  
+        </a>
         <a >
           <div class="option">
             <i class="far fa-sticky-note" title="Solicitudes"></i>
@@ -84,7 +84,7 @@
         <div class="cuenta-contenido">
           <div class="row">
             <div class="col-6">
-              <h1 class="numero">{{cuenta.numero_cuenta}}</h1>
+              <h1 class="numero">N<sup>o</sup>: {{cuenta.numero_cuenta}}</h1>
             </div>
             <div class="col-6">
               <h2 class="tipo" >{{cuenta.tipo_cuenta}}</h2>
@@ -92,10 +92,10 @@
           </div>
           <div class="row">
             <div class="col-6">
-              <h2 class="ingreso">{{cuenta.monto_inicial | currency:'USD'}}</h2>
+              <h3 class="ingreso">Saldo disponible: <b>{{cuenta.monto_inicial | currency:'USD'}}</b></h3>
             </div>
             <div class="col-6">
-              <h2 class="ingresoP">{{cuenta.ingreso_promedio | currency:'USD'}}</h2>
+              <h3 class="ingresoP">Ingresos Promedio: <b>{{cuenta.ingreso_promedio | currency:'USD'}}</b></h3>
             </div>
           </div>
         </div>

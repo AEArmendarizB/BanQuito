@@ -12,6 +12,7 @@ var app1 = require('./app');
  
 const cors = require("cors");
 app.use(cors())
+//app1.use(cors())
 
 const user = 'jojy';
 const password = 'jojy';

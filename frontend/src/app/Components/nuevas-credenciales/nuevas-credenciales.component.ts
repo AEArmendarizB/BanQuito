@@ -37,10 +37,9 @@ export class NuevasCredencialesComponent implements OnInit{
       Object.values(this.FormNuevasCredenciales.controls).forEach(control=>{
         control.markAllAsTouched();
       });
+      this.toastr.error('Usuario o contraseña inválidos', 'ERROR!');
       return;
     }
-    console.log(this.FormNuevasCredenciales.value);
-    
     this.crearUsuario();
   }
 
@@ -64,7 +63,6 @@ export class NuevasCredencialesComponent implements OnInit{
     };
 
     this._usuarioService.verificarUsername(new_user).subscribe(data =>{
-      console.log(data.message);
       switch (data.message){
         case true:
           this.toastr.error('Ese nombre de usuario ya está en uso', 'ERROR!');
@@ -72,7 +70,7 @@ export class NuevasCredencialesComponent implements OnInit{
         
         case false:
           this._usuarioService.actualizarUsuario(new_user).subscribe(data => {
-            console.log(data);
+            //console.log(data);
           }, error => {
             console.log(error);
           });

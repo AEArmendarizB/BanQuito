@@ -11,8 +11,8 @@
                         <h1>Sistema de registro General</h1>
                     </span>
                     <div class="container mt-4">
-                        <div class="row ">
-                            <div class="card col-4 mx-2">
+                        <div class="row">
+                            <div class="card col-6 mx-2 mx-auto" *ngIf=showform1>
                                 <span>
                                     <h3>Registro de Clientes</h3>
                                 </span>
@@ -96,19 +96,22 @@
                                     <div class="form-group my-2">
                                         <label class="float-start">Correo electr&oacute;nico</label>
                                         <br>
-                                        <div class="row" >
+                                        <div class="row">
                                             <div class="col-7">
                                                 <input type="email" formControlName="email" class="form-control"
                                                     placeholder="Ej. johndoe@example.com">
                                             </div>
                                             <div class="col-5" id="boton-correo">
-                                                <button type="button" (click)="otp()" [disabled]="formularioCliente.get('email')?.invalid" 
-                                                class="col btn btn-primary">Enviar c&oacute;digo</button>
+                                                <button type="button" (click)="otp()"
+                                                    [disabled]="formularioCliente.get('email')?.invalid"
+                                                    class="col btn btn-primary">Enviar c&oacute;digo</button>
                                             </div>
                                             <!--ESTO DEBE APARECER LUEGO DE PULSAR EL BOTON-->
                                             <div class="col-5" id="otp" style="display: none;">
-                                                <input type="text" formControlName="otp" class="form-control" placeholder="ej. abc123" id="otp-campo">
-                                                <small class="text-muted" (click)="otp()"><a href="/registro">Reenviar c&oacute;digo</a></small>
+                                                <input type="text" formControlName="otp" class="form-control"
+                                                    placeholder="ej. abc123" id="otp-campo">
+                                                <small class="text-muted" (click)="otp()">
+                                                    <a>Reenviar c&oacute;digo</a></small>
                                             </div>
                                             <!---->
                                         </div>
@@ -175,13 +178,13 @@
                                         </div>
                                         <!--------------------->
                                     </div>
-                                    <button type="submit" [disabled]= "formularioCliente.invalid && otpNotOk"
+                                    <button type="submit" [disabled]="formularioCliente.invalid && otpNotOk"
                                         class="btn btn-primary mt-3 mb-2">Entregar</button>
                                 </form>
                             </div>
-                            <div class="card col mx-2">
-                                <span>
-                                    <h3>Registro de Cuentas</h3>
+                            <div class="card col-6 mx-2 mx-auto" *ngIf=showform2>
+                                <span class="mt-2">
+                                    <h3>Registro una cuenta para {{formularioCliente.get('nombres')?.value}}</h3>
                                 </span>
                                 <form [formGroup]="formularioCuenta" (ngSubmit)="agregarCuenta()">
                                     <span class="row mt-4 ">
@@ -257,28 +260,27 @@
                                         <!--------------------->
                                     </div>
                                     <button type="submit" [disabled]="formularioCuenta.invalid"
-                                    class="btn btn-primary mt-3 mb-2">Entregar</button>
-                                    <div class="card mt-4">
+                                        class="btn btn-primary mt-3 mb-2">Entregar</button>
+                                    <div class="card mt-4 mb-2">
                                         <div class="card-body">
                                             <p #infoCuenta id="infoCuenta">##Info de la cuenta##</p>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div class="card col mx-2">
+                            <div class="card col-6 mx-2 mx-auto" *ngIf=showform3>
                                 <span>
-                                    <h3>Registro de Usuarios</h3>
+                                    <h3>Registro de Credenciales para  {{formularioCliente.get('nombres')?.value}}</h3>
                                 </span>
                                 <form [formGroup]="formularioUsuario" (ngSubmit)="agregarUsuario()">
                                     <div class="form-group mt-3">
                                         <label class="float-start">Usuario</label>
-                                        <input type="text" #user class="form-control" id="user" value="Usuario temporal"
-                                            readonly>
+                                        <input type="text" class="form-control" id="user" value={{username}} readonly>
                                     </div>
                                     <div class="form-group mt-2">
                                         <label class="float-start">Contrase&ntilde;a</label>
-                                        <input type="text" #password class="form-control"
-                                            value="Contrase&ntilde;a temporal" readonly>
+                                        <input type="text" class="form-control" value={{password}}
+                                            readonly>
                                     </div>
                                     <div class="form-group  mt-2 ">
                                         <div ngbDropdown class="row">
@@ -308,7 +310,7 @@
                                     </div>
                                     <!--------------------->
                                     <button type="submit" [disabled]="formularioUsuario.invalid"
-                                    class="btn btn-primary mt-3">Finalizar</button>
+                                        class="btn btn-primary mt-3 mb-2" (click)="registroExitoso()">Finalizar</button>
 
                                 </form>
                             </div>

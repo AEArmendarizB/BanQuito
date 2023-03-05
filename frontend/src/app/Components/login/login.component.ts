@@ -6,7 +6,6 @@ import { LoginUsuario } from 'src/app/models/login.usuario';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,9 +15,6 @@ export class LoginComponent implements OnInit {
   title = 'BanQuito';
   public myForm!: FormGroup;
   public LOGIN_USUARIO: any;
-
-  //para la cedula
-  //public cedula: string;
 
   //Control de formulario
   public control: number;
@@ -45,11 +41,9 @@ export class LoginComponent implements OnInit {
     this.id='';
     this.correo='';
     this.codigo='';
-    
   }
 
   ngOnInit(): void {
-
     this.control=0 ;
     this.activarCuadros();
   }
@@ -58,6 +52,8 @@ export class LoginComponent implements OnInit {
     switch(this.control){
       case 0:
         document.getElementById('otp')!.style.display = 'none';
+        document.getElementById('user')!.style.display = 'block';
+        document.getElementById('pass')!.style.display = 'block';
         break;
 
       case 1:
@@ -112,12 +108,10 @@ export class LoginComponent implements OnInit {
               break;
             case false:
               this.id = data.cedula;
-              this.control++;
               this.extraerCorreo();
-              this.activarCuadros();
               break;
             case true:
-              const cedula= data.cedula;
+              const cedula = data.cedula;
               const cedulaObj = { cedula: cedula };
               this.router.navigate(['/usuario'], { state: { cedulaObj } });
               this.toastr.info('Por favor, a continuación debes cambiar tus credenciales', 'Usuario con claves temporales');
@@ -138,7 +132,7 @@ export class LoginComponent implements OnInit {
     if(otp.match(patron)==null){
       this.toastr.error('El código no coincide', 'Error, código inválido');
     }else{
-      this.router.navigate(['/pregunta'], { state: { cedulaObj } });
+      this.router.navigate(['/pregunta'] , { state: { cedulaObj } });
       this.toastr.success('Por favor, a continuacion ingresa la respuesta de tu pregunta de seguridad', 'Login Exitoso!');
     };
   }
@@ -147,8 +141,16 @@ export class LoginComponent implements OnInit {
     const cedula = this.id;
     const nombre = {cedula: cedula};
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
-      this.correo = data.correo_electronico.toString();;
-      this.enviarCorreo(this.correo);
+      if(data.state.toString() == 'true'){
+        //control de formularios
+        this.control++;
+        this.activarCuadros();
+        //----------------------------
+        this.correo = data.correo_electronico.toString();
+        this.enviarCorreo(this.correo);
+      }else if(data.state.toString() == 'false'){
+        this.toastr.error('EL usuario se encuentra deshabilitado, comuniquese con el banco', 'Usuario bloqueado');
+      }
     });
 
   }

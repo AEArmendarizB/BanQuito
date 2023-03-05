@@ -2,6 +2,7 @@
 var Cliente = require('../models/cliente');
 var fs = require('path');
 const path = require('path');
+
 var controller = {
     inicio: function (req, res) {
         return res.status(201).send(

@@ -26,16 +26,27 @@
                   <i class="fas fa-user icon"></i>
                   <input formControlName="usuario" [class.is-invalid]='f.usuario.errors && f.usuario.touched' type="text" placeholder="Nuevo Usuario" required pattern = "^([a-zA-Z0-9]+){8}$">
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                    Por favor ingrese un usuario válido o de al menos 8 caracteres.
+                    Por favor, ingrese un usuario válido.
                   </div>
                 </div>
                   
                 <div class="input-contenedor">
                   <i class="fas fa-key icon"></i>
-                  <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Nueva Contraseña"  required pattern = "^([a-zA-Z0-9]+){8}$">
+                  <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Nueva Contraseña"  required pattern = "^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])(?=\w*[@])\S{8,16}$">
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                    Por favor ingrese una contraseña válida o de al menos 8 caracteres
+                    Por favor, ingrese una contraseña válida.
                   </div>
+                </div>
+                <div class="nota">
+                  <p>- El usuario solo puede contener números y letras.</p>
+                  <p>- El usuario debe tener al menos 8 caracteres.</p>
+                  <p>- La contraseña debe contar con:</p>
+                  <ul>
+                    <li>Una longitud de 8 a 16 caracteres.</li>
+                    <li>Al menos una letra mayúscula y una minúscula.</li>
+                    <li>Al menos un número.</li>
+                    <li>El símbolo @.</li>
+                  </ul>
                 </div>
                 <button class="button btn-success">Entrar</button>
               </div>
