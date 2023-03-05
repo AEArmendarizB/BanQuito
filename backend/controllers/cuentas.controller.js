@@ -78,8 +78,6 @@ var controller = {
             var numeroCuenta1 = params.cuenta1;
             var numeroCuenta2 = params.cuenta2;
 
-            console.log(params);
-
             var cuenta1 = await Cuenta.findOne({ "numero_cuenta": numeroCuenta1 }).exec();
             if (!cuenta1) {
                 return res.status(404).send({ message: 'No se encontró la cuenta 1' });

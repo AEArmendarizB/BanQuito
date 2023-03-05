@@ -34,5 +34,8 @@ router.post('/reenviar',correoController.reenviar);
 router.post('/actualizar-correo',correoController.actualizarCliente);
 //enviar correo notificando que se actualizo la informacion del cliente
 router.post('/actualizar',correoController.actualizar);
-
+//confirmar codigo previo a realizar una transferencia
+router.post('/confirmar-transferencia',correoController.confirmarTransferencia);
+//resumen de la transferencia exitosa
+router.post('/resumen',correoController.transferenciaExitosa);
 module.exports=router;
