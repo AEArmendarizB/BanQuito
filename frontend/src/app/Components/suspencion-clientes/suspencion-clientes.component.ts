@@ -174,7 +174,7 @@ export class SuspencionClientesComponent implements OnInit {
   }
   printinfo(cliente: Cliente, numCuentas: number, usuario: Usuario) {
     const cedula = { cedula: cliente.cedula };
-    let salida = "-".repeat(20) + "<br>";
+    let salida ="Información disponible:<br>"+ "-".repeat(20) + "<br>";
     salida = salida +
       "id: " + cliente._id + "<br>" +
       "Nombres: " + cliente.nombres + "<br>" +
@@ -376,7 +376,7 @@ export class SuspencionClientesComponent implements OnInit {
       data => {
         switch (data.message) {
           case (200): {
-            this.toastr.info('El usuario se registro con exito!', 'Usuario registrado');
+            this.toastr.success('El usuario se registro con exito!', 'Usuario registrado');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
             this.showToggle = false;
             this.showForm3 = false;
@@ -384,8 +384,29 @@ export class SuspencionClientesComponent implements OnInit {
             break;
           }
           case (404): {
-            this.toastr.error('Revisa las entradas ingresadas en el formulario:COD404', 'Usuario no registrado');
-            console.log("Error del servidor mi 🔑");
+            this.toastr.info('El usuario no contaba con credenciales previamente creadas, se procedio a crear unas nuevas', 'El usuario no contaba con credenciales');
+            this._usuarioService.verificarUsuario(USUARIO).subscribe(
+              data => {
+                console.log(data.message)
+                switch (data.message) {
+                  case (200): {
+                    this.toastr.success('El usuario se registro con exito!', 'Usuario registrado');
+                    console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+                    break;
+                  }
+                  case (404): {
+                    this.toastr.error('Revisa las entradas ingresadas en el formulario: COD404', 'Usuario no registrado');
+                    console.log("Error del servidor mi 🔑");
+                    break;
+                  }
+                  case (500): {
+                    this.toastr.error('Revisa las entradas ingresadas en el formulario: COD500', 'Usuario no registrado');
+                    console.log("No se guardo el dato mi 🔑");
+                    break;
+                  }
+                }
+              }
+            )
             break;
           }
           case (500): {
