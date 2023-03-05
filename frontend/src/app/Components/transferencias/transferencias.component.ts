@@ -30,11 +30,19 @@ export class TransferenciasComponent {
       text!.innerHTML= nombres+' '+apellidos;
     })
   }
-  transferenciaMenu(){
+  menu(){
     const objeto = history.state.transferenciaObj;
-    const cedula = objeto.cedula;
-    const cedulaObj = {cedula:cedula}
-    this.router.navigate(['/menu'],{state:{cedulaObj}});
+    const cedulaObj = objeto.cedula;
+    const cedula = {cedula:cedulaObj} 
+    this.router.navigate(['/menu'],{state:{cedula}});
+  }
+  transferenciaInterna(){  
+    const objeto = history.state.transferenciaObj;
+    const cedulaObj = objeto.cedula;
+    const cuentasObj = objeto.cuentas;
+    const transferenciaObj = {cedula:cedulaObj, cuentas:cuentasObj}
+    console.log(transferenciaObj);
+    this.router.navigate(['/transferencia-interna'],{state:{transferenciaObj}});
   }
   
 }

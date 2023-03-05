@@ -22,8 +22,8 @@
   
       <div class="options__menu">
   
-        <a href="/menu">
-          <div class="option">
+        <a >
+          <div class="option" (click)="menu()">
             <i class="fas fa-home" title="Inicio"></i>
             <h4>INICIO</h4>
           </div>
@@ -36,8 +36,8 @@
           </div>
         </a>
   
-        <a href="/transferencia" class="selected">
-          <div class="option">
+        <a class="selected">
+          <div class="option" (click)="transferencias()">
             <i class="fas fa-video" title="Transferencias"></i>
             <h4>Transferencias</h4>
           </div>
@@ -77,12 +77,12 @@
           </div>
           <div class="col-4" id="cliente">
             <img src="../../../assets/media/usuario.png" alt="cliente">
-            <h1 class="nombre-cliente">Jhon Lenon Doe Moore</h1>
+            <h1 class="nombre-cliente" id="nombre-cliente"></h1>
           </div>
         </div>
       </header>
 
-
+      <form [formGroup]="TraInternaForm">
       <div class="row">
         <div class="colum-6">
           <div class="transferencia">
@@ -93,9 +93,7 @@
                 <div class=" row">
                   <label class="col-sm-3 ">Cuenta origen:</label>
                   <div class="col-sm-6">
-                    <select id="inputState" class="form-control" formControlName="cuentaOrigen">
-                      <option selected>Selecciona una cuenta ...</option>
-                      <option>...</option>
+                    <select id="cuentasOrigen" class="form-control" formControlName="cuentaOrigen" >
                     </select>
                   </div>
                 </div>
@@ -113,11 +111,11 @@
                     <input type="number" formControlName="cuentaDestino" class="form-control" placeholder="Cuenta destino">
                   </div>
                   <div class="col-sm-3">
-                    <button class="btn btn-primary" id="validar" type="submit">Validar</button>
+                    <button class="btn btn-primary" id="validar" type="submit" (click)="validarCuenta()">Validar</button>
                   </div>
                 </div>
                 <div class="row">
-                  <p class="cuenta_destino">Este texto es solo de prueba, aqui debe aparecer la informacion extraida de la cuenta destino</p>
+                  <p class="cuenta_destino" id="text"></p>
                 </div>
                 <!--Descripcion-->
                 <div class=" row">
@@ -128,13 +126,14 @@
                 </div>
                 <!--Boton enviar-->
                 <div class="mb-4">
-                  <button class="btn btn-primary" id="enviar" type="submit">Transferir</button>
+                  <button class="btn btn-primary" id="enviar" type="submit" (click)="transferir()">Transferir</button>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+    </form>
 
     </main>
   </body>

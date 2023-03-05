@@ -5,6 +5,7 @@ var clientesController=require('../controllers/cliente.controller');
 var correoController= require('../controllers/correo.controller');
 var multiparty=require('connect-multiparty');
 var mutipartyMiddleWare=multiparty({uploadDir:'./uploads'});
+
 //pagina de inicio
 router.get('/inicio',clientesController.inicio);
 //guardar una cuenta
@@ -21,5 +22,17 @@ router.post('/actualizar-cliente',clientesController.actualizarCliente);
 router.post('/validar-email',correoController.validarCorreo);
 //validar email login
 router.post('/verificar-email',correoController.verificarCorreoLogin);
+//enviar por correo credenciales al cliente
+router.post('/bienvenido',correoController.bienvenidoBanquito);
+//enviar confirmacion de cambio de credenciales
+router.post('/actualizar-usuario',correoController.actualizarUsuario);
+//enviar correo por nuevas credenciales temporales del cliente
+router.post('/nuevas-temp',correoController.nuevasCredencialesTemp);
+//reenviar las credenciales
+router.post('/reenviar',correoController.reenviar);
+//enviar correo por cambio de correo en actualizacion del cliente
+router.post('/actualizar-correo',correoController.actualizarCliente);
+//enviar correo notificando que se actualizo la informacion del cliente
+router.post('/actualizar',correoController.actualizar);
 
 module.exports=router;

@@ -26,6 +26,23 @@ export class SuspencionClientesComponent implements OnInit {
   formularioUsuario: FormGroup;
 
   private CI: string = "";
+  //----------------------------
+  private nombresOriginal: String = "";
+  private apellidosOriginal: String = "";
+  private domicilioOriginal: String = "";
+  private ocupacionOriginal: String = "";
+  private fechaOriginal: String = "";
+  private numeroOriginal: String = "";
+  private estadoOriginalCliente: boolean = false;
+  //----------------------------
+  private correoOriginal: String = "";
+  private usernameOriginal: String = "";
+  private passwordOriginal: String = "";
+  private preguntaOriginal: String = "";
+  private estadoOriginal: boolean = false;
+  public otpNotOk: boolean = true;
+  public otpNotOk2: boolean = true;
+  //----------------------------------
   public nombreUsuario: String = "";
   private idCliente: number | undefined = 0;
   private idCuenta: number | undefined = 0;
@@ -68,7 +85,8 @@ export class SuspencionClientesComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       domicilio: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
       ocupacion: ['', [Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
-      numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]]
+      numeroTelefono: ['', [Validators.required, Validators.pattern("^09[0-9]{8}$")]],
+      otp: ['',]
     });
     //Cuenta
     this.formularioCuenta = this.fb.group({
@@ -87,6 +105,18 @@ export class SuspencionClientesComponent implements OnInit {
       estado: ['1'],
     });
   }
+
+  otp() {
+    if (this.formularioCliente.get('email')?.valid) {
+      var correo = this.formularioCliente.get('email')?.value;
+      //Deshabilitar el botón de correo
+      document.getElementById('boton-correo')!.style.display = 'none';
+      document.getElementById('otp')!.style.display = 'block';
+      //enviar correo
+      this.verificarCorreo(correo);
+    }
+  }
+
   ngOnInit(): void {
   }
   buscarCliente() {
@@ -343,7 +373,7 @@ export class SuspencionClientesComponent implements OnInit {
     }
     const infoCuentas = this.infoCuentas.nativeElement;
     this._usuarioService.configurarUsuario(usuarioObj).subscribe(
-      data=>{
+      data => {
         switch (data.message) {
           case (200): {
             this.toastr.info('El usuario se registro con exito!', 'Usuario registrado');
@@ -379,6 +409,14 @@ export class SuspencionClientesComponent implements OnInit {
         }
         this.idCliente = cliente._id;
         this.nombreUsuario = cliente.nombres;
+        this.correoOriginal = cliente.correo_electronico;
+        this.fechaOriginal = cliente.fecha_nacimiento;
+        this.ocupacionOriginal = cliente.ocupacion;
+        this.numeroOriginal = cliente.numero_telefono;
+        this.nombresOriginal = cliente.nombres;
+        this.apellidosOriginal = cliente.apellidos;
+        this.estadoOriginalCliente = cliente.state;
+        this.domicilioOriginal = cliente.direccion;
 
         this.formularioCliente.patchValue({ nombres: cliente.nombres });
         this.formularioCliente.patchValue({ apellidos: cliente.apellidos });
@@ -396,6 +434,7 @@ export class SuspencionClientesComponent implements OnInit {
     this.showForm3 = false;
 
   }
+
   configCuenta() {
     const cedula = { cedula: this.CI };
     this._cuentaService.getCuentaByCI(cedula).subscribe(
@@ -458,11 +497,119 @@ export class SuspencionClientesComponent implements OnInit {
         this.formularioUsuario.patchValue({ user: usuario.username });
         this.formularioUsuario.patchValue({ password: usuario.password });
         this.formularioUsuario.patchValue({ estado: usuario.isNew });
+        this.preguntaOriginal = usuario.pregunta;
+        this.usernameOriginal = usuario.username;
+        this.passwordOriginal = usuario.password;
+        this.estadoOriginal = usuario.isNew;
       }
     );
     this.showForm3 = true;
     this.showForm1 = false;
     this.showForm2 = false;
+
+  }
+  enviarCorreo() {
+    if (this.passwordOriginal == this.formularioUsuario.get('password')?.value &&
+      this.usernameOriginal == this.formularioUsuario.get('user')?.value &&
+      this.preguntaOriginal == this.formularioUsuario.get('pregunta')?.value &&
+      this.estadoOriginal == this.formularioUsuario.get('estado')?.value) {
+      //No se envia correo 
+    } else {
+      //Se envia correo
+      //Recuperar cliente
+      var cedula = { cedula: this.CI }
+      this._clienteService.obtenerCliente(cedula).subscribe(
+        data => {
+          const cliente = <Cliente>data;
+          //Recuperar correo
+          const email = cliente.correo_electronico;
+          if (this.formularioUsuario.get('estado')?.value == "1") {
+            //Correo cuando es credencial Temporal
+            var username = this.formularioUsuario.get('user')?.value;
+            var contraseña = this.formularioUsuario.get('password')?.value;
+            var pregunta = this.formularioUsuario.get('pregunta')?.value;
+            var credenciales = { correo: email, username: username, pass: contraseña, pregunta: pregunta };
+            this._clienteService.nuevasCredencialesTempo(credenciales).subscribe(data => { });
+          } else {
+            //Correo cuando es credencial Propia
+            var correo = { correo: email };
+            this._clienteService.actualizarUsuario(correo).subscribe(data => { });
+          }
+
+        }
+      )
+    }
+
+  }
+  validarCorreoOriginal() {
+    if (this.correoOriginal == this.formularioCliente.get('email')?.value) {
+      this.otpNotOk = true;
+      this.otpNotOk2 = false;
+    } else {
+      this.otpNotOk = false;
+      this.otpNotOk2 = true;
+    }
+  }
+
+  reenviar() {
+    var cedula = { cedula: this.CI }
+    this._clienteService.obtenerCliente(cedula).subscribe(
+      data => {
+        const cliente = <Cliente>data;
+        //Recuperar correo
+        const email = cliente.correo_electronico;
+        var username = this.formularioUsuario.get('user')?.value;
+        var contraseña = this.formularioUsuario.get('password')?.value;
+        var pregunta = this.formularioUsuario.get('pregunta')?.value;
+        var credenciales = { correo: email, username: username, pass: contraseña, pregunta: pregunta };
+        this._clienteService.reenviarCredenciales(credenciales).subscribe(data => { });
+      })
+  }
+  verificarCorreo(email: String) {
+    var codigo = "";
+    const correo = { correo: email }
+    this._clienteService.actualizarCorreoCliente(correo).subscribe(
+      data => {
+        codigo = data.toString();
+        let patron = "^" + codigo + "$";
+        console.log(patron);
+        var campo = document.getElementById('otp-campo');
+        campo!.addEventListener('keyup', () => {
+          var text = document.getElementById('text');
+          var otp = this.formularioCliente.get('otp')!.value;
+          console.log(otp);
+          if (otp.match(patron) == null) {
+            text!.innerHTML = "Codigo invalido"
+            this.otpNotOk2 = true;
+          } else {
+            text!.innerHTML = "Codigo valido"
+            this.otpNotOk2 = false;
+          }
+        })
+      }
+    )
+  }
+  actualizar() {
+    if (this.nombresOriginal == this.formularioCliente.get('nombres')?.value &&
+      this.apellidosOriginal == this.formularioCliente.get('apellidos')?.value &&
+      this.fechaOriginal == this.formularioCliente.get('fechaNacimiento')?.value &&
+      this.correoOriginal == this.formularioCliente.get('email')?.value &&
+      this.domicilioOriginal == this.formularioCliente.get('domicilio')?.value &&
+      this.ocupacionOriginal == this.formularioCliente.get('ocupacion')?.value &&
+      this.numeroOriginal == this.formularioCliente.get('numeroTelefono')?.value &&
+      this.estadoOriginalCliente == this.formularioCliente.get('estado')?.value) {
+      //No envia nada
+    } else {
+      var cedula = { cedula: this.CI }
+      this._clienteService.obtenerCliente(cedula).subscribe(
+        data => {
+          const cliente = <Cliente>data;
+          //Recuperar correo
+          const email = cliente.correo_electronico;
+          const correo = { correo: email }
+          this._clienteService.actualizar(correo).subscribe(data=>{});
+        })
+    }
 
   }
 }
