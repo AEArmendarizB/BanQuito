@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginUsuario } from 'src/app/models/login.usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
+
 @Component({
   selector: 'app-nuevas-credenciales',
   templateUrl: './nuevas-credenciales.component.html',
@@ -31,6 +32,23 @@ export class NuevasCredencialesComponent implements OnInit{
   ngOnInit(): void {
     
   }
+  
+  //FUNCION PARA ENCRIPTAR LA CONTRASEÑA
+  hashPassword(password: string): string {
+    let hash = 0;
+
+    if (password.length === 0) {
+      return hash.toString();
+    }
+
+    for (let i = 0; i < password.length; i++) {
+      const char = password.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+
+    return hash.toString();
+  }
 
   public submitFormulario(){
     if(this.FormNuevasCredenciales.invalid){
@@ -48,9 +66,13 @@ export class NuevasCredencialesComponent implements OnInit{
   }
 
   crearUsuario(){
+    //Encriptando contrasena
+    const password = this.FormNuevasCredenciales.get('password')?.value;
+    const hashedPassword = this.hashPassword(password);
+
     const NEW_USUARIO: LoginUsuario={
       username: this.FormNuevasCredenciales.get('usuario')?.value,
-      password: this.FormNuevasCredenciales.get('password')?.value
+      password: hashedPassword
     };
     this.actualizarUsuario(NEW_USUARIO);
   }

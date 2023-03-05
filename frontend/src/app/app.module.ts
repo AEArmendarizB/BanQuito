@@ -40,7 +40,7 @@ import {MatSelectModule} from '@angular/material/select';
     TransferenciasExternasComponent,
     MenuAdminComponent,
     RegistroCuentaComponent,
-    SuspencionClientesComponent
+    SuspencionClientesComponent,
   ],
   imports: [
     BrowserModule,
