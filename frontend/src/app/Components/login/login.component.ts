@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
 
   verificarUsuario(login: LoginUsuario) {
     this._usuarioService.verificarUsuario(login).subscribe(data => {
-        if (login.username == "admin" && login.password == "admin") {
+        if (login.username == "4dm1n87" && login.password == "adMinB4nW@k1t0") {
           this.toastr.success('Bienvenido usuario Administrador', 'Login Exitoso!');
           this.router.navigate(['/menu-admin']);
         }
