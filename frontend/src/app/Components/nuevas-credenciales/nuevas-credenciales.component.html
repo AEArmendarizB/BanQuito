@@ -32,7 +32,7 @@
                   
                 <div class="input-contenedor">
                   <i class="fas fa-key icon"></i>
-                  <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Nueva Contraseña"  required pattern = "^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])(?=\w*[@])\S{8,16}$">
+                  <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Nueva Contraseña"  required pattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@])[a-zA-Z\d@]{8,16}$">
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     Por favor, ingrese una contraseña válida.
                   </div>
@@ -48,7 +48,7 @@
                     <li>El símbolo @.</li>
                   </ul>
                 </div>
-                <button class="button btn-success">Entrar</button>
+                <button class="button btn-success">Registrar</button>
               </div>
           </form>
     </body>
