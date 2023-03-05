@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Cliente } from 'src/app/models/clientes';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { Cuenta } from '../../models/cuentas';
 import { CuentaService } from '../../services/cuenta/cuenta.service';
 
@@ -17,10 +19,12 @@ export class RegistroCuentaComponent implements OnInit {
   @ViewChild('infoCuentaNueva') infoCuentaNueva!: ElementRef;
   @ViewChild('infoCuentas') infoCuentas!: ElementRef;
   private num: String = "";
-
+  public showForm = false;
+  public nombres = "";
   constructor(
     private fb: FormBuilder,
     private _cuentaService: CuentaService,
+    private _clienteService: ClienteService,
     private toastr: ToastrService,
     private renderer2: Renderer2,
   ) {
@@ -47,27 +51,55 @@ export class RegistroCuentaComponent implements OnInit {
     let CI = this.formularioCedula.get('cedula')?.value;
     const cedula = { cedula: CI };
     const infoCuentas = this.infoCuentas.nativeElement;
-
-    this._cuentaService.getCuentaByCI(cedula).subscribe(
+    this._clienteService.obtenerCliente(cedula).subscribe(
       data => {
-        cuentas = data.cuentas;
-        console.log(cuentas)
-        num_cuentas = cuentas.length;
-        console.log('Los datos recolectados del usuario: ' + cedula.cedula + " son:")
-        console.log('La cuentas encontradas: ' + num_cuentas);
-        if (num_cuentas > 0) {
-          salida = this.printCuentas(cuentas)
-          this.renderer2.setProperty(infoCuentas, 'innerHTML', salida);
-        } else {
-          this.renderer2.setProperty(infoCuentas, 'innerHTML', "El usuario no tiene cuentas registradas");
+        const cliente = <Cliente>data;
+        this.nombres = <string> cliente.nombres;
+        switch (data.message) {
+          case (404): {
+            this.toastr.error('No se encontró un cliente registrado con ese número de cedula', 'Cliente no registrado');
+            console.log("Error del servidor mi 🔑");
+            this.renderer2.setProperty(infoCuentas, 'innerHTML', "No se encontraron cuentas");
+            this.showForm = false;
+            break;
+          }
+          case (500): {
+            this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
+            console.log("No se guardo el dato mi 🔑");
+            this.renderer2.setProperty(infoCuentas, 'innerHTML', "Cuentas no encontradas");
+            this.showForm = false;
+            break;
+          }
+          default: {
+            this.toastr.success("Cliente encontrado dentro de la base de datos", "Cliente encontrado");
+            this.showForm = true;
+            this._cuentaService.getCuentaByCI(cedula).subscribe(
+              data => {
+                this._clienteService
+                cuentas = data;
+                console.log(cuentas)
+                num_cuentas = cuentas.length;
+                console.log('Los datos recolectados del usuario: ' + cedula.cedula + " son:")
+                console.log('La cuentas encontradas: ' + num_cuentas);
+                if (num_cuentas > 0) {
+                  salida = this.printCuentas(cuentas)
+                  this.renderer2.setProperty(infoCuentas, 'innerHTML', salida);
+                } else {
+                  this.renderer2.setProperty(infoCuentas, 'innerHTML', "El usuario no tiene cuentas registradas");
+                }
+              }
+            );
+            break;
+          }
         }
-      }
-    );
+
+      });
+
   }
   printCuentas(cuentas: string[]) {
     //numero de parametros dentro de la base de datos.
     let numParams = 7;
-    let salida = "-".repeat(20);
+    let salida = "Cuentas Disponibles:<br>"+ "-".repeat(20);
     for (let i = 0; i < cuentas.length; i++) {
       const cuenta = <Cuenta><unknown>cuentas[i];
       salida = salida + '<br>' +
@@ -165,9 +197,12 @@ export class RegistroCuentaComponent implements OnInit {
     }
     //Mostramos info de la cuenta
     const info = this.infoCuentaNueva.nativeElement;
+    const infoCuentas = this.infoCuentas.nativeElement;
     salida = this.printCuenta(CUENTA);
     this.renderer2.setProperty(info, 'innerHTML', salida);
-    
+    this.renderer2.setProperty(infoCuentas, 'innerHTML', " ");
+
+
     //Envio de datos
     if (this.formularioCuenta.valid) {
       console.log('VALID');
@@ -178,14 +213,13 @@ export class RegistroCuentaComponent implements OnInit {
     }
   }
   guardarCuenta(cuenta: Cuenta) {
-    console.log(cuenta);
     this._cuentaService.guardarCuenta(cuenta).subscribe(
       data => {
-        console.log(data.message)
         switch (data.message) {
           case (200): {
             this.toastr.info('La cuenta se registro con exito!', 'Cuenta registrada');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            this.showForm = false
             break;
           }
           case (404): {
