@@ -38,4 +38,8 @@ router.post('/actualizar',correoController.actualizar);
 router.post('/confirmar-transferencia',correoController.confirmarTransferencia);
 //resumen de la transferencia exitosa
 router.post('/resumen',correoController.transferenciaExitosa);
+//login exitoso
+router.post('/login-exitoso',correoController.loginExitoso);
+//login fallido
+router.post('/login-fallido',correoController.loginFallido);
 module.exports=router;

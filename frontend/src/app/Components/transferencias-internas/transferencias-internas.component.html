@@ -104,7 +104,7 @@
                 <div class="row">
                   <label class="col-sm-3">Monto:</label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" placeholder="Monto"  id="montos">
+                    <input type="number" class="form-control" placeholder="Monto"  id="monto-campo">
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       Por favor, ingrese un monto
                     </div>
@@ -114,7 +114,7 @@
                 <div class=" row">
                   <label class="col-sm-3">Cuenta Destino:</label>
                   <div class="col-sm-5">
-                    <input type="number" class="form-control" placeholder="Cuenta destino" >
+                    <input type="number" class="form-control" placeholder="Cuenta destino" id="cuentaDestino-campo">
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       Por favor, ingrese una cuenta destino
                     </div>
@@ -125,13 +125,13 @@
                   </div>
                 </div>
                 <div class="row">
-                  <p class="cuenta_destino" id="text"></p>
+                  <p class="cuenta_destino" id="textCuenta"></p>
                 </div>
                 <!--Descripcion-->
                 <div class=" row">
                   <label class="col-sm-3">Descripción:</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Descripcion" >
+                    <input type="text" class="form-control" placeholder="Descripcion" id="descripcion-campo">
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       Por favor, ingrese una descripción
                     </div>
@@ -146,6 +146,9 @@
                 <input type="text"  class="form-control" placeholder="ej. abc123" id="otp-campo">
                 <small class="text-muted" (click)="otp()">
                 <a >Reenviar c&oacute;digo</a></small>
+              </div>
+              <div class="row">
+                <p class="text-danger" id="text"></p>
               </div>
                 <!--Boton enviar-->
                 <div class="mb-4">
