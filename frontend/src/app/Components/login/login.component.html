@@ -31,13 +31,13 @@
               
             <div id="pass" class="input-contenedor">
               <i class="fas fa-key icon"></i>
-              <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Contraseña"  required pattern = "^(?=\w*\d?)(?=\w*[A-Z]?)(?=\w*[a-z])(?=\w*[@]?)\S{4,16}$">
+              <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Contraseña"  required pattern = "^(?=.*[@]?)(?=.*\d?)(?=.*[a-z]?)(?=.*[A-Z]?)[a-zA-Z\d@]{4,25}$">
               <div id="validationServerUsernameFeedback" class="invalid-feedback">
                 Por favor, ingrese la contraseña
               </div>
             </div>
 
-            <div id="otp" class="input-contenedor">
+            <div id="otp" class="input-contenedor" style="display: none">
               <i class="fas fa-lock icon"></i>
               <input formControlName="otp" [class.is-invalid]='f.otp.errors && f.otp.touched' type="number" placeholder="Codigo de verificación"  required pattern = "^([0-9]+){6}$">
               <div id="validationServerUsernameFeedback" class="invalid-feedback">
