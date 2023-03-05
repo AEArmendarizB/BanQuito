@@ -68,6 +68,7 @@
     <!--FIN    Menu lateral-->
     <main>
       <header>
+        
         <div class="row">
           <div class="col-4" id="logo">
             <img src="../../../assets/media/Logo.png" alt="logo">
@@ -78,7 +79,16 @@
             <h1 class="nombre-cliente" id="nombre-cliente"></h1>
           </div>
         </div>
+        <div class="container mt-3">
+          <div class="row mb-3 mx-auto">
+            <div class="col-12 ">
+              <button routerLink="/login" type="submit" class="btn btn-danger col-2 float-end">Cerrar Sesión</button>
+            </div>
+          </div>
+        </div>
       </header>
+
+      
 
       <div class="cuenta" *ngFor="let cuenta of listCuentas">
         <div class="cuenta-contenido">

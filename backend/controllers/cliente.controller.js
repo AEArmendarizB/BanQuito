@@ -54,7 +54,7 @@ var controller = {
     getCliente: function (req, res) {
         var params = req.body;
         console.log("Parametros en la funcion getCliente:");
-        console.log(params);
+        //console.log(params);
         var cedula = params.cedula;
         Cliente.findOne({ "cedula": cedula }, (err, cliente) => {
             if (err) return res.status(200).send({message:500});

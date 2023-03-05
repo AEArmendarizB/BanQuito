@@ -35,7 +35,7 @@ export class CuentaService {
     actualizarCuenta(cuenta: object): Observable<any> {
         return this.http.post(this.urlActualizarCuenta, cuenta);
     }
-    tranaccionInterna(cuenta: Object){
+    transaccionInterna(cuenta: Object){
         return this.http.put(this.urlTransferenciaInterna, cuenta);
     }
     obtenerCuenta(numero:Object){
