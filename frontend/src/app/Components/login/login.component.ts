@@ -49,6 +49,23 @@ export class LoginComponent implements OnInit {
     this.activarCuadros();
   }
 
+  //FUNCION PARA ENCRIPTAR LA CONTRASEÑA
+  hashPassword(password: string): string {
+    let hash = 0;
+
+    if (password.length === 0) {
+      return hash.toString();
+    }
+
+    for (let i = 0; i < password.length; i++) {
+      const char = password.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+
+    return hash.toString();
+  }
+
   public activarCuadros(){
     switch(this.control){
       case 0:
@@ -77,9 +94,13 @@ export class LoginComponent implements OnInit {
   crearUsuario() {
     switch(this.control){
       case 0:
+        //Encriptando contrasena
+      const password = this.myForm.get('password')?.value;
+      const hashedPassword = this.hashPassword(password);
+
         const LOGIN_USUARIO: LoginUsuario = {
           username: this.myForm.get('usuario')?.value,
-          password: this.myForm.get('password')?.value
+          password: hashedPassword
         };
 
         this.verificarUsuario(LOGIN_USUARIO);
