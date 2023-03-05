@@ -23,11 +23,14 @@ export class RegistroClienteComponent implements OnInit {
   formularioCliente: FormGroup;
   formularioCuenta: FormGroup;
   formularioUsuario: FormGroup;
-
+  public showform1 = true;
+  public showform2 = false;
+  public showform3 = false;
+  
+  public username = "";
+  public password = "";
   @ViewChild('spanNumCuenta') cuenta!: ElementRef;
   @ViewChild('botonPregunta') pregunta!: ElementRef;
-  @ViewChild('user') user!: ElementRef;
-  @ViewChild('password') pass!: ElementRef;
   @ViewChild('infoCuenta') infoCuenta!: ElementRef;
 
   private num: String = "";
@@ -137,7 +140,7 @@ export class RegistroClienteComponent implements OnInit {
     }
   }
 
-    printCuenta(cuenta: Cuenta) {
+  printCuenta(cuenta: Cuenta) {
     let numParams = 7;
     let salida = "-".repeat(20);
     salida = salida + '<br>' +
@@ -168,7 +171,7 @@ export class RegistroClienteComponent implements OnInit {
 
   agregarCuenta() {
     let salida: string;
-    const CUENTA: Cuenta = { 
+    const CUENTA: Cuenta = {
       cedula: this.formularioCliente.get('cedula')?.value,
       tipo_cuenta: this.formularioCuenta.get('tipo_cuenta')?.value,
       monto_inicial: this.formularioCuenta.get('monto_inicial')?.value,
@@ -185,10 +188,8 @@ export class RegistroClienteComponent implements OnInit {
     this.renderer2.setProperty(info, 'innerHTML', salida);
 
     /// Llamamos a la funcion para poder crear un usuario y contraseña
-    const user_login = this.user.nativeElement;
-    const pass_login = this.pass.nativeElement;
-    this.renderer2.setProperty(user_login, 'value', this.formularioCliente.get('nombres')?.value.split(' ')[0] + this.formularioCliente.get('cedula')?.value.substring(0, 6));
-    this.renderer2.setProperty(pass_login, 'value', this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6));
+    this.username = this.formularioCliente.get('nombres')?.value.split(' ')[0] + this.formularioCliente.get('cedula')?.value.substring(0, 6);
+    this.password = this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6)
 
     //Envio de datos
     if (this.formularioCuenta.valid) {
@@ -204,7 +205,7 @@ export class RegistroClienteComponent implements OnInit {
     const USUARIO: Usuario = {
       cedula: this.formularioCliente.get('cedula')?.value,
       username: this.formularioCliente.get('nombres')?.value.split(' ')[0] + this.formularioCliente.get('cedula')?.value.substring(0, 6),
-      password: this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6)+"@A",
+      password: this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6) + "@A",
       pregunta: this.formularioUsuario.get('pregunta')?.value,
       isNew: true
     }
@@ -237,7 +238,11 @@ export class RegistroClienteComponent implements OnInit {
           case (200): {
             this.toastr.info('El Cliente se registro con exito!', 'Cliente registrado');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            this.showform1 = false;
+            this.showform2 = true;
+            this.showform3 = false;
             break;
+
           }
           case (404): {
             this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cliente no registrado');
@@ -262,6 +267,9 @@ export class RegistroClienteComponent implements OnInit {
           case (200): {
             this.toastr.info('La cuenta se registro con exito!', 'Cuenta registrada');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
+            this.showform2 = false;
+            this.showform1 = false;
+            this.showform3 = true;
             break;
           }
           case (404): {
@@ -288,6 +296,9 @@ export class RegistroClienteComponent implements OnInit {
             this.toastr.info('El usuario se registro con exito!', 'Usuario registrada');
             console.log("Todo bien mi 🔑, el dato si se ingreso, re piola rey!");
             this.router.navigate(['/login']);
+            this.showform1 = true;
+            this.showform2 = false;
+            this.showform3 = false;
             break;
           }
           case (404): {
@@ -342,30 +353,30 @@ export class RegistroClienteComponent implements OnInit {
     this._clienteService.validarCorreo(correo).subscribe(
       data => {
         codigo = data.toString();
-        let patron="^"+codigo+"$";  
+        let patron = "^" + codigo + "$";
         var campo = document.getElementById('otp-campo');
-        campo!.addEventListener('keyup',()=>{
+        campo!.addEventListener('keyup', () => {
           var text = document.getElementById('text');
           var otp = this.formularioCliente.get('otp')!.value;
           console.log(patron);
           console.log(otp);
-          if(otp.match(patron)==null){
-           text!.innerHTML="Codigo invalido"
-           this.otpNotOk = true;
-          }else{
-           text!.innerHTML="Codigo valido"
-           this.otpNotOk = false;
+          if (otp.match(patron) == null) {
+            text!.innerHTML = "Codigo invalido"
+            this.otpNotOk = true;
+          } else {
+            text!.innerHTML = "Codigo valido"
+            this.otpNotOk = false;
           }
         })
       }
     )
   }
-  registroExitoso(){
+  registroExitoso() {
     var correo = this.formularioCliente.get('email')?.value;
-    var username= this.formularioCliente.get('nombres')?.value.split(' ')[0] + this.formularioCliente.get('cedula')?.value.substring(0, 6);
-    var pass= this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6)+"@A";
-    const objeto = { correo: correo, username : username, pass : pass};
+    var username = this.formularioCliente.get('nombres')?.value.split(' ')[0] + this.formularioCliente.get('cedula')?.value.substring(0, 6);
+    var pass = this.formularioCliente.get('nombres')?.value.split(' ')[1] + this.formularioCliente.get('cedula')?.value.substring(0, 6) + "@A";
+    const objeto = { correo: correo, username: username, pass: pass };
     this._clienteService.enviarCredenciales(objeto).subscribe(
-      data => {})
+      data => { })
   }
 }
