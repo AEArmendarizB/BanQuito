@@ -30,7 +30,6 @@ export class RegistroClienteComponent implements OnInit {
   @ViewChild('password') pass!: ElementRef;
   @ViewChild('infoCuenta') infoCuenta!: ElementRef;
 
-  private num: String = "";
   public otpNotOk = true;
   constructor(
     private fb: FormBuilder,
@@ -367,5 +366,6 @@ export class RegistroClienteComponent implements OnInit {
     const objeto = { correo: correo, username : username, pass : pass};
     this._clienteService.enviarCredenciales(objeto).subscribe(
       data => {})
+      //this.router.navigate(['/']);
   }
 }

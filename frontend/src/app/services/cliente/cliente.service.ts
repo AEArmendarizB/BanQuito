@@ -23,6 +23,8 @@ export class ClienteService {
     urlActualizarUsuario = "http://localhost:3600/actualizar-usuario";
     urlActualizarCorreoCliente = "http://localhost:3600/actualizar-correo";
     urlActualizar="http://localhost:3600/actualizar";
+    urlConfirmarCorreo ="http://localhost:3600/confirmar-transferencia";
+    urlResumen = "http://localhost:3600/resumen";
 
     constructor(
         private http: HttpClient
@@ -62,5 +64,11 @@ export class ClienteService {
     }
     actualizar(correo:Object){
         return this.http.post(this.urlActualizar, correo);
+    }
+    confirmarTransferencia(correo:Object){
+        return this.http.post(this.urlConfirmarCorreo, correo);
+    }
+    resumen(correo:Object){
+        return this.http.post(this.urlResumen, correo);
     }
 }
