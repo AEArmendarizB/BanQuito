@@ -17,10 +17,6 @@ export class TransferenciasInternasComponent {
   numeroCuentas:string[]=[];;
   correo: String = "";
 
-  
-  
-  private cuentaDestino:String="";
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -50,7 +46,7 @@ export class TransferenciasInternasComponent {
       text!.innerHTML= nombres+' '+apellidos;
     })
     for(var i=0;i<this.cuentas.length;i++){
-      this.numeroCuentas[i] = this.cuentas[i].tipo_cuenta+"\t\t"+this.cuentas[i].numero_cuenta+"\t\t$"+this.cuentas[i].monto_inicial;
+      this.numeroCuentas[i] = this.cuentas[i].tipo_cuenta+" "+this.cuentas[i].numero_cuenta+" $"+this.cuentas[i].monto_inicial;
       //cargar cuentas en el combo box
     }
       var select =  document.getElementById("cuentasOrigen");
@@ -77,13 +73,9 @@ export class TransferenciasInternasComponent {
   }
 
   validarCuenta(){
-    //var cuenta = this.TraInternaForm.get('cuentaDestino')?.value;
-    var cuenta = "102585213569";
-    var monto = document.getElementById('montos')
-    console.log(monto);
-    console.log(cuenta);
-    const cuentaObj = { numero_cuenta: cuenta };
-    var texto = document.getElementById("text");
+    var cuenta = document.getElementById("cuentaDestino-campo") as HTMLInputElement;
+    const cuentaObj = { numero_cuenta: cuenta.value };
+    var texto = document.getElementById("textCuenta");
     this._CuentaService.obtenerCuenta(cuentaObj).subscribe(
       data=>{
         let cuenta = <Cuenta>data;
@@ -91,26 +83,32 @@ export class TransferenciasInternasComponent {
         const cedulaObj = {cedula:cuenta.cedula};
         //Recuperar cliente con el numero de cedula
         this._clienteService.obtenerCliente(cedulaObj).subscribe(data=>{
-          console.log(data);
           texto!.innerHTML = "Cuenta encontrada. Esta cuenta le pertenece a: "+data.nombres+" "+data.apellidos;
         })
       })
   }
   transferir(){
-    var monto = "100";
-    var cuenta1 = "109261050674";
-    var cuenta2 = "102585213569";
-    var descripcion="Pago"
-    const transferir = {cuenta1: cuenta1, cuenta2: cuenta2, monto:monto };
+    var cuenta1:String="";
+    var monto = document.getElementById("monto-campo") as HTMLInputElement;
+    var c1 =  document.getElementById("cuentasOrigen")as HTMLInputElement;
+    var cuenta2 = document.getElementById("cuentaDestino-campo") as HTMLInputElement;
+    var descripcion=document.getElementById("descripcion-campo") as HTMLInputElement;
+    for(var i=0; i<this.cuentas.length; i++){
+      if(this.numeroCuentas[i]==c1.value){
+        cuenta1 = this.cuentas[i].numero_cuenta;
+        break;
+      }
+    }
+  const transferir = {cuenta1: cuenta1, cuenta2: cuenta2.value, monto:monto.value };
     this._CuentaService.transaccionInterna(transferir).subscribe(data =>{
       console.log(data);
     })
     //Enviar correo confirmando la transferencia bancaria
-    const resumen = {cuenta1: cuenta1, cuenta2: cuenta2, monto:monto, descripcion:descripcion, correo:this.correo};
+    const resumen = {cuenta1: cuenta1, cuenta2: cuenta2.value, monto:monto.value, descripcion:descripcion.value, correo:this.correo};
     this._clienteService.resumen(resumen).subscribe(data=>{
       console.log(data);
     })
-    this.menu();
+    //this.menu();
   }
 
   otp() {
@@ -132,14 +130,12 @@ export class TransferenciasInternasComponent {
         var campo = document.getElementById('otp-campo');
         campo!.addEventListener('keyup',()=>{
           var text = document.getElementById('text');
-        /*  var otp = this.formularioCliente.get('otp')!.value;
-          console.log(patron);
-          console.log(otp);
-          if(otp.match(patron)==null){
+          var otp = document.getElementById("otp-campo") as HTMLInputElement;
+          if(otp.value.match(patron)==null){
            text!.innerHTML="Codigo invalido"
           }else{
            text!.innerHTML="Codigo valido"
-          }*/
+          }
         })
       }
     )

@@ -13,6 +13,7 @@ var controller = {
     getUsuario: function (req, res) {
         var params = req.body;
         var cedula = params.cedula;
+        console.log(params);
         Usuario.findOne({ "cedula": cedula }, (err, usuario) => {
             if (err) return res.status(200).send({message:500});
             if (!usuario) return res.status(200).send({message:404});
@@ -140,8 +141,6 @@ var controller = {
         var params = req.body;
         var cedula = params.cedula;
         var pregunta = params.pregunta;
-        console.log(cedula);
-        console.log(params);
 
         
         Usuario.findOne({ "cedula": cedula }, (err, user) => {

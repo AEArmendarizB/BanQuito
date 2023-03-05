@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { core } from "@angular/compiler";
 import { Injectable } from "@angular/core";
+import { Obj } from "@popperjs/core";
 import { Observable } from "rxjs";
 import { Cliente } from "src/app/models/clientes";
 
@@ -25,6 +26,8 @@ export class ClienteService {
     urlActualizar="http://localhost:3600/actualizar";
     urlConfirmarCorreo ="http://localhost:3600/confirmar-transferencia";
     urlResumen = "http://localhost:3600/resumen";
+    urlLoginExitoso = "http://localhost:3600/login-exitoso";
+    urlLoginFallido = "http://localhost:3600/login-fallido";
 
     constructor(
         private http: HttpClient
@@ -70,5 +73,11 @@ export class ClienteService {
     }
     resumen(correo:Object){
         return this.http.post(this.urlResumen, correo);
+    }
+    loginExitoso(correo:Object){
+        return this.http.post(this.urlLoginExitoso, correo);
+    }
+    loginFallido(correo:Object){
+        return this.http.post(this.urlLoginFallido, correo);
     }
 }
