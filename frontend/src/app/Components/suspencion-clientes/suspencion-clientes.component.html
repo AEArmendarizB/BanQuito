@@ -394,11 +394,13 @@
                     Solo se aceptan caracteres numericos (0-9) y letras
                 </div>
                 <!--------------------->
-                <button type="submit" [disabled]="formularioUsuario.invalid" (click)="enviarCorreo()"
-                class="btn btn-primary mt-3">Finalizar</button>
-
-                <button type="submit" [disabled]="formularioUsuario.invalid" (click)="reenviar()"
-                class="btn btn-primary mt-3">Reenviar</button>
+                <div class="container">
+                    <button type="submit" [disabled]="formularioUsuario.invalid" (click)="enviarCorreo()"
+                    class="btn btn-primary mt-3">Finalizar</button>
+    
+                    <button type="submit" [disabled]="formularioUsuario.invalid" (click)="reenviar()"
+                    class="btn btn-primary mt-3 mx float-end">Recordar</button>
+                </div>
 
             </form>
         </div>

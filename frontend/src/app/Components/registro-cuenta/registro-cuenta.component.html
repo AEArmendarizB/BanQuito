@@ -43,10 +43,10 @@
             </div>
         </form>
     </div>
-    <div class="card w-75  mx-auto mt-2">
-        <div class="card-body mx-4">
+    <div class="card w-75  mx-auto mt-2" *ngIf = "showForm">
+        <div class="card-body mx-4" >
             <form [formGroup]="formularioCuenta" (ngSubmit)="agregarCuenta()">
-                <h5 class="float-start">Configura una nueva cuenta</h5>
+                <h5 class="float-start">Configura una nueva cuenta para {{nombres}}</h5>
                 <br>
                 <hr>
                 <div class="row mt-3 text-center">
