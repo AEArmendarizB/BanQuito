@@ -12,7 +12,7 @@ import { respuesta } from "../models/respuesta";
 
 export class RespuestaService{
 
-    url= 'http://localhost:3600/guardar-respuesta/';
+    url= 'http://54.219.51.93:3600/guardar-respuesta/';
 
     constructor(private http: HttpClient) { }
 

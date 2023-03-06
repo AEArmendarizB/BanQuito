@@ -12,22 +12,22 @@ import { Cliente } from "src/app/models/clientes";
 
 })
 export class ClienteService {
-    url = "http://localhost:3600/guardar-cliente/";
-    urlVerificar = "http://localhost:3600/validarCedula/";
-    urlObtenerCliente = "http://localhost:3600/cliente/";
-    urlActualizarCliente = "http://localhost:3600/actualizar-cliente/";
-    urlCorreo = "http://localhost:3600/validar-email/";
-    urlCorreoLogin = "http://localhost:3600/verificar-email";
-    urlRegistroExitoso = "http://localhost:3600/bienvenido";
-    urlReenviar = "http://localhost:3600/reenviar";
-    urlNuevasTempo = "http://localhost:3600/nuevas-temp";
-    urlActualizarUsuario = "http://localhost:3600/actualizar-usuario";
-    urlActualizarCorreoCliente = "http://localhost:3600/actualizar-correo";
-    urlActualizar="http://localhost:3600/actualizar";
-    urlConfirmarCorreo ="http://localhost:3600/confirmar-transferencia";
-    urlResumen = "http://localhost:3600/resumen";
-    urlLoginExitoso = "http://localhost:3600/login-exitoso";
-    urlLoginFallido = "http://localhost:3600/login-fallido";
+    url = "http://54.219.51.93:3600/guardar-cliente/";
+    urlVerificar = "http://54.219.51.93:3600/validarCedula/";
+    urlObtenerCliente = "http://54.219.51.93:3600/cliente/";
+    urlActualizarCliente = "http://54.219.51.93:3600/actualizar-cliente/";
+    urlCorreo = "http://54.219.51.93:3600/validar-email/";
+    urlCorreoLogin = "http://54.219.51.93:3600/verificar-email";
+    urlRegistroExitoso = "http://54.219.51.93:3600/bienvenido";
+    urlReenviar = "http://54.219.51.93:3600/reenviar";
+    urlNuevasTempo = "http://54.219.51.93:3600/nuevas-temp";
+    urlActualizarUsuario = "http://54.219.51.93:3600/actualizar-usuario";
+    urlActualizarCorreoCliente = "http://54.219.51.93:3600/actualizar-correo";
+    urlActualizar="http://54.219.51.93:3600/actualizar";
+    urlConfirmarCorreo ="http://54.219.51.93:3600/confirmar-transferencia";
+    urlResumen = "http://54.219.51.93:3600/resumen";
+    urlLoginExitoso = "http://54.219.51.93:3600/login-exitoso";
+    urlLoginFallido = "http://54.219.51.93:3600/login-fallido";
 
     constructor(
         private http: HttpClient
