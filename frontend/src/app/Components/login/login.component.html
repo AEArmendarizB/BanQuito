@@ -16,6 +16,14 @@
           <img src="../../../assets/media/Logo.png" alt="logo">
           <h1 class="nombre-banco">BanQuito</h1>
         </div>
+
+        <div id="salir" class="container mt-3" style="display: none">
+          <div class="row mb-3 mx-auto">
+            <div class="col-12">
+              <button (click)="volverBtn()" type="submit" class="btn btn-danger col-1 float-end">Salir</button>
+            </div>
+          </div>
+        </div>
       </header>
 
       <form [formGroup]="myForm" (ngSubmit)="submitFormulario()" class="formulario">

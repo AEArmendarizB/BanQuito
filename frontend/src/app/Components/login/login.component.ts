@@ -70,17 +70,24 @@ export class LoginComponent implements OnInit {
     switch(this.control){
       case 0:
         document.getElementById('otp')!.style.display = 'none';
+        document.getElementById('salir')!.style.display = 'none';
         document.getElementById('user')!.style.display = 'block';
         document.getElementById('pass')!.style.display = 'block';
         break;
 
       case 1:
         document.getElementById('otp')!.style.display = 'block';
+        document.getElementById('salir')!.style.display = '';
         document.getElementById('user')!.style.display = 'none';
         document.getElementById('pass')!.style.display = 'none';
         break;
       
     }
+  }
+
+  volverBtn(){
+    this.control=0;
+    this.activarCuadros();
   }
 
   public submitFormulario() {
