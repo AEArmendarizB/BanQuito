@@ -10,13 +10,13 @@ import { Cuenta } from "src/app/models/cuentas";
 
 })
 export class CuentaService {
-    url = "http://localhost:3600/guardar-cuenta/";
-    urlVerificar = "http://localhost:3600/validarNumeroCuenta/";
-    urlGetCuentaByCI = "http://localhost:3600/get-Cuenta-byCI/";
-    urlGenerarnumCuenta = "http://localhost:3600/generarNumero/";
-    urlActualizarCuenta = "http://localhost:3600/actualizar-cuenta/"; 
-    urlTransferenciaInterna ="http://localhost:3600/transaccion-interna";
-    urlGetCuenta = "http://localhost:3600/getCuenta/"
+    url = "http://54.219.51.93:3600/guardar-cuenta/";
+    urlVerificar = "http://54.219.51.93:3600/validarNumeroCuenta/";
+    urlGetCuentaByCI = "http://54.219.51.93:3600/get-Cuenta-byCI/";
+    urlGenerarnumCuenta = "http://54.219.51.93:3600/generarNumero/";
+    urlActualizarCuenta = "http://54.219.51.93:3600/actualizar-cuenta/"; 
+    urlTransferenciaInterna ="http://54.219.51.93:3600/transaccion-interna";
+    urlGetCuenta = "http://54.219.51.93:3600/getCuenta/"
     constructor(
         private http: HttpClient
     ) { }
