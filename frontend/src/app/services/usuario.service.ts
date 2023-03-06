@@ -17,7 +17,7 @@ import { Usuario } from "../models/usuarios";
 
 export class UsuarioService{
 
-    url= 'http://localhost:3600/verificar-usuario/';
+    url= 'http://54.219.51.93:3600/verificar-usuario/';
 
     constructor(private http: HttpClient) { }
 
