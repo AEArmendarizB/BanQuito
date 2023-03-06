@@ -94,21 +94,38 @@ export class LoginComponent implements OnInit {
   crearUsuario() {
     switch(this.control){
       case 0:
-        var hashedPassword='';
-        //Encriptando contrasena
-        if(this.myForm.get('password')?.value == "adMinB4nW@k1t0"){
-          hashedPassword = this.myForm.get('password')?.value;
-        }else{
-          const password = this.myForm.get('password')?.value;
-          hashedPassword = this.hashPassword(password);
-        }
-        
-        const LOGIN_USUARIO: LoginUsuario = {
+        var LOGIN_USR: LoginUsuario = {
           username: this.myForm.get('usuario')?.value,
-          password: hashedPassword
+          password: this.myForm.get('password')?.value
         };
 
-        this.verificarUsuario(LOGIN_USUARIO);
+        //validación para ver si es un nuevo usuario, admin o usuario viejo
+        this._usuarioService.verificarUsuario(LOGIN_USR).subscribe(data => {
+          if (LOGIN_USR.username == "4dm1n87" && LOGIN_USR.password == "adMinB4nW@k1t0") {
+            //En caso de ser admin, se envian las credenciales tal como se ingresan
+            this.verificarUsuario(LOGIN_USR);
+          }
+          else{
+            switch (data.message) {
+              case 1: //En caso de no ser nuevo usuario, la contrasena se encripta
+                const password = this.myForm.get('password')?.value;
+                const hashedPassword = this.hashPassword(password);
+
+                const LOGIN_USUARIO: LoginUsuario = {
+                  username: this.myForm.get('usuario')?.value,
+                  password: hashedPassword
+                };
+                this.verificarUsuario(LOGIN_USUARIO);
+                break;
+
+              case true: //En caso de ser usuario nuevo, se envian las credenciales tal como se ingresan
+                this.verificarUsuario(LOGIN_USR);
+                break;
+            }
+          }
+        }, error => {
+          console.log(error);
+        });
         break;
 
       case 1:
@@ -146,8 +163,8 @@ export class LoginComponent implements OnInit {
               break;
           }
         }
-    }, error => {
-      console.log(error);
+      }, error => {
+          console.log(error);
     });
   }
 
