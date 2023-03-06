@@ -102,8 +102,8 @@ export class LoginComponent implements OnInit {
         //validación para ver si es un nuevo usuario, admin o usuario viejo
         this._usuarioService.verificarUsuario(LOGIN_USR).subscribe(data => {
           if (LOGIN_USR.username == "4dm1n87" && LOGIN_USR.password == "adMinB4nW@k1t0") {
-            //En caso de ser admin, se envian las credenciales tal como se ingresan
-            this.verificarUsuario(LOGIN_USR);
+            this.toastr.success('Bienvenido usuario Administrador', 'Login Exitoso!');
+            this.router.navigate(['/menu-admin']);
           }
           else{
             switch (data.message) {
@@ -137,31 +137,25 @@ export class LoginComponent implements OnInit {
 
   verificarUsuario(login: LoginUsuario) {
     this._usuarioService.verificarUsuario(login).subscribe(data => {
-        if (login.username == "4dm1n87" && login.password == "adMinB4nW@k1t0") {
-          this.toastr.success('Bienvenido usuario Administrador', 'Login Exitoso!');
-          this.router.navigate(['/menu-admin']);
-        }
-        else{
-          switch (data.message) {
-            case 0:
-              console.log({ message: 'Hubo un error' });
-              this.toastr.error('No se pudo conectar con el servidor y la base de datos', 'Error, conexión fallida con el servidor!');
-              break;
-            case 1:
-              console.log({ message: 'No se pudo encontrar el usuario' })
-              this.toastr.error('Usuario o contraseña incorrectos', 'Error, No existe el usuario!');
-              break;
-            case false:
-              this.id = data.cedula;
-              this.extraerCorreo();
-              break;
-            case true:
-              const cedula = data.cedula;
-              const cedulaObj = { cedula: cedula };
-              this.router.navigate(['/usuario'], { state: { cedulaObj } });
-              this.toastr.info('Por favor, a continuación debes cambiar tus credenciales', 'Usuario con claves temporales');
-              break;
-          }
+        switch (data.message) {
+          case 0:
+            console.log({ message: 'Hubo un error' });
+            this.toastr.error('No se pudo conectar con el servidor y la base de datos', 'Error, conexión fallida con el servidor!');
+            break;
+          case 1:
+            console.log({ message: 'No se pudo encontrar el usuario' })
+            this.toastr.error('Usuario o contraseña incorrectos', 'Error, No existe el usuario!');
+            break;
+          case false:
+            this.id = data.cedula;
+            this.extraerCorreo();
+            break;
+          case true:
+            const cedula = data.cedula;
+            const cedulaObj = { cedula: cedula };
+            this.router.navigate(['/usuario'], { state: { cedulaObj } });
+            this.toastr.info('Por favor, a continuación debes cambiar tus credenciales', 'Usuario con claves temporales');
+            break;
         }
       }, error => {
           console.log(error);
