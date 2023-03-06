@@ -9,7 +9,8 @@ var CuentaSchema = Schema({
     monto_inicial: Number,
     ingreso_promedio: Number,
     numero_cuenta: String,
-    state: Boolean
+    state: Boolean,
+    monto_maximo: Number
 
 });
 module.exports = mongoose.model('Cuenta', CuentaSchema);

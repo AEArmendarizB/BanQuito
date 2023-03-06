@@ -6,7 +6,6 @@
         <title>Inicio</title>
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="icon" type="favicon/x-icon" href="../../../assets/media/Logo.png">
-        <!-- <link rel="stylesheet" type="text/css" href="../login/login.component.css">-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
 
     </head>
@@ -24,20 +23,31 @@
               <div class="contenedor">
                 <div class="input-contenedor">
                   <i class="fas fa-user icon"></i>
-                  <input formControlName="usuario" [class.is-invalid]='f.usuario.errors && f.usuario.touched' type="text" placeholder="Nuevo Usuario" required pattern = "[a-zA-Z0-9]+">
+                  <input formControlName="usuario" [class.is-invalid]='f.usuario.errors && f.usuario.touched' type="text" placeholder="Nuevo Usuario" required pattern = "^([a-zA-Z0-9]+){8}$">
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                    Por favor ingrese el usuario
+                    Por favor, ingrese un usuario válido.
                   </div>
                 </div>
                   
                 <div class="input-contenedor">
                   <i class="fas fa-key icon"></i>
-                  <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Nueva Contraseña"  required pattern = "[a-zA-Z0-9]+">
+                  <input formControlName="password" [class.is-invalid]='f.password.errors && f.password.touched' type="password" placeholder="Nueva Contraseña"  required pattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@])[a-zA-Z\d@]{8,16}$">
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                    Por favor ingrese la contraseña
+                    Por favor, ingrese una contraseña válida.
                   </div>
                 </div>
-                <button class="button btn-success">Entrar</button>
+                <div class="nota">
+                  <p>- El usuario solo puede contener números y letras.</p>
+                  <p>- El usuario debe tener al menos 8 caracteres.</p>
+                  <p>- La contraseña debe contar con:</p>
+                  <ul>
+                    <li>Una longitud de 8 a 16 caracteres.</li>
+                    <li>Al menos una letra mayúscula y una minúscula.</li>
+                    <li>Al menos un número.</li>
+                    <li>El símbolo @.</li>
+                  </ul>
+                </div>
+                <button class="button btn-success">Registrar</button>
               </div>
           </form>
     </body>

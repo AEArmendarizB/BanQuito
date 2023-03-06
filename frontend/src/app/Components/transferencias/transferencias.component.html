@@ -21,14 +21,12 @@
     <div class="menu__side" id="menu_side">
   
       <div class="options__menu">
-  
-        <a href="/menu">
-          <div class="option">
+        <a >
+          <div class="option" (click)="menu()">
             <i class="fas fa-home" title="Inicio"></i>
             <h4>INICIO</h4>
           </div>
         </a>
-  
         <a >
           <div class="option">
             <i class="far fa-file" title="Pagos"></i>
@@ -77,12 +75,21 @@
           </div>
           <div class="col-4" id="cliente">
             <img src="../../../assets/media/usuario.png" alt="cliente">
-            <h1 class="nombre-cliente">Jhon Lenon Doe Moore</h1>
+            <h1 class="nombre-cliente" id="nombre-cliente"></h1>
           </div>
         </div>
+
+        <div class="container mt-3">
+          <div class="row mb-3 mx-auto">
+            <div class="col-12">
+              <button routerLink="/login" type="submit" class="btn btn-danger col-2 float-end">Cerrar Sesión</button>
+            </div>
+          </div>
+        </div>
+        
       </header>
 
-
+      
 
       <div class="row">
         <div class="colum-6">
@@ -96,11 +103,11 @@
                 </p>
               </div>
               <div class="ts-interna">
-                <a href="/transferencia-interna">
+                <a (click)=" transferenciaInterna()">
                   <button type="button"> Transferencias Internas</button>
                 </a>
-                <a>
-                  <button type="button" class="btn btn-primary btn-lg">Transferencias Externas</button>
+                <a >
+                  <button type="button">Transferencias Externas</button>
                 </a>
               </div>
             </div>

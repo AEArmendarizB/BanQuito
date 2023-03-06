@@ -4,7 +4,7 @@ export class LoginUsuario{
 
     constructor(
         username:string,
-        password:string,       
+        password:string,    
     ){
        
         this.username = username;

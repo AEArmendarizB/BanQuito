@@ -11,11 +11,23 @@ import { Usuario } from "src/app/models/usuarios";
     
 })
 export class UsuarioService{
-    url= "http://localhost:3600/guardar-usuario/";
+    url= "http://54.219.51.93:3600/guardar-usuario/";
+    urlgetUsuario= "http://54.219.51.93:3600/getUsuario/";
+    urlPregunta= "http://54.219.51.93:3600/verificarPregunta/";
+    urlconfigurarusuario ="http://54.219.51.93:3600/configurar-usuario/"; 
     constructor(
         private http: HttpClient
     ){}
     verificarUsuario(usuario: Usuario): Observable <any>{
         return this.http.post(this.url, usuario);
+    }
+    getUsuario(cedula:object): Observable <any>{
+        return this.http.post(this.urlgetUsuario, cedula);
+    }
+    verificarPregunta(pregunta: Object): Observable <any>{
+        return this.http.post(this.urlPregunta, pregunta);
+    }
+    configurarUsuario(usuario: object): Observable<any> {
+        return this.http.post(this.urlconfigurarusuario, usuario);
     }
 }
