@@ -25,6 +25,7 @@ import { SuspencionClientesComponent } from './Components/suspencion-clientes/su
 import { MatRadioModule } from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import { ContrasenaOlvidadaComponent } from './Components/contrasena-olvidada/contrasena-olvidada.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MatSelectModule} from '@angular/material/select';
     MenuAdminComponent,
     RegistroCuentaComponent,
     SuspencionClientesComponent,
+    ContrasenaOlvidadaComponent,
   ],
   imports: [
     BrowserModule,
