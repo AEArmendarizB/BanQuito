@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Cuenta } from 'src/app/models/cuentas';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
@@ -16,14 +17,19 @@ export class TransferenciasInternasComponent {
   cuentas:Cuenta[]=[];
   numeroCuentas:string[]=[];;
   correo: String = "";
+  transForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private _clienteService: ClienteService,
     private _CuentaService: CuentaService,
+    private toastr: ToastrService, 
+
     ) {    
-    
+    this.transForm = this.fb.group({
+      monto: ['', [Validators.required]]
+    })
   }
 
   ngOnInit(): void {
@@ -108,7 +114,7 @@ export class TransferenciasInternasComponent {
     this._clienteService.resumen(resumen).subscribe(data=>{
       console.log(data);
     })
-    //this.menu();
+    this.menu();
   }
 
   otp() {

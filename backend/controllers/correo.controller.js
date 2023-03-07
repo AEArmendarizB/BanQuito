@@ -14,14 +14,9 @@ var controller = {
         var otp = "";
         //generacion del número de validacion
         for (let i = 0; i < 6; i++) {
-            if (i == 0) {
-                var aux = Math.floor(Math.random() * 10 + 1).toString();
-                if (aux == "10") {
-                    otp += "9";
-                }
-            }
             otp += Math.floor(Math.random() * 10).toString();
         }
+        otp.replace('0','1');
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -62,14 +57,10 @@ var controller = {
         var otp = "";
         //generacion del número de validacion
         for (let i = 0; i < 6; i++) {
-            if (i == 0) {
-                var aux = Math.floor(Math.random() * 10 + 1).toString();
-                if (aux == "10") {
-                    otp += "9";
-                }
-            }
             otp += Math.floor(Math.random() * 10).toString();
         }
+        otp.replace('0','1');
+
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -108,40 +99,15 @@ var controller = {
         var otp = "";
         //generacion del número de validacion
         for (let i = 0; i < 6; i++) {
-            if (i == 0) {
-                var aux = Math.floor(Math.random() * 10 + 1).toString();
-                if (aux == "10") {
-                    otp += "9";
-                }
-            }
             otp += Math.floor(Math.random() * 10).toString();
         }
+        otp.replace('0','1');
 
-        var mensaje = "Estimado cliente," + '\n\n' + "BanQuito le informa: a las " + getTime() + " se ha generado una solicitud para ingresar a su Banca Virtual. \n\nPor tu seguridad no compartas esta informacion con NADIE. Su código para la Banca Virtual es: \n\n " + otp + "\n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
-        //Funcion para mostrar la fecha y hora actual para el correo
+        var mensaje = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se ha generado una solicitud para ingresar a su Banca Virtual. \n\nPor tu seguridad no compartas esta informacion con NADIE. Su código para la Banca Virtual es: \n\n " + otp + "\n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
+        //fecha y hora
         function getTime() {
-            var date = new Date();
-            var hr = date.getHours();
-            var min = date.getMinutes();
-            var seg = date.getSeconds();
-            var dia = date.getDay();
-            var mes = date.getMonth() + 1;
-            var anio = date.getFullYear();
-
-            if (dia <= 9) {
-                dia = "0" + dia;
-            }
-            if (hr <= 9) {
-                hr = "0" + hr;
-            }
-            if (min <= 9) {
-                min = "0" + min;
-            }
-            if (seg <= 9) {
-                seg = "0" + seg;
-            }
-            var hora = hr + ":" + min + ":" + seg + " del " + dia + "/" + mes + "/" + anio;
-            return hora;
+            const d = new Date();
+            return d;
         }
         getTime();
         //inicializar el correo
@@ -223,32 +189,13 @@ var controller = {
         var username = params.username;
         var pass = params.pass;
         var pregunta = params.pregunta;
-        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: a las " + getTime() + " se han solicitado el reseteo de sus credenciales para acceder a la Banca Web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente.\n\nPara que puedas acceder a tu cuenta en la nuestra Banca Web utiliza estas credenciales:";
+        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se han solicitado el reseteo de sus credenciales para acceder a la Banca Web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente.\n\nPara que puedas acceder a tu cuenta en la nuestra Banca Web utiliza estas credenciales:";
         var credenciales = "\n\n\t Username: " + username + "\n\n\t Password: " + pass + "\n\n\t Pregunta: " + pregunta;
         var mensaje2 = '\n\n' + "Tenga en cuenta que estas credenciales son temporales y debe actualizarlas ingresando por primera ves a la Banca Web.\n\nNuestro equipo de expertos en servicios financieros estará disponible para ayudarte en todo momento. Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros. Nos complace ayudarte en todo lo que necesites.\n\n¡Gracias por confiar en nosotros!";
+        //fecha y hora
         function getTime() {
-            var date = new Date();
-            var hr = date.getHours();
-            var min = date.getMinutes();
-            var seg = date.getSeconds();
-            var dia = date.getDay();
-            var mes = date.getMonth() + 1;
-            var anio = date.getFullYear();
-
-            if (dia <= 9) {
-                dia = "0" + dia;
-            }
-            if (hr <= 9) {
-                hr = "0" + hr;
-            }
-            if (min <= 9) {
-                min = "0" + min;
-            }
-            if (seg <= 9) {
-                seg = "0" + seg;
-            }
-            var hora = hr + ":" + min + ":" + seg + " del " + dia + "/" + mes + "/" + anio;
-            return hora;
+            const d = new Date();
+            return d;
         }
         //inicializar el correo
         console.log("Email enviado");
@@ -286,33 +233,13 @@ var controller = {
         var nodemailer = require('nodemailer');
         var params = req.body;
         var correo = params.correo;
-        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: a las " + getTime() + " se han actualizado sus credenciales para acceder a la Banca Web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
+        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se han actualizado sus credenciales para acceder a la Banca Web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
         //Funcion para mostrar la fecha y hora actual para el correo
+        //fecha y hora
         function getTime() {
-            var date = new Date();
-            var hr = date.getHours();
-            var min = date.getMinutes();
-            var seg = date.getSeconds();
-            var dia = date.getDay();
-            var mes = date.getMonth() + 1;
-            var anio = date.getFullYear();
-
-            if (dia <= 9) {
-                dia = "0" + dia;
-            }
-            if (hr <= 9) {
-                hr = "0" + hr;
-            }
-            if (min <= 9) {
-                min = "0" + min;
-            }
-            if (seg <= 9) {
-                seg = "0" + seg;
-            }
-            var hora = hr + ":" + min + ":" + seg + " del " + dia + "/" + mes + "/" + anio;
-            return hora;
+            const d = new Date();
+            return d;
         }
-        getTime();
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -351,34 +278,14 @@ var controller = {
         var correo = params.correo;
         var pregunta = params.pregunta;
         var credenciales = "\n\n\t Username: " + username + "\n\n\t Password: " + pass + "\n\n\t Pregunta: " + pregunta;
-        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: a las " + getTime() + " se ha solicitado el reenvio de sus creedenciales para acceder a la Banca Web.\n\nPara que puedas acceder a tu cuenta en la nuestra Banca Web utiliza estas credenciales:";
+        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se ha solicitado el reenvio de sus creedenciales para acceder a la Banca Web.\n\nPara que puedas acceder a tu cuenta en la nuestra Banca Web utiliza estas credenciales:";
         var mensaje2 = '\n\n' + "Tenga en cuenta que estas credenciales son temporales y debe actualizarlas ingresando por primera ves a la Banca Web.\n\nNuestro equipo de expertos en servicios financieros estará disponible para ayudarte en todo momento. Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros. Nos complace ayudarte en todo lo que necesites.\n\n¡Gracias por confiar en nosotros!";
         //Funcion para mostrar la fecha y hora actual para el correo
-        function getTime() {
-            var date = new Date();
-            var hr = date.getHours();
-            var min = date.getMinutes();
-            var seg = date.getSeconds();
-            var dia = date.getDay();
-            var mes = date.getMonth() + 1;
-            var anio = date.getFullYear();
-
-            if (dia <= 9) {
-                dia = "0" + dia;
-            }
-            if (hr <= 9) {
-                hr = "0" + hr;
-            }
-            if (min <= 9) {
-                min = "0" + min;
-            }
-            if (seg <= 9) {
-                seg = "0" + seg;
-            }
-            var hora = hr + ":" + min + ":" + seg + " del " + dia + "/" + mes + "/" + anio;
-            return hora;
-        }
-        getTime();
+       //fecha y hora
+       function getTime() {
+        const d = new Date();
+        return d;
+    }
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -412,33 +319,13 @@ var controller = {
         var nodemailer = require('nodemailer');
         var params = req.body;
         var correo = params.correo;
-        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: a las " + getTime() + " se han actualizado sus datos. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
+        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se han actualizado sus datos. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
         //Funcion para mostrar la fecha y hora actual para el correo
+        //fecha y hora
         function getTime() {
-            var date = new Date();
-            var hr = date.getHours();
-            var min = date.getMinutes();
-            var seg = date.getSeconds();
-            var dia = date.getDay();
-            var mes = date.getMonth() + 1;
-            var anio = date.getFullYear();
-
-            if (dia <= 9) {
-                dia = "0" + dia;
-            }
-            if (hr <= 9) {
-                hr = "0" + hr;
-            }
-            if (min <= 9) {
-                min = "0" + min;
-            }
-            if (seg <= 9) {
-                seg = "0" + seg;
-            }
-            var hora = hr + ":" + min + ":" + seg + " del " + dia + "/" + mes + "/" + anio;
-            return hora;
+            const d = new Date();
+            return d;
         }
-        getTime();
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -472,45 +359,20 @@ var controller = {
         var nodemailer = require('nodemailer');
         var params = req.body;
         var correo = params.correo;
-        var mensaje1 = "Estimado Cliente" + '\n\n' + "BanQuito le informa que a las: " + getTime() + "se ha solicitado una petición para efectuar una trnasferencia. Su código para la Banca Virtual es: \n\n "
+        var mensaje1 = "Estimado Cliente" + '\n\n' + "BanQuito le informa que el día: " + getTime() + "se ha solicitado una petición para efectuar una trnasferencia. Su código para la Banca Virtual es: \n\n "
         var mensaje2 = "\n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
         var otp = "";
         console.log(params);
         //fecha y hora
         function getTime() {
-            var date = new Date();
-            var hr = date.getHours();
-            var min = date.getMinutes();
-            var seg = date.getSeconds();
-            var dia = date.getDay();
-            var mes = date.getMonth() + 1;
-            var anio = date.getFullYear();
-
-            if (dia <= 9) {
-                dia = "0" + dia;
-            }
-            if (hr <= 9) {
-                hr = "0" + hr;
-            }
-            if (min <= 9) {
-                min = "0" + min;
-            }
-            if (seg <= 9) {
-                seg = "0" + seg;
-            }
-            var hora = hr + ":" + min + ":" + seg + " del " + dia + "/" + mes + "/" + anio;
-            return hora;
+            const d = new Date();
+            return d;
         }
         //generacion del número de validacion
         for (let i = 0; i < 6; i++) {
-            if (i == 0) {
-                var aux = Math.floor(Math.random() * 10 + 1).toString();
-                if (aux == "10") {
-                    otp += "9";
-                }
-            }
             otp += Math.floor(Math.random() * 10).toString();
         }
+        otp.replace('0','1');
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -555,33 +417,14 @@ var controller = {
         cuenta2 = cuenta2.substr(0, 2) + "XXXXXX" + cuenta2.substr(8);
         cuenta1 = cuenta1.substr(0, 2) + "XXXXXX" + cuenta1.substr(8);
 
-        mensaje = "Estimado Cliente" + '\n\n' + "BanQuito le informa que a las: " + getTime() + "se ha realizado un movimiento en su banca web." +
+        mensaje = "Estimado Cliente" + '\n\n' + "BanQuito le informa que el día: " + getTime() + "se ha realizado un movimiento en su banca web." +
             "A continuación, se detallan los detalles de su transacción: " + '\n\n' + "Cuenta Destino: " + cuenta2 + "\nCuenta Origen: " + cuenta1 +
             "\nMonto transferido: $" + monto + "\nConcepto de la transferencia: " + descripcion + "\n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";;
         //fecha y hora
+        //fecha y hora
         function getTime() {
-            var date = new Date();
-            var hr = date.getHours();
-            var min = date.getMinutes();
-            var seg = date.getSeconds();
-            var dia = date.getDay();
-            var mes = date.getMonth() + 1;
-            var anio = date.getFullYear();
-
-            if (dia <= 9) {
-                dia = "0" + dia;
-            }
-            if (hr <= 9) {
-                hr = "0" + hr;
-            }
-            if (min <= 9) {
-                min = "0" + min;
-            }
-            if (seg <= 9) {
-                seg = "0" + seg;
-            }
-            var hora = hr + ":" + min + ":" + seg + " del " + dia + "/" + mes + "/" + anio;
-            return hora;
+            const d = new Date();
+            return d;
         }
         //inicializar el correo
         console.log("Email enviado");
@@ -615,33 +458,13 @@ var controller = {
         var nodemailer = require('nodemailer');
         var params = req.body;
         var correo = params.correo;
-        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: a las " + getTime() + " se han ingresado a su banca web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
+        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se han ingresado a su banca web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
         //Funcion para mostrar la fecha y hora actual para el correo
+        //fecha y hora
         function getTime() {
-            var date = new Date();
-            var hr = date.getHours();
-            var min = date.getMinutes();
-            var seg = date.getSeconds();
-            var dia = date.getDay();
-            var mes = date.getMonth() + 1;
-            var anio = date.getFullYear();
-
-            if (dia <= 9) {
-                dia = "0" + dia;
-            }
-            if (hr <= 9) {
-                hr = "0" + hr;
-            }
-            if (min <= 9) {
-                min = "0" + min;
-            }
-            if (seg <= 9) {
-                seg = "0" + seg;
-            }
-            var hora = hr + ":" + min + ":" + seg + " del " + dia + "/" + mes + "/" + anio;
-            return hora;
+            const d = new Date();
+            return d;
         }
-        getTime();
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -675,33 +498,13 @@ var controller = {
         var nodemailer = require('nodemailer');
         var params = req.body;
         var correo = params.correo;
-        var mensaje1 = "Estimado cliente,"+'\n\n'+"BanQuito le informa: a las "+getTime()+" se han intentado ingresar a su Banca Web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
+        var mensaje1 = "Estimado cliente,"+'\n\n'+"BanQuito le informa: el día "+getTime()+" se han intentado ingresar a su Banca Web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
         //Funcion para mostrar la fecha y hora actual para el correo
-        function getTime(){
-            var date = new Date();
-            var hr = date.getHours(); 
-            var min = date.getMinutes();
-            var seg = date.getSeconds();
-            var dia = date.getDay();
-            var mes = date.getMonth()+1;
-            var anio = date.getFullYear();
-
-            if(dia<=9){
-                dia="0"+dia;
-            }
-            if(hr<=9){
-                hr="0"+hr;
-            }
-            if(min<=9){
-                min="0"+min;
-            }    
-            if(seg<=9){
-                seg="0"+seg;
-            }
-            var hora=hr+":"+min+":"+seg+" del "+dia+"/"+mes+"/"+anio;
-            return hora;
+        //fecha y hora
+        function getTime() {
+            const d = new Date();
+            return d;
         }
-        getTime();
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
