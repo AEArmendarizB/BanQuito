@@ -90,7 +90,7 @@
       </div>
     </header>
 
-    <form >
+    <form [formGroup]="transForm">
       <div class="row">
         <div class="colum-6">
           <div class="transferencia">
@@ -112,7 +112,7 @@
                 <div class="row">
                   <label class="col-sm-3">Monto:</label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" placeholder="Monto"  id="monto-campo">
+                    <input type="number" class="form-control" formControlName="monto" placeholder="Monto"  id="monto-campo">
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       Por favor, ingrese un monto
                     </div>
@@ -160,7 +160,7 @@
               </div>
                 <!--Boton enviar-->
                 <div class="mb-4">
-                  <button class="btn btn-success" id="enviar" (click)="transferir()">Transferir</button>
+                  <button class="btn btn-success" id="enviar" (click)="transferir()"[disabled]="transForm.invalid">Transferir</button>
                 </div>
               </form>
             </div>
