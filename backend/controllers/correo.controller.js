@@ -16,7 +16,7 @@ var controller = {
         for (let i = 0; i < 6; i++) {
             otp += Math.floor(Math.random() * 10).toString();
         }
-        otp.replace('0','1');
+        otp.replace('0', '1');
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -59,7 +59,7 @@ var controller = {
         for (let i = 0; i < 6; i++) {
             otp += Math.floor(Math.random() * 10).toString();
         }
-        otp.replace('0','1');
+        otp.replace('0', '1');
 
         //inicializar el correo
         console.log("Email enviado");
@@ -101,7 +101,7 @@ var controller = {
         for (let i = 0; i < 6; i++) {
             otp += Math.floor(Math.random() * 10).toString();
         }
-        otp.replace('0','1');
+        otp.replace('0', '1');
 
         var mensaje = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se ha generado una solicitud para ingresar a su Banca Virtual. \n\nPor tu seguridad no compartas esta informacion con NADIE. Su código para la Banca Virtual es: \n\n " + otp + "\n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
         //fecha y hora
@@ -281,11 +281,11 @@ var controller = {
         var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se ha solicitado el reenvio de sus creedenciales para acceder a la Banca Web.\n\nPara que puedas acceder a tu cuenta en la nuestra Banca Web utiliza estas credenciales:";
         var mensaje2 = '\n\n' + "Tenga en cuenta que estas credenciales son temporales y debe actualizarlas ingresando por primera ves a la Banca Web.\n\nNuestro equipo de expertos en servicios financieros estará disponible para ayudarte en todo momento. Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros. Nos complace ayudarte en todo lo que necesites.\n\n¡Gracias por confiar en nosotros!";
         //Funcion para mostrar la fecha y hora actual para el correo
-       //fecha y hora
-       function getTime() {
-        const d = new Date();
-        return d;
-    }
+        //fecha y hora
+        function getTime() {
+            const d = new Date();
+            return d;
+        }
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -372,7 +372,7 @@ var controller = {
         for (let i = 0; i < 6; i++) {
             otp += Math.floor(Math.random() * 10).toString();
         }
-        otp.replace('0','1');
+        otp.replace('0', '1');
         //inicializar el correo
         console.log("Email enviado");
         var transporter = nodemailer.createTransport({
@@ -498,7 +498,7 @@ var controller = {
         var nodemailer = require('nodemailer');
         var params = req.body;
         var correo = params.correo;
-        var mensaje1 = "Estimado cliente,"+'\n\n'+"BanQuito le informa: el día "+getTime()+" se han intentado ingresar a su Banca Web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
+        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se han intentado ingresar a su Banca Web. \n\n Si no realizó esta acción, por favor póngase en contacto con nuestro equipo de soporte al cliente";
         //Funcion para mostrar la fecha y hora actual para el correo
         //fecha y hora
         function getTime() {
@@ -528,6 +528,48 @@ var controller = {
             if (!error) {
                 res.status(500).send(error.message);
                 this.actualizar();
+            } else {
+                res.status("200");
+            }
+        })
+    },
+    olvidarCredenciales: function (req, res) {
+        //Parametros
+        var nodemailer = require('nodemailer');
+        var params = req.body;
+        var username = params.username;
+        var pass = params.pass;
+        var correo = params.correo;
+        var credenciales = "\n\n\t Username: " + username + "\n\n\t Password: " + pass + "\n\n";
+        var mensaje1 = "Estimado cliente," + '\n\n' + "BanQuito le informa: el día " + getTime() + " se ha solicitado el reenvio de sus creedenciales por causa de olvido.\n\nPara que puedas acceder a tu cuenta en nuestra Banca Web utiliza estas nuevas credenciales: ";
+        var mensaje2 = '\n\n' + "Tenga en cuenta que estas credenciales son temporales y debe actualizarlas ingresando a la Banca Web.\n\nNuestro equipo de expertos en servicios financieros estará disponible para ayudarte en todo momento. Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros. Nos complace ayudarte en todo lo que necesites.\n\n¡Gracias por confiar en nosotros!";
+        function getTime() {
+            const d = new Date();
+            return d;
+        }
+        //inicializar el correo
+        console.log("Email enviado");
+        var transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'sfqaeab@gmail.com',
+                pass: 'uylohfcmmhhqdonk'
+            },
+        });
+        //Redactar correo
+        var mailOptions = {
+            from: "Banquito - Nuevas Credenciales <sfqaeab@gmail.com>",
+            to: correo,
+            subject: "Restablecimiento de credenciales",
+            text: mensaje1 + credenciales + mensaje2
+        }
+        //enviar correo
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                res.status(500).send(error.message);
+                this.reenviar();
             } else {
                 res.status("200");
             }
