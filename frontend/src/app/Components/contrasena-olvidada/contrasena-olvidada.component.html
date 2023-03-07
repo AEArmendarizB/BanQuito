@@ -1,1 +1,51 @@
-<p>contrasena-olvidada works!</p>
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Inicio</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <link rel="icon" type="favicon/x-icon" href="../../../assets/media/Logo.png">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
+
+    </head>
+
+    <body>
+      <header>
+        <div class="logo">
+          <img src="../../../assets/media/Logo.png" alt="logo">
+          <h1 class="nombre-banco">BanQuito</h1>
+        </div>
+
+        <div id="salir" class="container mt-3">
+          <div class="row mb-3 mx-auto">
+            <div class="col-12">
+              <button routerLink="/login" type="submit" class="btn btn-danger col-1 float-end">Salir</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+      <form [formGroup]="formPass" (ngSubmit)="submitFormulario()" class="formulario">
+        <h1>Credenciales olvidadas</h1>
+          <div class="contenedor">
+            <div class="input-contenedor">
+              <i class="fas fa-user icon"></i>
+              <input formControlName="cedula" [class.is-invalid]='f.cedula.errors && f.cedula.touched' type="number" placeholder="Ingrese su cédula" required pattern = "^\d{1,10}$">
+              <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                Por favor, ingrese la cédula
+              </div>
+            </div>
+
+            <div id="exito" style="display: none">
+                <p>Las credenciales temporales han sido enviadas al correo electrónico registrado en el banco</p>
+                <br>
+            </div>
+
+            <button id="btn" class="button btn-success">Enviar Credenciales</button>
+          </div>
+      </form>
+
+    </body>
+</html>
