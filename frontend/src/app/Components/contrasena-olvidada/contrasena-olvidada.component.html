@@ -30,16 +30,18 @@
       <form [formGroup]="formPass" (ngSubmit)="submitFormulario()" class="formulario">
         <h1>Credenciales olvidadas</h1>
           <div class="contenedor">
+            <p>En caso de haber olvidado su contraseña o usuario, se le enviará unas credenciales temporales a su correo electrónico registrado en el banco<p>
+            <br>
             <div class="input-contenedor">
-              <i class="fas fa-user icon"></i>
-              <input formControlName="cedula" [class.is-invalid]='f.cedula.errors && f.cedula.touched' type="number" placeholder="Ingrese su cédula" required pattern = "^\d{1,10}$">
-              <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                Por favor, ingrese la cédula
-              </div>
+                <i class="fas fa-user icon"></i>
+                <input formControlName="cedula" [class.is-invalid]='f.cedula.errors && f.cedula.touched' type="number" placeholder="Ingrese su cédula" required pattern = "^\d{10}$">
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                  Por favor, ingrese una cédula válida
+                </div>
             </div>
 
             <div id="exito" style="display: none">
-                <p>Las credenciales temporales han sido enviadas al correo electrónico registrado en el banco</p>
+                <p>Las credenciales temporales han sido enviadas a su correo electrónico</p>
                 <br>
             </div>
 
