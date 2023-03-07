@@ -35,6 +35,11 @@ header{
     padding-top: 25px;
     padding-bottom: 20px;
 }
+.contenedor p{
+    color: #000000;
+    text-align: center;
+    font-style: italic;
+}
 .formulario{
     background: #85725F;
     padding: 20px;
@@ -50,8 +55,6 @@ header{
     color: #ffffff;
     font-size: 35px;
 }
-input[type="text"],
-input[type="password"],
 input[type="number"]{
     font-size: 20px;
     width: 82%;
@@ -94,11 +97,9 @@ input[type="number"]{
     background: #ab595b;
 }
 
-/* CONTRASEÑA OLVIDADA */
-#forgot-pass a{
-    color: #161719;
-    transition: 150ms;
-}
-#forgot-pass a:hover{
-    color: #8a1313;
+/* EXITO */
+#exito p{
+    color: #ffffff;
+    font-style: italic;
+    text-align: center;
 }

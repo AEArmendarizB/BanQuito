@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit {
       case 0:
         document.getElementById('otp')!.style.display = 'none';
         document.getElementById('salir')!.style.display = 'none';
+        document.getElementById('forgot-pass')!.style.display = '';
         document.getElementById('user')!.style.display = 'block';
         document.getElementById('pass')!.style.display = 'block';
         break;
@@ -80,6 +81,7 @@ export class LoginComponent implements OnInit {
         document.getElementById('salir')!.style.display = '';
         document.getElementById('user')!.style.display = 'none';
         document.getElementById('pass')!.style.display = 'none';
+        document.getElementById('forgot-pass')!.style.display = 'none';
         break;
       
     }

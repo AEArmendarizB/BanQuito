@@ -15,6 +15,7 @@ import { TransferenciasExternasComponent } from './Components/transferencias-ext
 import { MenuAdminComponent } from './Components/menu-admin/menu-admin.component';
 import { RegistroCuentaComponent } from './Components/registro-cuenta/registro-cuenta.component';
 import { SuspencionClientesComponent } from './Components/suspencion-clientes/suspencion-clientes.component';
+import { ContrasenaOlvidadaComponent } from './Components/contrasena-olvidada/contrasena-olvidada.component';
 
 
 
@@ -32,6 +33,7 @@ const routes: Routes = [
     { path: 'transferencia-interna', component: TransferenciasInternasComponent},
     { path: 'transferencia-interna-resumen', component: TransferenciasInternasResumenComponent},
     { path: 'transferencia-externa', component: TransferenciasExternasComponent},
+    { path: 'contrasena-olvidada', component: ContrasenaOlvidadaComponent},
     { path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
 
