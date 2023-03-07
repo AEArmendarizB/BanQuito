@@ -93,3 +93,12 @@ input[type="number"]{
     color: white;
     background: #ab595b;
 }
+
+/* CONTRASEÑA OLVIDADA */
+#forgot-pass a{
+    color: #161719;
+    transition: 150ms;
+}
+#forgot-pass a:hover{
+    color: #f87e7e;
+}
