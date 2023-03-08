@@ -57,7 +57,10 @@ export class ContrasenaOlvidadaComponent implements OnInit {
 
           //Activar el mensaje de éxito
           document.getElementById('exito')!.style.display = '';
-          
+
+          //extraer las credenciales del usuario
+          this.extraerCredenciales();
+
           //this.enviarCorreo(correo);
         }else if(data.state.toString() == 'false'){
           this.toastr.error('EL usuario se encuentra deshabilitado, comuniquese con el banco', 'Usuario bloqueado');
@@ -65,5 +68,29 @@ export class ContrasenaOlvidadaComponent implements OnInit {
       }
     });
     
+  }
+
+  extraerCredenciales(){
+
+  }
+
+  actualiarCredenciales(){
+    var usr = this.generarCredenciales();
+    var pass= this.generarCredenciales();
+    console.log(usr);
+    console.log(pass);
+  }
+
+  enviarCredenciales(){
+
+  }
+
+  generarCredenciales(): string {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let codigo = '';
+    for (let i = 0; i < 8; i++) {
+      codigo += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    return codigo;
   }
 }
