@@ -15,6 +15,7 @@ export class UsuarioService{
     urlgetUsuario= "http://54.219.51.93:3600/getUsuario/";
     urlPregunta= "http://54.219.51.93:3600/verificarPregunta/";
     urlconfigurarusuario ="http://54.219.51.93:3600/configurar-usuario/"; 
+    urlForgotPass = "http://54.219.51.93:3600/restablecer/"
     constructor(
         private http: HttpClient
     ){}
@@ -29,5 +30,8 @@ export class UsuarioService{
     }
     configurarUsuario(usuario: object): Observable<any> {
         return this.http.post(this.urlconfigurarusuario, usuario);
+    }
+    correoTemporales(usuario: Object):Observable<any>{
+        return this.http.post(this.urlForgotPass, usuario);
     }
 }

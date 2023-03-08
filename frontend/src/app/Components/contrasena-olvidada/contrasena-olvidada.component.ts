@@ -14,6 +14,8 @@ export class ContrasenaOlvidadaComponent implements OnInit {
 
   public usuario: String;
   public contrasena: String;
+  public pregunta:String;
+  public correo:String;
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +25,8 @@ export class ContrasenaOlvidadaComponent implements OnInit {
   ){
     this.usuario='';
     this.contrasena='';
+    this.pregunta='';
+    this.correo='';
   }
   ngOnInit(): void {
     this.formPass = this.fb.group({
@@ -58,14 +62,14 @@ export class ContrasenaOlvidadaComponent implements OnInit {
       }else{
         if(data.state.toString() == 'true'){
           //----------------------------
-          var correo = data.correo_electronico.toString();
+          this.correo = data.correo_electronico.toString();
           //var nombre = data.nombres.toString();
 
           //Activar el mensaje de éxito
           document.getElementById('exito')!.style.display = '';
 
           //extraer las credenciales del usuario
-          this.extraerCredenciales(cedula,correo);
+          this.extraerCredenciales(cedula);
 
           //this.enviarCorreo(correo);
         }else if(data.state.toString() == 'false'){
@@ -76,27 +80,45 @@ export class ContrasenaOlvidadaComponent implements OnInit {
     
   }
 
-  extraerCredenciales(id: String, mail:String){
+  extraerCredenciales(id: String){
     const cedula = {cedula: id};
     this._usuarioService.getUsuario(cedula).subscribe(data=>{
       console.log(data);
+
+      //Obteniendo los datos del cliente
       this.usuario=data.username.toString();
       this.contrasena=data.password.toString();
+      this.pregunta=data.pregunta.toString();
+
       console.log(this.usuario);
       console.log(this.contrasena);
+      console.log(this.pregunta);
 
+      this.actualiarCredenciales();
     });
   }
 
   actualiarCredenciales(){
     var usr = this.generarCredenciales();
     var pass= this.generarCredenciales();
+
+    this.usuario = usr;
+    this.contrasena = pass;
+
     console.log(usr);
     console.log(pass);
+    this.enviarCredenciales();
   }
 
   enviarCredenciales(){
+    const emailNew = {
+      username: this.usuario,
+      pass: this.contrasena,
+      correo: this.correo
+    }
 
+    this._usuarioService.correoTemporales(emailNew).subscribe(data => {
+    });
   }
 
   generarCredenciales(): string {
