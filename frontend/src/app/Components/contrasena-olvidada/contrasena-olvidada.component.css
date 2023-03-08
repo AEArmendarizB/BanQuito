@@ -96,10 +96,3 @@ input[type="number"]{
     color: white;
     background: #ab595b;
 }
-
-/* EXITO */
-#exito p{
-    color: #ffffff;
-    font-style: italic;
-    text-align: center;
-}

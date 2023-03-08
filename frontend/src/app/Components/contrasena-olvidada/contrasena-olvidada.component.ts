@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { UsuarioService } from 'src/app/services/usuario/usuarios.service';
@@ -20,6 +21,7 @@ export class ContrasenaOlvidadaComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router, 
     private toastr: ToastrService,
     private _clienteService: ClienteService,
     private _usuarioService: UsuarioService,
@@ -54,21 +56,14 @@ export class ContrasenaOlvidadaComponent implements OnInit {
 
   cambiarCredenciales(){
     this.cedula = this.formPass.get('cedula')?.value.toString();
-    console.log(this.cedula);
     const nombre = {cedula: this.cedula};
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
-      console.log(data);
-
       if(data.message == 404){
         this.toastr.error('La cédula no corresponde a ningún usuario', 'Error, No existe el usuario!');
       }else{
         if(data.state.toString() == 'true'){
           //----------------------------
           this.correo = data.correo_electronico.toString();
-          //var nombre = data.nombres.toString();
-
-          //Activar el mensaje de éxito
-          document.getElementById('exito')!.style.display = '';
 
           //extraer las credenciales del usuario
           this.actualiarCredenciales();
@@ -80,33 +75,12 @@ export class ContrasenaOlvidadaComponent implements OnInit {
     
   }
 
-  extraerCredenciales(){
-    const cedula = {cedula: this.cedula};
-    this._usuarioService.getUsuario(cedula).subscribe(data=>{
-      console.log(data);
-
-      //Obteniendo los datos del cliente
-      this.usuario=data.username.toString();
-      this.contrasena=data.password.toString();
-      this.pregunta=data.pregunta.toString();
-
-      console.log(this.usuario);
-      console.log(this.contrasena);
-      console.log(this.pregunta);
-
-      this.actualiarCredenciales();
-    });
-  }
-
   actualiarCredenciales(){
     var usr = this.generarCredenciales();
     var pass= this.generarCredenciales();
 
     this.usuario = usr;
     this.contrasena = pass;
-
-    console.log(usr);
-    console.log(pass);
 
     const new_user = { 
       username: this.usuario,
@@ -132,6 +106,9 @@ export class ContrasenaOlvidadaComponent implements OnInit {
 
     this._usuarioService.correoTemporales(emailNew).subscribe(data => {
     });
+
+    this.toastr.success('Se han enviado las nuevas credenciales a su correo.', 'CREDENCIALES RESTABLECIDAS');
+    this.router.navigate(['/login']);
   }
 
   generarCredenciales(): string {
