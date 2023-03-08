@@ -98,7 +98,7 @@ var controller = {
         console.log("Consola 2")
         var update=req.body;
         var cedula= update.cedula;
-        update.isNew = false;
+        //update.isNew = false;
         console.log(update)
 
         Usuario.findOneAndUpdate({"cedula":cedula},update,{new:true},(err,usuario)=>{

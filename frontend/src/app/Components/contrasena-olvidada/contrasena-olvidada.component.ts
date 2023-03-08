@@ -12,6 +12,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuarios.service';
 export class ContrasenaOlvidadaComponent implements OnInit {
   public formPass!: FormGroup;
 
+  public cedula: String;
   public usuario: String;
   public contrasena: String;
   public pregunta:String;
@@ -21,8 +22,9 @@ export class ContrasenaOlvidadaComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private _clienteService: ClienteService,
-    private _usuarioService: UsuarioService
+    private _usuarioService: UsuarioService,
   ){
+    this.cedula= '';
     this.usuario='';
     this.contrasena='';
     this.pregunta='';
@@ -51,9 +53,9 @@ export class ContrasenaOlvidadaComponent implements OnInit {
   }
 
   cambiarCredenciales(){
-    const cedula = this.formPass.get('cedula')?.value.toString();
-    console.log(cedula);
-    const nombre = {cedula: cedula};
+    this.cedula = this.formPass.get('cedula')?.value.toString();
+    console.log(this.cedula);
+    const nombre = {cedula: this.cedula};
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
       console.log(data);
 
@@ -69,9 +71,7 @@ export class ContrasenaOlvidadaComponent implements OnInit {
           document.getElementById('exito')!.style.display = '';
 
           //extraer las credenciales del usuario
-          this.extraerCredenciales(cedula);
-
-          //this.enviarCorreo(correo);
+          this.actualiarCredenciales();
         }else if(data.state.toString() == 'false'){
           this.toastr.error('EL usuario se encuentra deshabilitado, comuniquese con el banco', 'Usuario bloqueado');
         }
@@ -80,8 +80,8 @@ export class ContrasenaOlvidadaComponent implements OnInit {
     
   }
 
-  extraerCredenciales(id: String){
-    const cedula = {cedula: id};
+  extraerCredenciales(){
+    const cedula = {cedula: this.cedula};
     this._usuarioService.getUsuario(cedula).subscribe(data=>{
       console.log(data);
 
@@ -107,6 +107,19 @@ export class ContrasenaOlvidadaComponent implements OnInit {
 
     console.log(usr);
     console.log(pass);
+
+    const new_user = { 
+      username: this.usuario,
+      password: this.contrasena,
+      cedula: this.cedula,
+      isNew: true
+    };
+
+    this._usuarioService.actualizarUsuario(new_user).subscribe(data => {
+    }, error => {
+      console.log(error);
+    });
+
     this.enviarCredenciales();
   }
 

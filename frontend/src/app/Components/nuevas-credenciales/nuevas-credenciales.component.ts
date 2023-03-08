@@ -78,10 +78,10 @@ export class NuevasCredencialesComponent implements OnInit{
   }
 
   actualizarUsuario(nuevo_usuario:LoginUsuario){
-    const cedula = history.state.cedulaObj;
     const new_user = { username: nuevo_usuario.username, 
                   password: nuevo_usuario.password,
                   cedula: history.state.cedulaObj.cedula,
+                  isNew: false
     };
 
     this._usuarioService.verificarUsername(new_user).subscribe(data =>{
