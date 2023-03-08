@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { UsuarioService } from 'src/app/services/usuario/usuarios.service';
 
 @Component({
   selector: 'app-contrasena-olvidada',
@@ -9,14 +10,19 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
   styleUrls: ['./contrasena-olvidada.component.css']
 })
 export class ContrasenaOlvidadaComponent implements OnInit {
-
   public formPass!: FormGroup;
+
+  public usuario: String;
+  public contrasena: String;
+
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
+    private _usuarioService: UsuarioService
   ){
-
+    this.usuario='';
+    this.contrasena='';
   }
   ngOnInit(): void {
     this.formPass = this.fb.group({
@@ -53,13 +59,13 @@ export class ContrasenaOlvidadaComponent implements OnInit {
         if(data.state.toString() == 'true'){
           //----------------------------
           var correo = data.correo_electronico.toString();
-          var nombre = data.nombres.toString();
+          //var nombre = data.nombres.toString();
 
           //Activar el mensaje de éxito
           document.getElementById('exito')!.style.display = '';
 
           //extraer las credenciales del usuario
-          this.extraerCredenciales();
+          this.extraerCredenciales(cedula,correo);
 
           //this.enviarCorreo(correo);
         }else if(data.state.toString() == 'false'){
@@ -70,8 +76,16 @@ export class ContrasenaOlvidadaComponent implements OnInit {
     
   }
 
-  extraerCredenciales(){
+  extraerCredenciales(id: String, mail:String){
+    const cedula = {cedula: id};
+    this._usuarioService.getUsuario(cedula).subscribe(data=>{
+      console.log(data);
+      this.usuario=data.username.toString();
+      this.contrasena=data.password.toString();
+      console.log(this.usuario);
+      console.log(this.contrasena);
 
+    });
   }
 
   actualiarCredenciales(){
