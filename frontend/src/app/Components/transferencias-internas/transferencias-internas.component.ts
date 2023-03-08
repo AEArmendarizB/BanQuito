@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Cuenta } from 'src/app/models/cuentas';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
@@ -16,14 +17,26 @@ export class TransferenciasInternasComponent {
   cuentas:Cuenta[]=[];
   numeroCuentas:string[]=[];;
   correo: String = "";
-
-  constructor(
+  transForm: FormGroup;
+   // public valBoton: false;
+   // public valCodigo: false;
+   public otpNotOk = true;
+   public vali = true;
+    constructor(
     private fb: FormBuilder,
     private router: Router,
     private _clienteService: ClienteService,
     private _CuentaService: CuentaService,
+    private toastr: ToastrService, 
+
+
     ) {    
-    
+    this.transForm = this.fb.group({
+      monto: ['', [Validators.required, Validators.pattern("^(1|[0-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-4][0-9][0-9][0-9]|5000)$")]],
+      cuentaD: ['',[Validators.required,Validators.pattern("^[0-9]{12}$")]],
+      descripcion: ['',[Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ']{1,50}$")]],
+      otp: ['',Validators.required]
+    })
   }
 
   ngOnInit(): void {
@@ -83,7 +96,20 @@ export class TransferenciasInternasComponent {
         const cedulaObj = {cedula:cuenta.cedula};
         //Recuperar cliente con el numero de cedula
         this._clienteService.obtenerCliente(cedulaObj).subscribe(data=>{
-          texto!.innerHTML = "Cuenta encontrada. Esta cuenta le pertenece a: "+data.nombres+" "+data.apellidos;
+          switch (data.message) {
+            case (404): 
+            this.toastr.error('No se encontro un usuario asociado a la cuenta', 'Cuenta inválida');
+            texto!.innerHTML = "";
+            break;
+            case(500):
+            this.toastr.error('Revisa las entradas ingresadas en el formulario', 'Cuenta inválida');
+            texto!.innerHTML = "";
+            break;
+            default:
+            this.toastr.info('Cuenta válida');
+            texto!.innerHTML = "Cuenta encontrada. Esta cuenta le pertenece a: "+data.nombres+" "+data.apellidos;
+            break;
+          }
         })
       })
   }
@@ -108,12 +134,14 @@ export class TransferenciasInternasComponent {
     this._clienteService.resumen(resumen).subscribe(data=>{
       console.log(data);
     })
-    //this.menu();
+    this.menu();
   }
 
   otp() {
 
       //Deshabilitar el botón de correo
+      var aux = document.getElementById('otp-campo');
+      aux!.innerHTML="";
       document.getElementById('boton-correo')
       document.getElementById('boton-correo')!.style.display = 'none';
       document.getElementById('otp')!.style.display = 'block';
@@ -132,9 +160,11 @@ export class TransferenciasInternasComponent {
           var text = document.getElementById('text');
           var otp = document.getElementById("otp-campo") as HTMLInputElement;
           if(otp.value.match(patron)==null){
-           text!.innerHTML="Codigo invalido"
+           text!.innerHTML="Codigo invalido";
+           this.otpNotOk = false;
           }else{
            text!.innerHTML="Codigo valido"
+           this.otpNotOk = true;
           }
         })
       }

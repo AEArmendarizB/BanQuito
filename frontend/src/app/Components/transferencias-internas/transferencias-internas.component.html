@@ -90,79 +90,99 @@
       </div>
     </header>
 
-    <form >
+    <form [formGroup]="transForm">
       <div class="row">
         <div class="colum-6">
           <div class="transferencia">
             <div class="transferencia_contenido">
               <h1>Transferencias locales</h1>
-              <form>
-                <!--Cuenta origen-->
-                <div class=" row">
-                  <label class="col-sm-3 ">Cuenta origen:</label>
-                  <div class="col-sm-6">
-                    <select id="cuentasOrigen" class="form-control" >
-                      <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Por favor, ingrese una cuenta origen
-                      </div>
-                    </select>
-                  </div>
-                </div>
-                <!--Monto-->
-                <div class="row">
-                  <label class="col-sm-3">Monto:</label>
-                  <div class="col-sm-6">
-                    <input type="number" class="form-control" placeholder="Monto"  id="monto-campo">
+              <!--Cuenta origen-->
+              <div class=" row">
+                <label class="col-sm-3 ">Cuenta origen:</label>
+                <div class="col-sm-6">
+                  <select id="cuentasOrigen" class="form-control">
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                      Por favor, ingrese un monto
-                    </div>
+                      Por favor, ingrese una cuenta origen
+                                </div>
+                  </select>
+                </div>
+              </div>
+              <!--Monto-->
+              <div class="row">
+                <label class="col-sm-3">Monto:</label>
+                <div class="col-sm-6">
+                  <input type="number" class="form-control" formControlName="monto" placeholder="Monto"
+                    id="monto-campo">
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    Por favor, ingrese un monto</div>
+                  <div class="text-danger"
+                    *ngIf="transForm.get('monto')?.hasError('required') && transForm.get('monto')?.touched">
+                    Este campo es obligatorio
+                  </div>
+                  <div class="text-danger" *ngIf="transForm.get('monto')?.hasError('pattern')">
+                    El monto ha transferir debe estar entre $1 y $5000
                   </div>
                 </div>
-                <!--Cuenta Destino-->
-                <div class=" row">
-                  <label class="col-sm-3">Cuenta Destino:</label>
-                  <div class="col-sm-5">
-                    <input type="number" class="form-control" placeholder="Cuenta destino" id="cuentaDestino-campo">
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                      Por favor, ingrese una cuenta destino
-                    </div>
+              </div>
+              <!--Cuenta Destino-->
+              <div class=" row">
+                <label class="col-sm-3">Cuenta Destino:</label>
+                <div class="col-sm-5">
+                  <input type="number" class="form-control" formControlName="cuentaD" placeholder="Cuenta destino"
+                    id="cuentaDestino-campo">
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    Por favor, ingrese una cuenta destino</div>
+                    <div class="text-danger"
+                    *ngIf="transForm.get('cuentaD')?.hasError('required') && transForm.get('cuentaD')?.touched">
+                    Este campo es obligatorio
                   </div>
-                  <div class="col-sm-3">
-                    <button class="btn btn-primary" id="validar" type="submit"
-                      (click)="validarCuenta()">Validar</button>
-                  </div>
-                </div>
-                <div class="row">
-                  <p class="cuenta_destino" id="textCuenta"></p>
-                </div>
-                <!--Descripcion-->
-                <div class=" row">
-                  <label class="col-sm-3">Descripción:</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Descripcion" id="descripcion-campo">
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                      Por favor, ingrese una descripción
-                    </div>
+                  <div class="text-danger" *ngIf="transForm.get('cuentaD')?.hasError('pattern')">
+                    El numero de cuenta ingresado no cuenta con el formato.
                   </div>
                 </div>
-                <!--Correo-->
-                <div class="col-5" id="boton-correo">
-                  <button type="button" (click)="otp()" id="validar"
-                  class="col btn btn-primary">Enviar c&oacute;digo</button>
+                <div class="col-sm-3">
+                  <button class="btn btn-primary" id="validar" type="submit" (click)="validarCuenta()">Validar</button>
+                </div>
+              </div>
+              <div class="row">
+                <p class="cuenta_destino" id="textCuenta"></p>
+              </div>
+              <!--Descripcion-->
+              <div class=" row">
+                <label class="col-sm-3">Descripción:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" formControlName="descripcion" placeholder="Descripcion"
+                    id="descripcion-campo">
+                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    Por favor, ingrese una descripción
+                              </div>
+                    <div class="text-danger"
+                    *ngIf="transForm.get('descripcion')?.hasError('required') && transForm.get('descripcion')?.touched">
+                    Este campo es obligatorio
+                  </div>
+                  <div class="text-danger" *ngIf="transForm.get('descripcion')?.hasError('pattern')">
+                    La descripción no puede exeder de los 50 caracteres.
+                  </div>
+                  </div>
+              </div>
+              <!--Correo-->
+              <div class="col-5" id="boton-correo">
+                <button type="button" (click)="otp()" id="validar" class="col btn btn-primary">Enviar
+                  c&oacute;digo</button>
               </div>
               <div class="col-5" id="otp" style="display: none;">
-                <input type="text"  class="form-control" placeholder="ej. abc123" id="otp-campo">
+                <input type="text" class="form-control" formControlName="otp" placeholder="ej. abc123" id="otp-campo">
                 <small class="text-muted" (click)="otp()">
-                <a >Reenviar c&oacute;digo</a></small>
+                  <a>Reenviar c&oacute;digo</a></small>
               </div>
               <div class="row">
                 <p class="text-danger" id="text"></p>
               </div>
-                <!--Boton enviar-->
-                <div class="mb-4">
-                  <button class="btn btn-success" id="enviar" (click)="transferir()">Transferir</button>
-                </div>
-              </form>
+              <!--Boton enviar-->
+              <div class="mb-4">
+                <button class="btn btn-success" id="enviar" (click)="transferir()"
+                  [disabled]="transForm.invalid && otpNotOk && vali" >Transferir</button>
+              </div>
             </div>
           </div>
         </div>
