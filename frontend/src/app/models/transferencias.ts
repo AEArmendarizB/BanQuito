@@ -1,25 +1,41 @@
-export class Cuenta {
+export class Transferencia {
     _id?: number;
-    cedula: number;
-    numero_Transaccion:String;
-    cuenta_Remitente: String;
-    cuenta_Destino: String;
-    monto:Number;
-    costo:Number;
+    //Datos del emisor
+    cuentaEmisor: Number;
+    nombresEmisor: String;
+    apellidosEmisor: String;
+    tipo_cuentaEmisor: String;
+    monto: Number;
+    descripcion:String;
+    //Datos del receptor
+    cuentaReceptor: Number;
+    nombresReceptor: String;
+    apellidosReceptor: String;
+    tipo_cuentaReceptor: String;
 
     constructor(
-        cedula: number,
-        numero_Transaccion:String,
-        cuenta_Remitente: String,
-        cuenta_Destino: String,
-        monto:Number,
-        costo:Number
+        //Datos del emisor
+        cuentaEmisor: Number,
+        nombresEmisor: String,
+        apellidosEmisor: String,
+        tipo_cuentaEmisor: String,
+        monto: Number,
+        descripcion:String,
+        //Datos del receptor
+        cuentaReceptor: Number,
+        nombresReceptor: String,
+        apellidosReceptor: String,
+        tipo_cuentaReceptor: String
     ){
-        this.cedula = cedula;
-        this.numero_Transaccion = numero_Transaccion;
-        this.cuenta_Destino = cuenta_Destino;
-        this.cuenta_Remitente = cuenta_Remitente;
+        this.cuentaEmisor = cuentaEmisor;
+        this.nombresEmisor = nombresEmisor;
+        this.apellidosEmisor = apellidosEmisor;
+        this.tipo_cuentaEmisor = tipo_cuentaEmisor;
         this.monto = monto;
-        this.costo = costo;
+        this.descripcion = descripcion;
+        this.cuentaReceptor = cuentaReceptor;
+        this.nombresReceptor = nombresReceptor;
+        this.apellidosReceptor = apellidosReceptor;
+        this.tipo_cuentaReceptor = tipo_cuentaReceptor;
     }
 }
