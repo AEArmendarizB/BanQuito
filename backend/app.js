@@ -5,22 +5,14 @@ var app=express();
 
 //para clientes
 var clientesRoutes=require('./routes/clientes.routes');
-
 //para el usuario
 var usuariosRoutes=require('./routes/usuarios.routes');
-
 //para las cuentas
 var cuentasRoutes=require('./routes/cuentas.routes');
-
-//para respuesta
-//var respuestasRoutes=require('./routes/respuestas.routes');
-
+//para las trasnferencias
+var trasnferenciasRoutes=require('./routes/transferencias.routes');
 //para correos
 var enviarCorreo=require('./routes/correo.routes');
-
-//para transacciones externas
-var transaccionesExternasRoutes=require('./routes/transaccionesExternas.routes');
-
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -41,7 +33,6 @@ app.use((req,res,next)=>{
     )
 })*/
 
-
 //agregado para las seciones
 var sessions=require('express-session');
 const cookieParser = require('cookie-parser');
@@ -60,5 +51,5 @@ app.use('/',usuariosRoutes);
 app.use('/',clientesRoutes);
 app.use('/',enviarCorreo);
 app.use('/',cuentasRoutes);
-app.use('/',transaccionesExternasRoutes);
+app.use('/',trasnferenciasRoutes);
 module.exports=app;
