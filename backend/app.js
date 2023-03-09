@@ -5,13 +5,10 @@ var app=express();
 
 //para clientes
 var clientesRoutes=require('./routes/clientes.routes');
-
 //para el usuario
 var usuariosRoutes=require('./routes/usuarios.routes');
-
 //para las cuentas
 var cuentasRoutes=require('./routes/cuentas.routes');
-
 //para las trasnferencias
 var trasnferenciasRoutes=require('./routes/transferencias.routes');
 //para correos
