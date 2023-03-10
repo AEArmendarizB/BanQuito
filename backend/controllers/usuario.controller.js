@@ -1,8 +1,7 @@
 'use strict'
-var Usuario = require('../models/usuario');
-
 var fs = require('path');
 const path = require('path');
+var Usuario = path.join('..','models','usuario');
 
 var controller = {
     inicio: function (req, res) {

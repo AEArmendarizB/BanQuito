@@ -1,7 +1,7 @@
 'use strict'
-var Cliente = require('../models/cliente');
-var fs = require('path');
 const path = require('path');
+var Cliente = path.join('..','models','Cliente');
+var fs = require('path');
 
 var controller = {
     inicio: function (req, res) {

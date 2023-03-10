@@ -1,7 +1,7 @@
 'use strict'
-var Transferencia = require('../models/transferencia');
 var fs = require('path');
 const path = require('path');
+var Transferencia = path.join('..','models','transferencias');
 
 var controller = {
     saveTransferencia:function(req, res){
