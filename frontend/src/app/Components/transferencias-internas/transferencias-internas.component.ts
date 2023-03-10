@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cuenta } from 'src/app/models/cuentas';
+import { Transferencia } from 'src/app/models/transferencias';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
+import { TransferenciaService } from 'src/app/services/transferencia/transferencia.service';
 
 @Component({
   selector: 'app-transferencias-internas',
@@ -18,13 +20,14 @@ export class TransferenciasInternasComponent {
   numeroCuentas:string[]=[];;
   correo: String = "";
   transForm: FormGroup;
-  nombreReceptora:String ="";
-  apellidoReceptora:String ="";
-  cuentaEmisora:String="";
-  nombreEmisora:String="";
-  apellidosEmisora:String="";
-  tipoEmisora:String = "";
-  tipoReceptora:String = "";
+  nombreReceptora:string ="";
+  apellidoReceptora:string ="";
+  cuentaEmisora:string="";
+  cuentaReceptora:string="";
+  nombreEmisora:string="";
+  apellidosEmisora:string="";
+  monto:string="";
+  descripcion:string="";
    // public valBoton: false;
    // public valCodigo: false;
    public otpNotOk = true;
@@ -34,13 +37,14 @@ export class TransferenciasInternasComponent {
     private router: Router,
     private _clienteService: ClienteService,
     private _CuentaService: CuentaService,
+    private _transferirService: TransferenciaService,
     private toastr: ToastrService, 
 
     ) {    
     this.transForm = this.fb.group({
       monto: ['', [Validators.required, Validators.pattern("^(1|[0-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-4][0-9][0-9][0-9]|5000)$")]],
       cuentaD: ['',[Validators.required,Validators.pattern("^[0-9]{12}$")]],
-      descripcion: ['',[Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ']{1,50}$")]],
+      descripcion: ['',[Validators.required, Validators.pattern("^[A-Za-zñáéíóúÁÉÍÓÚ' ]{1,50}$")]],
       otp: ['',Validators.required]
     })
   }
@@ -59,9 +63,8 @@ export class TransferenciasInternasComponent {
     const nombre = {cedula: cedula};
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
       this.correo = data.correo_electronico;
-      this.nombreEmisora  = data.nombres.toString();
-      this.apellidosEmisora = data.apellidos.toString();
-      this.tipoEmisora = data.tipo_cuenta.toString();
+      this.nombreEmisora  = data.nombres;
+      this.apellidosEmisora = data.apellidos;
       var text = document.getElementById('nombre-cliente');
       text!.innerHTML= this.nombreEmisora+' '+this.apellidosEmisora;
     })
@@ -94,6 +97,7 @@ export class TransferenciasInternasComponent {
 
   validarCuenta(){
     var cuenta = document.getElementById("cuentaDestino-campo") as HTMLInputElement;
+    this.cuentaReceptora = cuenta.value;
     const cuentaObj = { numero_cuenta: cuenta.value };
     var texto = document.getElementById("textCuenta");
     this._CuentaService.obtenerCuenta(cuentaObj).subscribe(
@@ -116,9 +120,8 @@ export class TransferenciasInternasComponent {
             this.toastr.info('Cuenta válida');
             this.apellidoReceptora = data.apellidos;
             this.nombreReceptora=data.nombres;
-            this.tipoReceptora = data.tipo_cuenta.toString();
-            this.tipoReceptora.replace("10","Ahorros").replace("20","Corriente");
             texto!.innerHTML = "Cuenta encontrada. Esta cuenta le pertenece a: "+data.nombres+" "+data.apellidos;
+            document.getElementById('boton-correo')!.style.display = 'block';
             break;
           }
         })
@@ -130,22 +133,41 @@ export class TransferenciasInternasComponent {
     var c1 =  document.getElementById("cuentasOrigen")as HTMLInputElement;
     var cuenta2 = document.getElementById("cuentaDestino-campo") as HTMLInputElement;
     var descripcion=document.getElementById("descripcion-campo") as HTMLInputElement;
+    this.monto = monto.value;
+    this.descripcion = descripcion.value;
     for(var i=0; i<this.cuentas.length; i++){
       if(this.numeroCuentas[i]==c1.value){
         cuenta1 = this.cuentas[i].numero_cuenta;
+        this.cuentaEmisora=cuenta1.toString();
         break;
       }
     }
     const transferir = { cuenta1: cuenta1, cuenta2: cuenta2.value, monto: monto.value };
+    //realizar transferencia
     this._CuentaService.transaccionInterna(transferir).subscribe(data => {
-      console.log(data);
+      this.toastr.info('Transferencia Exitosa');
+      //Enviar correo confirmando la transferencia bancaria
+      const resumen = { cuenta1: cuenta1, cuenta2: cuenta2.value, monto: monto.value, descripcion: descripcion.value, correo: this.correo };
+      this._clienteService.resumen(resumen).subscribe(data => { })
+      //Guardar transferencia
+      const TRANSFERENCIA: Transferencia = {
+          cuentaEmisor:parseInt(this.cuentaEmisora),
+          nombresEmisor:this.nombreEmisora ,
+          apellidosEmisor:this.apellidosEmisora ,
+          tipo_cuentaEmisor:"Ahorros",
+          monto: parseInt(this.monto),
+          descripcion: this.descripcion,
+          cuentaReceptor: parseInt(this.cuentaReceptora),
+          nombresReceptor: this.nombreReceptora,
+          apellidosReceptor: this.apellidoReceptora,
+          tipo_cuentaReceptor:"Ahorros"
+      }
+      this.guardarTransferencia(TRANSFERENCIA);
+      //Mostrar resumen
+      this.resumen();
+    },error =>{
+      this.toastr.error('Hubo un error', 'Verifica los campos');
     })
-    //Enviar correo confirmando la transferencia bancaria
-//    const resumen = {cuenta1: cuenta1, cuenta2: cuenta2.value, monto:monto.value, descripcion:descripcion.value, correo:this.correo};
-//    this._clienteService.resumen(resumen).subscribe(data=>{
-//      console.log(data);
- //   })
- //   this.menu();
   }
 
   otp() {
@@ -153,7 +175,6 @@ export class TransferenciasInternasComponent {
       //Deshabilitar el botón de correo
       var aux = document.getElementById('otp-campo');
       aux!.innerHTML="";
-      document.getElementById('boton-correo')
       document.getElementById('boton-correo')!.style.display = 'none';
       document.getElementById('otp')!.style.display = 'block';
       //enviar correo
@@ -180,5 +201,21 @@ export class TransferenciasInternasComponent {
         })
       }
     )
+  }
+  resumen(){
+    document.getElementById('transferencia')!.style.display='none';
+    document.getElementById('resumen')!.style.display='block';
+    document.getElementById('cuentaEmisor')!.innerHTML=this.cuentaEmisora;
+    document.getElementById('nombresEmisor')!.innerHTML = this.nombreEmisora;
+    document.getElementById('apellidosEmisor')!.innerHTML = this.apellidosEmisora;
+    document.getElementById('cuentaReceptor')!.innerHTML = this.cuentaReceptora;
+    document.getElementById('nombresReceptor')!.innerHTML = this.nombreReceptora;
+    document.getElementById('apellidosReceptor')!.innerHTML = this.apellidoReceptora;
+    document.getElementById('monto')!.innerHTML = this.monto;
+    document.getElementById('descripcion')!.innerHTML = this.descripcion;
+  }
+  guardarTransferencia(transferencia: Transferencia){
+    console.log("Guarando transferencia ...")
+    this._transferirService.guardarTransferencia(transferencia).subscribe(data=>{})
   }
 }
