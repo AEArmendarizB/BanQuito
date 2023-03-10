@@ -2,7 +2,7 @@
 //const axios = require('axios');
 var fs = require('path');
 const path = require('path');
-var Cuenta = path.join('..','models','cuenta');
+var Cuenta = path.join('..','backend','models','cuenta');
 
 var controller = {
     inicio: function (req, res) {
