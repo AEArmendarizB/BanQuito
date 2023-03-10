@@ -18,6 +18,13 @@ export class TransferenciasInternasComponent {
   numeroCuentas:string[]=[];;
   correo: String = "";
   transForm: FormGroup;
+  nombreReceptora:String ="";
+  apellidoReceptora:String ="";
+  cuentaEmisora:String="";
+  nombreEmisora:String="";
+  apellidosEmisora:String="";
+  tipoEmisora:String = "";
+  tipoReceptora:String = "";
    // public valBoton: false;
    // public valCodigo: false;
    public otpNotOk = true;
@@ -28,7 +35,6 @@ export class TransferenciasInternasComponent {
     private _clienteService: ClienteService,
     private _CuentaService: CuentaService,
     private toastr: ToastrService, 
-
 
     ) {    
     this.transForm = this.fb.group({
@@ -53,10 +59,11 @@ export class TransferenciasInternasComponent {
     const nombre = {cedula: cedula};
     this._clienteService.obtenerCliente(nombre).subscribe(data=>{
       this.correo = data.correo_electronico;
-      var nombres = data.nombres.toString();
-      var apellidos = data.apellidos.toString();
+      this.nombreEmisora  = data.nombres.toString();
+      this.apellidosEmisora = data.apellidos.toString();
+      this.tipoEmisora = data.tipo_cuenta.toString();
       var text = document.getElementById('nombre-cliente');
-      text!.innerHTML= nombres+' '+apellidos;
+      text!.innerHTML= this.nombreEmisora+' '+this.apellidosEmisora;
     })
     for(var i=0;i<this.cuentas.length;i++){
       this.numeroCuentas[i] = this.cuentas[i].tipo_cuenta+" "+this.cuentas[i].numero_cuenta+" $"+this.cuentas[i].monto_inicial;
@@ -107,6 +114,10 @@ export class TransferenciasInternasComponent {
             break;
             default:
             this.toastr.info('Cuenta válida');
+            this.apellidoReceptora = data.apellidos;
+            this.nombreReceptora=data.nombres;
+            this.tipoReceptora = data.tipo_cuenta.toString();
+            this.tipoReceptora.replace("10","Ahorros").replace("20","Corriente");
             texto!.innerHTML = "Cuenta encontrada. Esta cuenta le pertenece a: "+data.nombres+" "+data.apellidos;
             break;
           }
@@ -125,16 +136,16 @@ export class TransferenciasInternasComponent {
         break;
       }
     }
-  const transferir = {cuenta1: cuenta1, cuenta2: cuenta2.value, monto:monto.value };
-    this._CuentaService.transaccionInterna(transferir).subscribe(data =>{
+    const transferir = { cuenta1: cuenta1, cuenta2: cuenta2.value, monto: monto.value };
+    this._CuentaService.transaccionInterna(transferir).subscribe(data => {
       console.log(data);
     })
     //Enviar correo confirmando la transferencia bancaria
-    const resumen = {cuenta1: cuenta1, cuenta2: cuenta2.value, monto:monto.value, descripcion:descripcion.value, correo:this.correo};
-    this._clienteService.resumen(resumen).subscribe(data=>{
-      console.log(data);
-    })
-    this.menu();
+//    const resumen = {cuenta1: cuenta1, cuenta2: cuenta2.value, monto:monto.value, descripcion:descripcion.value, correo:this.correo};
+//    this._clienteService.resumen(resumen).subscribe(data=>{
+//      console.log(data);
+ //   })
+ //   this.menu();
   }
 
   otp() {
