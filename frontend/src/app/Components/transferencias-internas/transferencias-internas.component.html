@@ -166,7 +166,7 @@
                   </div>
               </div>
               <!--Correo-->
-              <div class="col-5" id="boton-correo">
+              <div class="col-5" id="boton-correo" style="display: none;">
                 <button type="button" (click)="otp()" id="validar" class="col btn btn-primary">Enviar
                   c&oacute;digo</button>
               </div>
@@ -188,8 +188,8 @@
         </div>
       </div>
     </form>
-    <!--Formulario cuando se ha realizado la transferencia - Resuman -->
-    <form id="resumen">
+    <!--Formulario cuando se ha realizado la transferencia - Resumen -->
+    <form id="resumen" style="display: none;">
       <div class="row">
         <div class="colum-6">
           <div class="transferencia">
@@ -200,11 +200,6 @@
               <div class=" row">
                 <label class="col-sm-3 ">Cuenta origen:</label>
                 <label class="col-sm-3" id="cuentaEmisor"></label>
-              </div>
-              <!--Tipo de Cuenta Emisroa-->
-              <div class=" row">
-                <label class="col-sm-3 ">Tipo de Cuenta:</label>
-                <label class="col-sm-3" id="tipo_cuentaEmisor"></label>
               </div>
               <!--Nombres del Emisor-->
               <div class=" row">
@@ -221,11 +216,6 @@
               <div class=" row">
                 <label class="col-sm-3 ">Cuenta destino:</label>
                 <label class="col-sm-3" id="cuentaReceptor"></label>
-              </div>
-              <!--Tipo de Cuenta Receptor-->
-              <div class=" row">
-                <label class="col-sm-3 ">Tipo de Cuenta:</label>
-                <label class="col-sm-3" id="tipo_cuentaReceptor"></label>
               </div>
               <!--Nombres del Receptor-->
               <div class=" row">
@@ -246,6 +236,11 @@
               <div class=" row">
                 <label class="col-sm-3">Descripción:</label>
                 <label class="col-sm-3" id="descripcion"></label>
+              </div>
+              <!--Boton enviar-->
+              <div class="mb-4">
+                <button class="btn btn-success" id="enviar" (click)="menu()"
+                  [disabled]="transForm.invalid && otpNotOk && vali" >Aceptar</button>
               </div>
             </div>
           </div>

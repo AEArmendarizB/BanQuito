@@ -11,7 +11,7 @@ import { Transferencia } from "src/app/models/transferencias";
 
 
 })
-export class ClienteService {
+export class TransferenciaService {
     urlGuardar = "http://54.219.51.93:3600/guardar-transferencia/";
 
     constructor(
