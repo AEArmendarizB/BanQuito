@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path');
-var Cliente = path.join('..','models','Cliente');
+var Cliente = require(path.join(process.cwd(), 'models', 'Cliente'));
 var fs = require('path');
 
 var controller = {
@@ -10,7 +10,7 @@ var controller = {
         );
     },
     getClientes: function (req, res) {
-        Cliente.find({}).sort().exec((err, clientes) => {
+        Cliente.findOne({}).sort().exec((err, clientes) => {
             if (err) return res.status(500).send({ message: 'Error al recuperar los datos' });
             if (!clientes) return res.status(404).send({ message: 'No hay clientes para mostrar' });
             return res.status(200).send({ clientes });
