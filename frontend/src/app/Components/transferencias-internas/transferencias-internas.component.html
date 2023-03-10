@@ -90,7 +90,7 @@
       </div>
     </header>
 
-    <form [formGroup]="transForm">
+    <form [formGroup]="transForm" id="transferencia">
       <div class="row">
         <div class="colum-6">
           <div class="transferencia">
@@ -182,6 +182,70 @@
               <div class="mb-4">
                 <button class="btn btn-success" id="enviar" (click)="transferir()"
                   [disabled]="transForm.invalid && otpNotOk && vali" >Transferir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!--Formulario cuando se ha realizado la transferencia - Resuman -->
+    <form id="resumen">
+      <div class="row">
+        <div class="colum-6">
+          <div class="transferencia">
+            <div class="transferencia_contenido">
+              <h1>Resumen de su Transaccion</h1>
+              <!--Informacion del Emisor-->
+              <!--Cuenta Emisroa-->
+              <div class=" row">
+                <label class="col-sm-3 ">Cuenta origen:</label>
+                <label class="col-sm-3" id="cuentaEmisor"></label>
+              </div>
+              <!--Tipo de Cuenta Emisroa-->
+              <div class=" row">
+                <label class="col-sm-3 ">Tipo de Cuenta:</label>
+                <label class="col-sm-3" id="tipo_cuentaEmisor"></label>
+              </div>
+              <!--Nombres del Emisor-->
+              <div class=" row">
+                <label class="col-sm-3 ">Nombres:</label>
+                <label class="col-sm-3" id="nombresEmisor"></label>
+              </div>
+              <!--Apellidos del Emisor-->
+              <div class=" row">
+                <label class="col-sm-3 ">Apellidos:</label>
+                <label class="col-sm-3" id="apellidosEmisor"></label>
+              </div>
+              <!--Informacion del Receptor-->
+              <!--Cuenta Receptora-->
+              <div class=" row">
+                <label class="col-sm-3 ">Cuenta destino:</label>
+                <label class="col-sm-3" id="cuentaReceptor"></label>
+              </div>
+              <!--Tipo de Cuenta Receptor-->
+              <div class=" row">
+                <label class="col-sm-3 ">Tipo de Cuenta:</label>
+                <label class="col-sm-3" id="tipo_cuentaReceptor"></label>
+              </div>
+              <!--Nombres del Receptor-->
+              <div class=" row">
+                <label class="col-sm-3 ">Nombres:</label>
+                <label class="col-sm-3" id="nombresReceptor"></label>
+              </div>
+              <!--Apellidos del Receptor-->
+              <div class=" row">
+                <label class="col-sm-3 ">Apellidos:</label>
+                <label class="col-sm-3" id="apellidosReceptor"></label>
+              </div>
+              <!--Monto a Transferir-->
+              <div class=" row">
+                <label class="col-sm-3 ">Monto a transferir:</label>
+                <label class="col-sm-3" id="monto"></label>
+              </div>
+              <!--Descripcion de la Transferencia-->
+              <div class=" row">
+                <label class="col-sm-3">Descripción:</label>
+                <label class="col-sm-3" id="descripcion"></label>
               </div>
             </div>
           </div>

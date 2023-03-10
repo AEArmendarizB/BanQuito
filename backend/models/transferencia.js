@@ -9,6 +9,7 @@ var TransferenciaSchema = Schema({
     apellidosEmisor: String,
     tipo_cuentaEmisor: String,
     monto: Number,
+    descripcion:String,
     //Datos del receptor
     cuentaReceptor: Number,
     nombresReceptor: String,

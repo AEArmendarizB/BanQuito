@@ -16,6 +16,7 @@ var controller = {
         transferencia.tipo_cuentaReceptor = params.tipo_cuentaReceptor;
         transferencia.nombresReceptor = params.nombresReceptor;
         transferencia.apellidosReceptor = params.apellidosReceptor;
+        transferencia.descripcion = params.descripcion;
         transferencia.save((err, clienteGuardado) => {
             if (err) return res.status(500).send({ message: 500 });
             if (!clienteGuardado) return res.status(404).send({ message: 404 });
