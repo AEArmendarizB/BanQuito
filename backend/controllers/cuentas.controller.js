@@ -1,8 +1,9 @@
 'use strict'
 //const axios = require('axios');
-var Cuenta = require('../models/cuenta');
 var fs = require('path');
 const path = require('path');
+var Cuenta = path.join('..','models','cuenta');
+
 var controller = {
     inicio: function (req, res) {
         return res.status(201).send(
